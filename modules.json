@@ -141,10 +141,10 @@
       "iconUrl": "https://comix.to/favicon.ico",
       "category": "mangas",
       "branch": "main",
-      "discontinued": true,
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/comix/comix.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-05",
+      "note": "Revived 2026-10-05: full contract pipeline (search → details → 1128 chapters → 14-page images) verified live in a real browser context. The CF managed challenge currently flags this egress IP for curl/URLSession, so a blocked run from a given network is IP reputation, not module breakage."
     },
     {
       "id": "torrentio",
@@ -1896,8 +1896,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/comix/comix.json",
       "sampleQuery": "one piece",
-      "discontinued": true,
-      "updated": "2026-09-28"
+      "updated": "2026-10-05"
     },
     {
       "id": "kaliscan-eclipse",

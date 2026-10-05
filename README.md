@@ -23,7 +23,7 @@ A curated, growing collection of JavaScript scraper modules for Sora, Luna and S
 | | |
 | :--- | :--- |
 | **148** registered modules | **108** anime, **40** movies & shows, **18** manga, **8** novels, **3** live, **1** torrent |
-| **26** source languages (Chinese, Spanish LAT/SUB, multi SUB/DUB, Tamil, Arabic, …) | **18** discontinued entries kept for history |
+| **26** source languages (Chinese, Spanish LAT/SUB, multi SUB/DUB, Tamil, Arabic, …) | **19** discontinued entries kept for history |
 
 Browse and install one-tap from the library site — search by name, category, language or supported app:
 
