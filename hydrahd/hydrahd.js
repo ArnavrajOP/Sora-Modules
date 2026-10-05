@@ -15,7 +15,7 @@ const SCS_TOKEN_XOR = [59,12,39,40,36,113,116,116,115,53,123,16,115,3,37,38,42,1
 
 // Load marker: visible in the app's logs, so we can tell which script version is
 // actually running after a re-add (raw CDN can lag behind the pushed commit).
-console.log('[HydraHD] module script loaded v2.3.0 (IMDb poster enrichment)');
+console.log('[HydraHD] module script loaded v2.4.0 (VapLayer baseline resolver)');
 
 // The app's JavaScriptCore may predate ES2020: polyfill Promise.allSettled so a
 // single rejected worker can never abort the whole stream extraction.
@@ -531,6 +531,10 @@ function qualityFromHeight(h) {
     return '';
 }
 
+// Rank used by the stream sort AND the probe's estimate fallback (module
+// scope so the closure can never hit the temporal dead zone).
+const QUALITY_RANK = { '4K': 0, '1440p': 1, '1080p': 2, '720p': 3, '480p': 4 };
+
 const AUDIO_LANG_2_TO_3 = {
     en: 'eng', it: 'ita', es: 'spa', pt: 'por', fr: 'fra', de: 'deu',
     hi: 'hin', ja: 'jpn', ko: 'kor', zh: 'zho', ru: 'rus', ar: 'ara',
@@ -713,18 +717,26 @@ async function extractStreamUrl(url) {
                 const key = String(st.streamUrl).split('?')[0];
                 if (probedPaths[key] || probePromises.length >= 8) return;
                 probedPaths[key] = true;
+                // When the probe cannot measure (timeout, no playlist text,
+                // no RESOLUTION lines) fall back to the resolver's estimate
+                // so the entry still gets a real class instead of its title.
+                function applyEst() {
+                    const cls = st._estCls;
+                    if (!cls || !Object.prototype.hasOwnProperty.call(QUALITY_RANK, cls)) return;
+                    st.quality = cls;
+                }
                 probePromises.push((async function() {
                     try {
-                        if (timeLeft() < 3000) return;
+                        if (timeLeft() < 3000) { applyEst(); return; }
                         let plText = st.playlistText || '';
                         if (!plText) {
                             const pr = await soraFetchTimed(st.streamUrl, { headers: st.headers || {} }, 4000);
-                            if (!pr) return;
+                            if (!pr) { applyEst(); return; }
                             plText = await pr.text();
                         }
                         st.masterText = plText;   // reused by the playlist-subs step
-                        applyMeasured(st, plText);
-                    } catch (e) { /* keep the site badge */ }
+                        if (!applyMeasured(st, plText)) applyEst();
+                    } catch (e) { /* keep the estimate or the site badge */ applyEst(); }
                 })());
             } catch (e) {}
         }
@@ -821,6 +833,24 @@ async function extractStreamUrl(url) {
                 console.log('[HydraHD] Videasy sources=' + total + ' pushed=' + added);
             } catch (e) {
                 console.error('[HydraHD] Videasy worker error:', e && e.message ? e.message : e);
+            }
+        })();
+        // Worker: VapLayer baseline — the reliable floor. If the site's own
+        // servers AND the mirror tier both fail, this is what still plays.
+        // Ids only; launches immediately with the rest.
+        const vaplayerWorker = (async function() {
+            try {
+                if (timeLeft() < 6000) return;
+                const found = await resolveVaplayerLink(ctxInfo);
+                if (found) {
+                    for (const s of found) {
+                        if (streams.length >= 10) break;
+                        const pushedSt = pushStream(s.label, s.url, s.headers);
+                        if (pushedSt && s.estCls) pushedSt._estCls = s.estCls;
+                    }
+                }
+            } catch (e) {
+                console.error('[HydraHD] VapLayer worker error:', e && e.message ? e.message : e);
             }
         })();
         // Shared mirror helper: pushes the resolved stream plus any extra
@@ -993,7 +1023,7 @@ async function extractStreamUrl(url) {
         // Each settle point is soft-clocked: on bridges that leave requests
         // pending forever (Shirox + blocked host) the ping clock wins the race
         // after a few seconds instead of freezing extraction entirely.
-        await softRace(Promise.allSettled([serverWorker, keylessWorker, mirrorWorker, videasyWorker]), 12000);
+        await softRace(Promise.allSettled([serverWorker, keylessWorker, mirrorWorker, videasyWorker, vaplayerWorker]), 12000);
         // Settle whatever probes are still in flight — most already finished,
         // overlapped inside the worker window (pipelined from pushStream).
         await softRace(Promise.allSettled(probePromises), 5000);
@@ -1005,7 +1035,6 @@ async function extractStreamUrl(url) {
         // primary/default stream is the best verified one (e.g. VidFast 4K
         // outranks an unprobed embed). Unprobed entries (no measured class)
         // sink below probed ones; sort is stable so same-rank order holds.
-        const QUALITY_RANK = { '4K': 0, '1440p': 1, '1080p': 2, '720p': 3, '480p': 4 };
         streams.sort(function(a, b) {
             const ra = Object.prototype.hasOwnProperty.call(QUALITY_RANK, a.quality) ? QUALITY_RANK[a.quality] : 9;
             const rb = Object.prototype.hasOwnProperty.call(QUALITY_RANK, b.quality) ? QUALITY_RANK[b.quality] : 9;
@@ -1474,6 +1503,60 @@ async function resolveXpassLink(ctx) {
         } catch (e) { /* try next mdata id */ }
     }
     return null;
+}
+
+// ---- VapLayer baseline resolver (reliable fallback host) -----------------
+// streamdata.vaplayer.ru serves HLS master playlists for BOTH movies and
+// series (the same API airflix/imdb use), so it is the baseline tier: when
+// the site's own servers AND the mirrors all fail, VapLayer still yields a
+// playable stream. The API demands its own client's Referer/Origin — sending
+// hydrahd's referer gets an empty shell back.
+const VAPLAYER_API = 'https://streamdata.vaplayer.ru/api.php';
+const VAPLAYER_ORIGIN = 'https://nextgencloudfabric.com';
+async function resolveVaplayerLink(ctx) {
+    if (!ctx || !ctx.tmdbId) return null;
+    try {
+        let apiUrl = VAPLAYER_API + '?tmdb=' + encodeURIComponent(String(ctx.tmdbId))
+            + '&type=' + (ctx.isMovie ? 'movie' : 'tv');
+        if (!ctx.isMovie) {
+            apiUrl += '&season=' + encodeURIComponent(String(ctx.season || 1))
+                + '&episode=' + encodeURIComponent(String(ctx.episode || 1));
+        }
+        const r = await soraFetchTimed(apiUrl, {
+            headers: {
+                'Referer': VAPLAYER_ORIGIN + '/',
+                'Origin': VAPLAYER_ORIGIN,
+                'Accept': 'application/json'
+            }
+        }, 12000);
+        if (!r) return null;
+        const data = await r.json().catch(function() { return null; });
+        if (!data || String(data.status_code || '') !== '200' || !data.data) return null;
+        const urls = Array.isArray(data.data.stream_urls) ? data.data.stream_urls : [];
+        if (!urls.length) return null;
+        // file_name carries the encode quality ("1080p HULU WEB-DL ..."); the
+        // pipelined probe re-measures from the master playlist when it reaches
+        // it. _estCls labels the stream even if the probe times out.
+        const q = (String(data.data.file_name || '').match(/(\d{3,4}p)\b/i) || [])[1] || '';
+        const estCls = q ? q.toLowerCase() : '';
+        const headers = { 'Referer': VAPLAYER_ORIGIN + '/', 'Origin': VAPLAYER_ORIGIN };
+        const found = urls.filter(function(u) { return /^https?:\/\/.+\.m3u8/i.test(u); })
+            .slice(0, 3)
+            .map(function(u, i) {
+                return {
+                    label: 'VapLayer' + (q ? ' ' + q : '') + ' (Baseline)' + (i ? ' #' + (i + 1) : ''),
+                    url: u,
+                    headers: headers,
+                    estCls: estCls
+                };
+            });
+        if (!found.length) return null;
+        console.log('[HydraHD] VapLayer baseline streams=' + found.length + ' q=' + (q || '?'));
+        return found;
+    } catch (e) {
+        console.error('[HydraHD] VapLayer error:', e && e.message ? e.message : e);
+        return null;
+    }
 }
 
 // Embedded playlist subtitle tracks: the master playlist's #EXT-X-MEDIA

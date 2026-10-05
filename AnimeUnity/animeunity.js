@@ -96,7 +96,7 @@ async function extractStreamUrl(url) {
     );
     if (!vixcloudMatch) {
       console.log("No vixcloud.co URL found in the HTML.");
-      return null;
+      return JSON.stringify({ streams: [], subtitle: "" });
     }
 
     let vixcloudUrl = vixcloudMatch[1];
@@ -110,15 +110,27 @@ async function extractStreamUrl(url) {
 
     if (!downloadUrlMatch) {
       console.log("No downloadUrl found in the response.");
-      return null;
+      return JSON.stringify({ streams: [], subtitle: "" });
     }
 
     const downloadURL = downloadUrlMatch[1];
+    // Quality folder sits right before the .mp4 in vixcloud download paths
+    // (e.g. .../1080p.mp4?token=... -> "1080p").
+    const qMatch = downloadURL.match(/\/(\d{3,4}p)\.mp4/);
     console.log(downloadURL);
-    return downloadURL;
+    return JSON.stringify({
+      streams: [
+        {
+          title: "Vixcloud" + (qMatch ? " " + qMatch[1] : ""),
+          streamUrl: downloadURL,
+          headers: {}
+        }
+      ],
+      subtitle: ""
+    });
   } catch (error) {
     console.log("Fetch error:", error);
-    return null;
+    return JSON.stringify({ streams: [], subtitle: "" });
   }
 }
 

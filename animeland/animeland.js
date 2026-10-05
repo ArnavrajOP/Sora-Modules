@@ -104,19 +104,28 @@ async function extractEpisodes(url) {
 
 async function extractStreamUrl(url) {
     try {
-        const response = await fetchv2(url);
+        const response = await fetchv2(url, { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" });
         const html = await response.text();
-        const match = html.match(/file=([a-zA-Z0-9]+\.html)/);
+        const match = html.match(/file=([a-zA-Z0-9_]+\.html)/);
         if (match) {
             const filename = match[1];
             console.log('Filename:' + filename);
             const videoUrl = `https://animesource.me/cache/${filename}.mp4`;
             console.log('Video URL:' + videoUrl);
-            return videoUrl;
+            return JSON.stringify({
+                streams: [
+                    {
+                        title: "AnimeLand",
+                        streamUrl: videoUrl,
+                        headers: { "Referer": "https://animeland.ru/" }
+                    }
+                ],
+                subtitle: ""
+            });
         }
-
+        return JSON.stringify({ streams: [], subtitle: "" });
     } catch (err) {
         console.error("Error:" + err);
-        return null;
+        return JSON.stringify({ streams: [], subtitle: "" });
     }
 }
