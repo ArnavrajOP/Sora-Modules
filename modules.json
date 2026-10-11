@@ -19,7 +19,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/hydrahd/hydrahd.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-05"
+      "updated": "2026-10-05",
+      "needs_review": true,
+      "note": "all resolvers broken as of 2026-10-11: VapLayer CDN (futurefocusedentrepreneurs.site) Cloudflare-blocks non-browser clients (Attention Required), vidsrc.hair DNS-dead, vidfast markup changed (no encrypted data), videasy API changed (no seed), xpass/moviesapi return empty. Needs fresh resolver research."
     },
     {
       "id": "hydrahd-shirox",
@@ -309,7 +311,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/123anime/123anime.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-11"
     },
     {
       "id": "AnimeUnity",
@@ -431,7 +433,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animeland/animeland.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-05"
+      "updated": "2026-10-05",
+      "needs_review": true,
+      "note": "player backend dead as of 2026-10-11: muembed.php returns empty, returned cache .mp4 URLs 404 — the site itself cannot play; needs upstream recovery"
     },
     {
       "id": "animelib",
