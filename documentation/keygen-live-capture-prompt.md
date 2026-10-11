@@ -198,6 +198,60 @@ Since build 114 the site derives the aaReq AES-GCM IV as
 `sha256(epoch:qh:ts)[0:12]`. Both modules' `aaBuildToken()` already use the
 new form — do not revert it when updating keygen values.
 
+### Build 179 scheme changes (captured 2026-10-11)
+
+- **Mask blocks / constants changed**: `o55/m8U/4FY=`, `9lYtQjBCN5s=`,
+  `s3mBmnFuzkQ=`, `H8tdZAar+nQ=`; salt `saltMul=5, saltAdd=39`,
+  `fragMul=251, fragAdd=21`; boot prefix `KoCGqjW:` (was `X8S061oCq:`).
+- **Boot message order changed** to `buildId|group|lane|epoch|host` (build 175
+  used `buildId|group|host|epoch|lane`). Verified live:
+  `179|mkissa|k7|2962|mkissa.to`.
+- **envXor trap**: the chunk's `Df` config carries `envXor:3`, but the
+  PRODUCTION runtime applies envXor=0 to the mask. A token built with the
+  `^3` mask is rejected with `invalid_boot_token`. The chunk's obfuscated
+  mask builder evaluates differently in a stubbed Node harness than in the
+  browser — when re-extracting, sweep envXor 0..255 against a live-captured
+  `x-aa-boot` header before trusting the mask.
+- **Extraction method that worked**: run the whole crypto chunk
+  (`_app/immutable/chunks/i2X40NLc.js` for build 179) in Node with stubbed
+  imports + browser shims, append `export {...}` for the internal functions
+  (`md`, `_m`, `Df`, `py`, `cT`, `uT`, `dT`, `bT`, `iT`), then compare its
+  output against a CDP-captured live `x-aa-boot`. Automated static scanning
+  for the 4-element mask array fails on this build (fragment-table
+  obfuscation); dynamic evaluation is required.
+- **Bootstrap response shape** (unchanged): `{epoch, epochMs:604800000,
+  graceMs:86400000, switchAt, partB, k}`; partB is stable per epoch.
+- **NEED_CAPTCHA is a Cloudflare Turnstile gate, not a keygen error**: the
+  live browser gets 204 → Turnstile → 200 on the same endpoints when it is
+  challenged. After a burst of automated requests the API demands captcha;
+  low-frequency requests pass without it. The modules already degrade
+  gracefully (both IVs, next host, legacy fallback).
+- **Search gotcha**: `shows(search:{sortBy:Trending,query:"..."})` makes the
+  API ignore the query text (returns unrelated picks). Use
+  `search:{query:"..."}` without sortBy (fixed in allmanga.js v1.12.0).
+
+### Last captured values (2026-10-11, verified end-to-end against the live API)
+
+```json
+{ "build_id": "179", "epoch": 2962, "lane": "k7",
+  "key": "93ae3a7ef8e5e1ccbd3da7fa4b9b475c1f87526429f7e355b2b87aed03f9a245",
+  "static_key": "Xot36i3lK3:v1" }
+```
+
+Verification notes for this capture:
+- partB from live bootstrap (k7): `Jj5n3WXKC3TGHsHlZuJdChqwQ3qgZ/s78uasJsSJu0A=`
+  (`switchAt` 1792108800000 = next weekly rotation); k9 partB:
+  `GZcaSdhw57Z+pOaTcWbJMS/Ui92UaNSJydhc75Vc3Dc=`.
+- Client mask for build 179 (envXor=0):
+  `b5905da39d2feab87b23661f2d791a560537111e8990186e405ed6cbc7701905`.
+- The derived boot token matched a CDP-captured live `x-aa-boot` header
+  byte-for-byte; both bootstraps returned 200; an episode query built with
+  the k7 key decrypted `tobeparsed` (real HLS `sourceUrls`) on the first run.
+- Because epochs rotate WEEKLY, static snapshots expire quickly;
+  `allmanga.js v1.9.0+` therefore self-bootstraps fresh keys on
+  `AA_CRYPTO_STALE` using the pure-JS flow above (see `aaLiveKeys` /
+  `aaBootstrapFor`) and only falls back to the anipy-cli repo afterwards.
+
 ### Build 136 scheme changes (captured 2026-08-22)
 
 - **Epochs are now 7-day**: `epoch = floor(now / 604800000)`; during the first

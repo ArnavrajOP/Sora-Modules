@@ -15,45 +15,50 @@ const EPISODE_QUERY = 'query($showId: String!$translationType: VaildTranslationT
 
 const SOURCE_PRIORITY = ['Default', 'Yt-mp4', 'S-Mp4', 'Ak', 'Uv-mp4', 'Luf-Mp4', 'Mp4'];
 
-// Known-good keygen snapshot (build 175, epoch 2960, lane k7) — captured live
-// on 2026-09-25 via mkissa.to bootstrap (k7 partB 9+ufk02f8FnAItXm62MzUviGiqFuTB16tFgly1URwr0=).
-// Key = partB XOR mask(175); mask blocks/consts extracted from the mkissa.to
-// crypto chunk BEkTyDAE.js (build 175, verified 2026-09-25: boot token
-// reproduces the app's live capture; k7 bootstrap partB -> key 64642f3d...).
-// Boot token algorithm (two-stage HMAC, build 175):
+// Known-good keygen snapshot (build 179, epoch 2962, lane k7) — captured live
+// on 2026-10-11 via mkissa.to bootstrap (k7 partB Jj5n3WXKC3TGHsHlZuJdChqwQ3qgZ/s78uasJsSJu0A=).
+// Key = partB XOR mask(179); mask blocks/consts extracted from the mkissa.to
+// crypto chunk i2X40NLc.js (build 179, verified 2026-10-11: boot token
+// reproduces the app's live CDP capture byte-for-byte; k7 bootstrap -> 200).
+// Boot token algorithm (two-stage HMAC, build 179):
 //   f    = HMAC(mask, AA_BOOT_PREFIX + build_id)
-//   boot = hex(HMAC(f, buildId|group|host|epoch|lane))   // "|" -joined
+//   boot = hex(HMAC(f, buildId|group|lane|epoch|host))   // "|" -joined; NOTE
+//          lane moved to 3rd slot and host to 5th vs build 175
 // Note: content lanes are routed per persisted query — chapterPages runs on
 // k9, episode on k7, music on k2 (the app's cp() lane router). This module
 // only calls episode, so the fallback lane is k7.
 const FALLBACK_KEYGEN = {
-    build_id: '175',
-    epoch: 2960,
+    build_id: '179',
+    epoch: 2962,
     lane: 'k7',
-    key: '64642f3d5c51401e26207d3649a6753fb4264069563b547270cb98cb051bd04a',
+    key: '93ae3a7ef8e5e1ccbd3da7fa4b9b475c1f87526429f7e355b2b87aed03f9a245',
     static_key: 'Xot36i3lK3:v1'
 };
 
-/* Self-bootstrap inputs (extracted from the mkissa.to crypto chunk, build 175).
+/* Self-bootstrap inputs (extracted from the mkissa.to crypto chunk, build 179).
    The client derives its own AES key without any secret server round-trip:
      embed[i]   = concat(base64decode(mask blocks))          [32 bytes]
      salt[i]    = (buildId.charCodeAt(i % len) || 0)
                   ^ ((i * AA_SALT_MUL + AA_SALT_ADD) & 255)
      linear[i]  = ((i >> 3) * AA_FRAG_MUL + (i % 8) * AA_FRAG_ADD) & 255
      mask[i]    = embed[i] ^ salt[i] ^ linear[i]
+   The chunk's Df config also carries envXor:3, but the PRODUCTION runtime
+   applies envXor=0 (verified: token with ^3 is rejected, ^0 reproduces the
+   live x-aa-boot byte-for-byte). If a future build rejects tokens, sweep
+   envXor 0..255 before assuming the blocks changed.
      hmacKey    = HMAC-SHA256(mask, AA_BOOT_PREFIX + buildId)
-     bootTok    = hex(HMAC-SHA256(hmacKey, `${buildId}|${group}|${host}|${epoch}|${lane}`))
+     bootTok    = hex(HMAC-SHA256(hmacKey, `${buildId}|${group}|${lane}|${epoch}|${host}`))
      GET {AA_BOOTSTRAP_URL}?buildId=<id>&k=<lane>  (x-build-id / x-aa-boot headers)
      key        = first32(base64decode(partB)) XOR mask
    Epochs are 7-day (floor(now/604800000)); during the first day of an epoch the
    previous one is still accepted. group is "mkissa" for the public hosts, and
-   the boot message uses the FULL host (with TLD), not the stripped first segment. */
-const AA_MASK_BLOCKS = ['jfTMXeWz1KY=', 'sSiL9IX1c1k=', 'jjOcW/T0DYU=', 'vRF6mguezW8='];
-const AA_SALT_MUL = 34;
-const AA_SALT_ADD = 47;
-const AA_FRAG_MUL = 93;
-const AA_FRAG_ADD = 29;
-const AA_BOOT_PREFIX = 'X8S061oCq:';
+   the boot message uses the FULL host (with TLD, lowercased, www. stripped). */
+const AA_MASK_BLOCKS = ['o55/m8U/4FY=', '9lYtQjBCN5s=', 's3mBmnFuzkQ=', 'H8tdZAar+nQ='];
+const AA_SALT_MUL = 5;
+const AA_SALT_ADD = 39;
+const AA_FRAG_MUL = 251;
+const AA_FRAG_ADD = 21;
+const AA_BOOT_PREFIX = 'KoCGqjW:';
 const AA_WEEK_MS = 604800000;
 const AA_DAY_MS = 86400000;
 const AA_BOOTSTRAP_URL = 'https://api.mkissa.net/client-crypto/v1/bootstrap';
@@ -67,7 +72,7 @@ const CDN_BASES = [
 
 let aaKeyCache = { keys: null, ts: 0 };
 
-if (typeof console !== 'undefined') console.log('allmanga module v1.11.0 (build 175 keygen, k7 episode lane)');
+if (typeof console !== 'undefined') console.log('allmanga module v1.12.0 (build 179 keygen, k7 episode lane)');
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
@@ -116,7 +121,10 @@ async function searchResults(keyword) {
         const query = String(keyword || '').trim();
         if (!query) return JSON.stringify([]);
 
-        const data = await gql(`{shows(search:{sortBy:Trending,query:${JSON.stringify(query)}},limit:26,page:1){edges{_id name englishName nativeName thumbnail}}}`);
+        // NOTE: no sortBy here — with sortBy:Trending the API ignores the query
+        // text and returns unrelated picks (verified 2026-10-11); a plain
+        // search:{query:"..."} is what the site itself sends for text search.
+        const data = await gql(`{shows(search:{query:${JSON.stringify(query)}},limit:26,page:1){edges{_id name englishName nativeName thumbnail}}}`);
         const shows = (((data || {}).shows || {}).edges) || [];
 
         const results = [];
@@ -331,15 +339,20 @@ async function aaBootstrapFor(lane, epoch) {
     try {
         const mask = aaBuildMask(String(FALLBACK_KEYGEN.build_id));
         const hmacKey = aaHmacSha256(mask, aaAscii(AA_BOOT_PREFIX + FALLBACK_KEYGEN.build_id));
-        // mkissa build 175: message is buildId|group|host|epoch|lane joined by "|"
-        // (verified live 2026-09-25: "175|mkissa|mkissa.to|2960|k7" reproduces the
-        // app's x-aa-boot token). Builds 166/141 used group:lane:epoch:host:buildId
-        // with ":" — tried second when the new format gets rejected.
-        const msgNew = [FALLBACK_KEYGEN.build_id, AA_BOOT_GROUP, AA_BOOT_HOST, String(epoch), lane].join('|');
+        // mkissa build 179: message is buildId|group|lane|epoch|host joined by "|"
+        // (verified live 2026-10-11: "179|mkissa|k7|2962|mkissa.to" reproduces the
+        // app's x-aa-boot CDP capture byte-for-byte). Build 175 used
+        // buildId|group|host|epoch|lane; 166/141 used group:lane:epoch:host:buildId
+        // with ":" — tried in order when the current format gets rejected.
+        const msgNew = [FALLBACK_KEYGEN.build_id, AA_BOOT_GROUP, lane, String(epoch), AA_BOOT_HOST].join('|');
+        const msg175 = [FALLBACK_KEYGEN.build_id, AA_BOOT_GROUP, AA_BOOT_HOST, String(epoch), lane].join('|');
         const msgOld = AA_BOOT_GROUP + ':' + lane + ':' + epoch + ':' + AA_BOOT_HOST + ':' + FALLBACK_KEYGEN.build_id;
         const url = AA_BOOTSTRAP_URL + '?buildId=' + encodeURIComponent(FALLBACK_KEYGEN.build_id) +
             '&k=' + encodeURIComponent(lane);
         let j = await aaBootstrapOnce(url, aaHex(aaHmacSha256(hmacKey, aaAscii(msgNew))));
+        if (!j) {
+            j = await aaBootstrapOnce(url, aaHex(aaHmacSha256(hmacKey, aaAscii(msg175))));
+        }
         if (!j) {
             j = await aaBootstrapOnce(url, aaHex(aaHmacSha256(hmacKey, aaAscii(msgOld))));
         }
