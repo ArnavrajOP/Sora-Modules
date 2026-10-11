@@ -27,10 +27,10 @@ const SOURCE_PRIORITY = ['Default', 'Yt-mp4', 'S-Mp4', 'Ak', 'Uv-mp4', 'Luf-Mp4'
 // k9, episode on k7, music on k2 (the app's cp() lane router). This module
 // only calls episode, so the fallback lane is k7.
 const FALLBACK_KEYGEN = {
-    build_id: '175',
-    epoch: 2960,
+    build_id: '179',
+    epoch: 2962,
     lane: 'k7',
-    key: '64642f3d5c51401e26207d3649a6753fb4264069563b547270cb98cb051bd04a',
+    key: '93ae3a7ef8e5e1ccbd3da7fa4b9b475c1f87526429f7e355b2b87aed03f9a245',
     static_key: 'Xot36i3lK3:v1'
 };
 
@@ -48,12 +48,12 @@ const FALLBACK_KEYGEN = {
    Epochs are 7-day (floor(now/604800000)); during the first day of an epoch the
    previous one is still accepted. group is "mkissa" for the public hosts, and
    the boot message uses the FULL host (with TLD), not the stripped first segment. */
-const AA_MASK_BLOCKS = ['jfTMXeWz1KY=', 'sSiL9IX1c1k=', 'jjOcW/T0DYU=', 'vRF6mguezW8='];
-const AA_SALT_MUL = 34;
-const AA_SALT_ADD = 47;
-const AA_FRAG_MUL = 93;
-const AA_FRAG_ADD = 29;
-const AA_BOOT_PREFIX = 'X8S061oCq:';
+const AA_MASK_BLOCKS = ['o55/m8U/4FY=', '9lYtQjBCN5s=', 's3mBmnFuzkQ=', 'H8tdZAar+nQ='];
+const AA_SALT_MUL = 5;
+const AA_SALT_ADD = 39;
+const AA_FRAG_MUL = 251;
+const AA_FRAG_ADD = 21;
+const AA_BOOT_PREFIX = 'KoCGqjW:';
 const AA_WEEK_MS = 604800000;
 const AA_DAY_MS = 86400000;
 const AA_BOOTSTRAP_URL = 'https://api.mkissa.net/client-crypto/v1/bootstrap';
@@ -67,7 +67,7 @@ const CDN_BASES = [
 
 let aaKeyCache = { keys: null, ts: 0 };
 
-if (typeof console !== 'undefined') console.log('allmanga module v1.12.2 (build 175 keygen, k7 episode lane, fetchv2 impersonate:chrome + toResponseLike + 403 plain-fetch retry)');
+if (typeof console !== 'undefined') console.log('allmanga module v1.13.0 (build 179 keygen, k7 episode lane, fetchv2 impersonate:chrome + toResponseLike + 403 plain-fetch retry)');
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
@@ -116,7 +116,8 @@ async function searchResults(keyword) {
         const query = String(keyword || '').trim();
         if (!query) return JSON.stringify([]);
 
-        const data = await gql(`{shows(search:{sortBy:Trending,query:${JSON.stringify(query)}},limit:26,page:1){edges{_id name englishName nativeName thumbnail}}}`);
+        // no sortBy: with sortBy:Trending the API ignores the query text (2026-10-11)
+        const data = await gql(`{shows(search:{query:${JSON.stringify(query)}},limit:26,page:1){edges{_id name englishName nativeName thumbnail}}}`);
         const shows = (((data || {}).shows || {}).edges) || [];
 
         const results = [];
@@ -336,11 +337,15 @@ async function aaBootstrapFor(lane, epoch) {
         // (verified live 2026-09-25: "175|mkissa|mkissa.to|2960|k7" reproduces the
         // app's x-aa-boot token). Builds 166/141 used group:lane:epoch:host:buildId
         // with ":" — tried second when the new format gets rejected.
-        const msgNew = [FALLBACK_KEYGEN.build_id, AA_BOOT_GROUP, AA_BOOT_HOST, String(epoch), lane].join('|');
+        const msgNew = [FALLBACK_KEYGEN.build_id, AA_BOOT_GROUP, lane, String(epoch), AA_BOOT_HOST].join('|');
+        const msg175 = [FALLBACK_KEYGEN.build_id, AA_BOOT_GROUP, AA_BOOT_HOST, String(epoch), lane].join('|');
         const msgOld = AA_BOOT_GROUP + ':' + lane + ':' + epoch + ':' + AA_BOOT_HOST + ':' + FALLBACK_KEYGEN.build_id;
         const url = AA_BOOTSTRAP_URL + '?buildId=' + encodeURIComponent(FALLBACK_KEYGEN.build_id) +
             '&k=' + encodeURIComponent(lane);
         let j = await aaBootstrapOnce(url, aaHex(aaHmacSha256(hmacKey, aaAscii(msgNew))));
+        if (!j) {
+            j = await aaBootstrapOnce(url, aaHex(aaHmacSha256(hmacKey, aaAscii(msg175))));
+        }
         if (!j) {
             j = await aaBootstrapOnce(url, aaHex(aaHmacSha256(hmacKey, aaAscii(msgOld))));
         }

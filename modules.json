@@ -109,7 +109,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga-shirox/allmanga-shirox.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-27",
+      "updated": "2026-10-11",
       "note": "Shirox build — fetchv2 impersonate:chrome, Cloudflare full browser fingerprint. Use the classic AllAnime module on Sora/Luna."
     },
     {
@@ -132,7 +132,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga-novels-shirox/allmanga-novels-shirox.json",
       "sampleQuery": "one punch man",
-      "updated": "2026-09-27",
+      "updated": "2026-10-11",
       "note": "Shirox build of the AllManga manga module (kanzen contract). Use the classic AllManga Manga module on Sora/Luna."
     },
     {
@@ -1876,7 +1876,7 @@
       "sampleQuery": "angel next door",
       "needs_review": true,
       "note": "search/details/chapters OK; image step broken: chapterPages API answers NEED_CAPTCHA to every non-interactive client on both api.mkissa.net and api.allanime.day (re-verified 2026-09-25 with the site's own build-175 key/IV/lane — upstream/edge block, not in-module). Keygen now matches the live app (mkissa build 175, lane k9).",
-      "updated": "2026-09-28"
+      "updated": "2026-10-11"
     },
     {
       "id": "chireads-eclipse",
