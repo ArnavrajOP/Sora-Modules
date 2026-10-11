@@ -733,18 +733,30 @@ async function extractEpisodes(url) {
         const hime = parseAnimeId(url) || extractFirst(String(url || ''), /[?&]hime=(\d+)/i);
         if (hime) {
             // Numbered episode lists, public tiers in order:
-            // Jikan (full catalog) -> MAL HTML -> AniList count ->
-            // classic XML (Shirox impersonation only).
+            // AniList count (fast) -> AniLibria (full catalog) -> Jikan
+            // (timeout-guarded: the API hangs on some networks) -> MAL HTML
+            // -> classic XML (Shirox impersonation only).
             const eps = [];
-            const jikan = await jikanEpisodes(hime);
-            if (jikan.length) eps.push.apply(eps, jikan);
+            const al = await alEpisodes(hime);
+            if (al.length) eps.push.apply(eps, al);
+            if (!eps.length) {
+                const libria = await libriaEpisodes(hime);
+                if (libria.length) eps.push.apply(eps, libria);
+            }
+            if (!eps.length) {
+                // Jikan hangs on some networks; cap it when the sandbox has timers.
+                const jikanP = jikanEpisodes(hime);
+                const jikan = typeof setTimeout === 'undefined'
+                    ? await jikanP
+                    : await Promise.race([
+                        jikanP,
+                        new Promise(function (resolve) { setTimeout(function () { resolve([]); }, 6000); })
+                    ]).catch(function () { return []; });
+                if (jikan.length) eps.push.apply(eps, jikan);
+            }
             if (!eps.length) {
                 const mal = await malEpisodes(hime);
                 if (mal.length) eps.push.apply(eps, mal);
-            }
-            if (!eps.length) {
-                const al = await alEpisodes(hime);
-                if (al.length) eps.push.apply(eps, al);
             }
             if (!eps.length) {
                 // Playable HLS for the full catalog (Anilibria): watch-page

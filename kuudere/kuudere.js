@@ -1,19 +1,34 @@
+// Kuudere → Re:ANIME (kuudere.to rebranded to reanime.to, SvelteKit SSR, Oct 2026)
+// The old kuudere.to JSON API (kuudere.to/search?keyword=, /api/watch/<id>/<n>) is
+// gone with the rebrand. Re:ANIME serves search/detail/episode data server-side
+// rendered in the initial HTML, and streams through flixcloud.cc embeds.
+//
+// Stream note: flixcloud serves its HLS playlists base64+XOR-encoded and only its
+// own patched hls.js decodes them (key derived from a per-page WASM payload), so a
+// native HLS player cannot play the raw m3u8s. extractStreamUrl therefore returns
+// the flixcloud embed URL — playback happens in the site's own player (webview /
+// external browser), mirroring how the site itself plays video.
+
 async function searchResults(keyword) {
     try {
         const encodedKeyword = encodeURIComponent(keyword);
+        const response = await soraFetch(`https://reanime.to/search?q=${encodedKeyword}`);
+        const html = await response.text();
 
-        console.log(`https://kuudere.to/search?keyword=${encodedKeyword}`);
+        const results = [];
+        const seen = {};
+        const cardRe = /<a href="(\/anime\/[^"]+)"[^>]*>[\s\S]{0,2500}?<img src="([^"]+)" alt="([^"]*)"/g;
+        let m;
+        while ((m = cardRe.exec(html)) !== null) {
+            const href = "https://reanime.to" + m[1];
+            if (seen[href]) continue;
+            seen[href] = true;
+            const title = (m[3] || "").trim() || decodeURIComponent(m[1].split("/").pop() || "");
+            results.push({ title: title, image: m[2], href: href });
+        }
 
-        const responseText = await soraFetch(`https://kuudere.to/search?keyword=${encodedKeyword}`);
-        const data = await responseText.json();
-
-        const results = data.documents.map(result => ({
-            title: result.english || result.romaji || result.native,
-            image: result.cover,
-            href: `${result.id}`
-        }));
-
-        console.log(results);
+        if (!results.length) throw new Error("no search results parsed");
+        console.log(JSON.stringify(results));
         return JSON.stringify(results);
     } catch (error) {
         console.log('Fetch error in searchResults: ' + error);
@@ -21,41 +36,48 @@ async function searchResults(keyword) {
     }
 }
 
-async function extractDetails(id) {
+async function extractDetails(url) {
     try {
-        const response = await soraFetch(`https://kuudere.to/anime/${id}`);
-        const json = await response.json();
+        const response = await soraFetch(url);
+        const html = await response.text();
 
-        console.log(json);
-        
-        const data = json.data;
+        const unescapeJs = (s) => s
+            .replace(/\\n/g, '\n')
+            .replace(/\\"/g, '"')
+            .replace(/\\'/g, "'")
+            .replace(/\\\\/g, '\\');
 
-        let description = data.description || 'No description available';
-        description = description
-            .replace(/<br\s*\/?>/gi, '\n') // Replace <br> with newlines
-            .replace(/<\/?[^>]+(>|$)/g, '') // Strip any other HTML tags
-            .replace(/\\n/g, '\n') // Convert escaped \n to real newlines
-            .trim();
+        const grab = (re) => { const m = html.match(re); return m ? m[1] : null; };
 
-        const aliases = `
-Type: ${data.type}
-Status: ${data.status}
-Episodes: ${data.epCount}
-Subbed Episodes: ${data.subbedCount}
-Dubbed Episodes: ${data.dubbedCount}
-Age Rating: ${data.ageRating}
-Genres: ${data.genres.join(', ') || 'Unknown'}
-        `.trim();
+        let description = grab(/description:"((?:[^"\\]|\\.)*)"/);
+        description = description ? unescapeJs(description).replace(/<[^>]+>/g, '').trim() : 'No description available';
 
-        const airdate = `Released: ${data.startDate ? data.startDate : 'Unknown'}`
+        const genresM = html.match(/genres:\[([^\]]*)\]/);
+        const synM = html.match(/synonyms:\[([^\]]*)\]/);
+        const format = grab(/format:"([^"]*)"/) || 'N/A';
+        const status = grab(/status:"([^"]*)"/) || 'N/A';
+        const season = grab(/season:"([^"]*)"/) || '';
+        const year = grab(/season_year:(\d{4})/) || '';
+        const duration = grab(/duration:(\d+)/) || '';
+        const epTotal = grab(/episodes_total:(\d+)/) || '';
 
-        const transformedResults = [{
-            description,
-            aliases,
-            airdate
-        }];
+        const aliasParts = [];
+        if (genresM) {
+            const g = genresM[1].match(/"([^"]+)"/g);
+            if (g) aliasParts.push('Genres: ' + g.map(s => s.replace(/"/g, '')).join(', '));
+        }
+        if (synM) {
+            const s = synM[1].match(/"([^"]+)"/g);
+            if (s && s.length) aliasParts.push('Also known as: ' + s.slice(0, 4).map(x => x.replace(/"/g, '')).join(', '));
+        }
+        aliasParts.push('Type: ' + format, 'Status: ' + status);
+        if (epTotal && epTotal !== '0') aliasParts.push('Episodes: ' + epTotal);
+        if (duration) aliasParts.push('Duration: ' + duration + ' min');
 
-        console.log(transformedResults);
+        const airdate = (season ? season + ' ' : '') + (year || 'N/A');
+
+        const transformedResults = [{ description, aliases: aliasParts.join('\n'), airdate }];
+        console.log(JSON.stringify(transformedResults));
         return JSON.stringify(transformedResults);
     } catch (error) {
         console.log('Details error: ' + error);
@@ -67,24 +89,35 @@ Genres: ${data.genres.join(', ') || 'Unknown'}
     }
 }
 
-async function extractEpisodes(id) {
+async function extractEpisodes(url) {
     try {
-        const response = await soraFetch(`https://kuudere.to/api/watch/${id}/1`);
-        const json = await response.json();
+        const slugM = url.match(/\/anime\/([^\/?#]+)/);
+        if (!slugM) throw new Error("cannot parse slug from url");
+        const slug = slugM[1];
 
-        console.log(json);
-        
-        const data = json.all_episodes;
+        const response = await soraFetch(`https://reanime.to/watch/${slug}`);
+        const html = await response.text();
 
-        const sortedEpisodes = data.sort((a, b) => a.number - b.number);
+        const aidM = html.match(/anilist_id:(\d+)/);
+        const aid = aidM ? aidM[1] : null;
 
-        const episodes = sortedEpisodes.map(episode => ({
-            title: `Episode ${episode.number}`,
-            href: `https://kuudere.to/api/watch/${id}/${episode.number}`,
-            number: episode.number
+        const numbers = {};
+        const re = new RegExp('/watch/' + slug + '\\?ep=(\\d+)', 'g');
+        let m;
+        while ((m = re.exec(html)) !== null) numbers[parseInt(m[1], 10)] = true;
+
+        let nums = Object.keys(numbers).map(Number).sort((a, b) => a - b);
+        if (!nums.length) throw new Error("no episode links found");
+
+        const episodes = nums.map(n => ({
+            title: 'Episode ' + n,
+            href: aid
+                ? `https://reanime.to/api/flix/${aid}/${n}`
+                : `https://reanime.to/watch/${slug}?ep=${n}`,
+            number: n
         }));
 
-        console.log(episodes);
+        console.log('episodes: ' + episodes.length);
         return JSON.stringify(episodes);
     } catch (error) {
         console.log('Fetch error in extractEpisodes: ' + error);
@@ -94,270 +127,59 @@ async function extractEpisodes(id) {
 
 async function extractStreamUrl(url) {
     try {
-        const response = await soraFetch(url);
-        const { episode_links: links } = await response.json();
-
-        console.log(JSON.stringify(links));
-
-        // ALL KNOWN SERVERS
-        // Zen - server id = 0
-        // StreamWish - server id = 1
-        // Vidhide - server id = 2
-        // FileMoon - server id = 3
-        // Streamwish - server id = 8
-        // Mp4upload - server id = 9
-        // Doodstream - server id = 10
-        // Vidstreaming - server id = 11
-        // Filelions - server id = 12
-        // Kumi-v3 - server id = 906
-        // Kumi-v4 - server id = 907
-        // Kumi - server id = 908
-
-        const allowedServers = new Set([
-            "Zen", 
-            // "StreamWish", "Vidhide", "FileMoon", "Streamwish", "Filelions"
-        ]);
-
-        const streamLinks = links
-            .filter(({ serverName }) => allowedServers.has(serverName));
-        
-        console.log(JSON.stringify(streamLinks));
-
-        const streams = await networkFetch(streamLinks[0].dataLink, 7, {}, ".m3u8");
-
-        console.log("Vidify streams: " + JSON.stringify(streams));
-        console.log("Vidify streams: " + streams.requests.find(url => url.includes('.m3u8')));
-
-		if (streams.requests.find(url => url.includes('.m3u8')) === undefined) {
-			const streams = await networkFetch(streamLinks[0].dataLink, 7, {}, "master.txt");
-
-			console.log("Vidify streams: " + JSON.stringify(streams));
-			console.log("Vidify streams: " + streams.requests.find(url => url.includes('master.txt')));
-
-			const streamUrl = streams.requests.find(url => url.includes('master.txt')) || "";
-
-			const results = {
-                streams: [{
-                    title: "Stream",
-                    streamUrl,
-                    headers: {
-                        "Referer": "https://zencloudz.cc/",
-                        "Origin": "https://zencloudz.cc"
-                    },
-                }],
-                subtitles: ""
-            }
-
-            return JSON.stringify(results);
-		} else if (streams.requests && streams.requests.length > 0) {
-            const streamUrl = streams.requests.find(url => url.includes('.m3u8')) || "";
-
-            const results = {
-                streams: [{
-                    title: "Stream",
-                    streamUrl,
-                    headers: {
-                        "Referer": "https://zencloudz.cc/",
-                        "Origin": "https://zencloudz.cc"
-                    },
-                }],
-                subtitles: ""
-            }
-
-            return JSON.stringify(results);
+        let dataLink = null;
+        if (/\/api\/flix\/\d+\/\d+/.test(url)) {
+            const response = await soraFetch(url);
+            const data = await response.json();
+            const servers = (data && data.servers) || [];
+            const pick = servers.find(s => s.serverName === 'HD-1' && s.dataType === 'sub') ||
+                servers.find(s => s.dataType === 'sub') || servers[0];
+            if (pick && pick.dataLink) dataLink = pick.dataLink;
         } else {
-            return "";
+            const m = url.match(/[?&]ep=(\d+)/);
+            const slugM = url.match(/\/watch\/([^\/?#]+)/);
+            if (m && slugM) {
+                const resp = await soraFetch(url);
+                const html = await resp.text();
+                const aidM = html.match(/anilist_id:(\d+)/);
+                if (aidM) {
+                    const r2 = await soraFetch(`https://reanime.to/api/flix/${aidM[1]}/${m[1]}`);
+                    const data = await r2.json();
+                    const servers = (data && data.servers) || [];
+                    const pick = servers.find(s => s.serverName === 'HD-1' && s.dataType === 'sub') ||
+                        servers.find(s => s.dataType === 'sub') || servers[0];
+                    if (pick && pick.dataLink) dataLink = pick.dataLink;
+                }
+            }
         }
 
-        // // Filter and create array of promises for allowed servers
-        // const streamPromises = links
-        //     .filter(({ serverName }) => allowedServers.has(serverName))
-        //     .map(({ serverName, dataType, dataLink }) => extractHls(serverName, dataType, dataLink));
+        if (!dataLink) throw new Error('no stream source found');
 
-        // // Wait for all to finish
-        // const streamsResults = await Promise.all(streamPromises);
-
-        // // Filter out nulls (failed extractions)
-        // const streams = streamsResults.filter(Boolean);
-
-        // const result = {
-        //     streams,
-        //     subtitles: ""
-        // };
-
-        // console.log(JSON.stringify(result));
-        // return JSON.stringify(result);
-    } catch (error) {
-        console.log('Fetch error in extractStreamUrl: ' + error);
-
-        const result = {
-            streams: [],
+        const results = {
+            streams: [{
+                title: "Re:ANIME (site player)",
+                streamUrl: dataLink,
+                headers: { "Referer": "https://reanime.to/" }
+            }],
             subtitles: ""
         };
-
-        console.log(result);
+        console.log(JSON.stringify(results));
+        return JSON.stringify(results);
+    } catch (error) {
+        console.log('Fetch error in extractStreamUrl: ' + error);
+        const result = { streams: [], subtitles: "" };
         return JSON.stringify(result);
     }
 }
 
-async function extractHls(serverName, dataType, dataLink) {
-    try {
-        const response = await soraFetch(dataLink);
-        const htmlText = await response.text();
-
-        const scriptMatch = htmlText.match(/<script[^>]*>\s*(eval\(function\(p,a,c,k,e,d[\s\S]*?)<\/script>/);
-        if (!scriptMatch) return null;
-
-        const unpackedScript = unpack(scriptMatch[1]);
-        const match = unpackedScript.match(/"hls2"\s*:\s*"([^"]+)"/);
-        if (!match) return null;
-
-        return {
-            title: `${serverName} - ${dataType}`,
-            streamUrl: match[1],
-            headers: {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/244.178.44.111 Safari/537.36"
-            }
-        };
-    } catch {
-        return null;
-    }
-}
-
-// searchResults('one piece');
-// extractEpisodes("677f1387001c5de2ba68");
-// extractStreamUrl("https://kuudere.to/api/watch/677f1387001c5de2ba68/1");
-
-// extractDetails("6749f2d9002936e95a95");
-// extractEpisodes("6749f2d9002936e95a95");
-// extractStreamUrl("https://kuudere.to/api/watch/6749f2d9002936e95a95/1");
-
-// extractStreamUrl("https://kuudere.to/api/watch/67d80988001ca43d9445/1");
-
-// extractStreamUrl("https://kuudere.to/api/watch/6749a577001f2b50906e/1");
-
 async function soraFetch(url, options = { headers: {}, method: 'GET', body: null }) {
     try {
         return await fetchv2(url, options.headers ?? {}, options.method ?? 'GET', options.body ?? null);
-    } catch(e) {
+    } catch (e) {
         try {
             return await fetch(url, options);
-        } catch(error) {
+        } catch (error) {
             return null;
         }
-    }
-}
-
-class Unbaser {
-    constructor(base) {
-        /* Functor for a given base. Will efficiently convert
-          strings to natural numbers. */
-        this.ALPHABET = {
-            62: "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-            95: "' !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'",
-        };
-        this.dictionary = {};
-        this.base = base;
-        // fill elements 37...61, if necessary
-        if (36 < base && base < 62) {
-            this.ALPHABET[base] = this.ALPHABET[base] ||
-                this.ALPHABET[62].substr(0, base);
-        }
-        // If base can be handled by int() builtin, let it do it for us
-        if (2 <= base && base <= 36) {
-            this.unbase = (value) => parseInt(value, base);
-        }
-        else {
-            // Build conversion dictionary cache
-            try {
-                [...this.ALPHABET[base]].forEach((cipher, index) => {
-                    this.dictionary[cipher] = index;
-                });
-            }
-            catch (er) {
-                throw Error("Unsupported base encoding.");
-            }
-            this.unbase = this._dictunbaser;
-        }
-    }
-    _dictunbaser(value) {
-        /* Decodes a value to an integer. */
-        let ret = 0;
-        [...value].reverse().forEach((cipher, index) => {
-            ret = ret + ((Math.pow(this.base, index)) * this.dictionary[cipher]);
-        });
-        return ret;
-    }
-}
-
-function detect(source) {
-    /* Detects whether `source` is P.A.C.K.E.R. coded. */
-    return source.replace(" ", "").startsWith("eval(function(p,a,c,k,e,");
-}
-
-function unpack(source) {
-    /* Unpacks P.A.C.K.E.R. packed js code. */
-    let { payload, symtab, radix, count } = _filterargs(source);
-    if (count != symtab.length) {
-        throw Error("Malformed p.a.c.k.e.r. symtab.");
-    }
-    let unbase;
-    try {
-        unbase = new Unbaser(radix);
-    }
-    catch (e) {
-        throw Error("Unknown p.a.c.k.e.r. encoding.");
-    }
-    function lookup(match) {
-        /* Look up symbols in the synthetic symtab. */
-        const word = match;
-        let word2;
-        if (radix == 1) {
-            //throw Error("symtab unknown");
-            word2 = symtab[parseInt(word)];
-        }
-        else {
-            word2 = symtab[unbase.unbase(word)];
-        }
-        return word2 || word;
-    }
-    source = payload.replace(/\b\w+\b/g, lookup);
-    return _replacestrings(source);
-    function _filterargs(source) {
-        /* Juice from a source file the four args needed by decoder. */
-        const juicers = [
-            /}\('(.*)', *(\d+|\[\]), *(\d+), *'(.*)'\.split\('\|'\), *(\d+), *(.*)\)\)/,
-            /}\('(.*)', *(\d+|\[\]), *(\d+), *'(.*)'\.split\('\|'\)/,
-        ];
-        for (const juicer of juicers) {
-            //const args = re.search(juicer, source, re.DOTALL);
-            const args = juicer.exec(source);
-            if (args) {
-                let a = args;
-                if (a[2] == "[]") {
-                    //don't know what it is
-                    // a = list(a);
-                    // a[1] = 62;
-                    // a = tuple(a);
-                }
-                try {
-                    return {
-                        payload: a[1],
-                        symtab: a[4].split("|"),
-                        radix: parseInt(a[2]),
-                        count: parseInt(a[3]),
-                    };
-                }
-                catch (ValueError) {
-                    throw Error("Corrupted p.a.c.k.e.r. data.");
-                }
-            }
-        }
-        throw Error("Could not make sense of p.a.c.k.e.r data (unexpected code structure)");
-    }
-    function _replacestrings(source) {
-        /* Strip string lookup table (list) and replace values in source. */
-        /* Need to work on this. */
-        return source;
     }
 }

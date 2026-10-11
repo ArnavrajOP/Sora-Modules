@@ -1,4 +1,6 @@
-const BASE_URL = 'https://animejara.com';
+// animejara.com is behind a Cloudflare JS challenge for scripts (Oct 2026);
+// the original henaojara.com serves the same DooPlay app and is script-accessible.
+const BASE_URL = 'https://henaojara.com';
 const AJAX_URL = `${BASE_URL}/wp-admin/admin-ajax.php`;
 const CATALOG_URL = `${BASE_URL}/catalogo/?q=`;
 const SEARCH_URL = `${BASE_URL}/?s=`;
@@ -44,6 +46,12 @@ async function extractDetails(url) {
         ) || extractFirst(
             html,
             /<div[^>]*class="[^"]*sinopsis[^"]*"[^>]*>([\s\S]*?)<\/div>/i
+        ) || extractFirst(
+            html,
+            /<meta[^>]*itemprop="description"[^>]*content="([^"]+)"/i
+        ) || extractFirst(
+            html,
+            /<div class="Description">\s*<header>\s*<div class="Description">\s*<p>([\s\S]*?)<\/p>/i
         ) || extractFirst(
             html,
             /<meta[^>]*property="og:description"[^>]*content="([^"]+)"/i
@@ -180,6 +188,21 @@ async function extractEpisodes(url) {
             }
         }
 
+        // DooPlay fallback (henaojara.com): episode pages live at
+        // /view/episode/<slug>-<season>x<episode>/ and are linked from the show page.
+        if (episodes.length === 0) {
+            const seenDp = new Set();
+            const dpRegex = /href="((?:https?:\/\/[^"\s]+|\/)view\/episode\/([^"\s]+?)-(\d+)x(\d+)\/)"/gi;
+            let dpMatch;
+            while ((dpMatch = dpRegex.exec(html)) !== null) {
+                const href = normalizeUrl(dpMatch[1]);
+                if (!href || seenDp.has(href)) continue;
+                seenDp.add(href);
+                const episode = parseInt(dpMatch[4], 10);
+                if (!isNaN(episode)) episodes.push({ href, number: episode });
+            }
+        }
+
         return JSON.stringify(episodes);
     } catch (error) {
         console.log('Episodes error: ' + error);
@@ -189,6 +212,57 @@ async function extractEpisodes(url) {
 
 async function extractStreamUrl(url) {
     try {
+        // DooPlay branch (henaojara.com): episode pages embed players through
+        // /?trembed=N&trid=X&trtype=2 iframes whose inner iframe is the actual
+        // server embed (e.g. multiplayer.streamhj.top).
+        if (/\/view\/episode\//i.test(url)) {
+            const dpResponse = await soraFetch(url);
+            if (dpResponse) {
+                const dpHtml = await dpResponse.text();
+                const trembeds = [];
+                const tRe = /<iframe[^>]+src="(https:\/\/henaojara\.com\/\?trembed=\d+(?:&(?:amp;|#038;)?)trid=\d+(?:&(?:amp;|#038;)?)trtype=\d+)"/gi;
+                let tM;
+                while ((tM = tRe.exec(dpHtml)) !== null && trembeds.length < 4) {
+                    trembeds.push(tM[1].replace(/&amp;|&#038;/g, '&'));
+                }
+                const streams = [];
+                for (const trembedUrl of trembeds) {
+                    const r = await soraFetch(trembedUrl);
+                    if (!r) continue;
+                    const embHtml = await r.text();
+                    const inner = extractFirst(embHtml, /<iframe[^>]+src="(https?:\/\/[^"]+)"/i);
+                    if (!inner) continue;
+                    const embedUrl = normalizeExternalUrl(decodeHtml(inner));
+                    const resolved = await extractDirectServerFromEmbed(embedUrl);
+                    if (resolved && resolved.length > 0) {
+                        resolved.forEach(s => {
+                            if (s.url && !streams.some(x => x.streamUrl === s.url)) {
+                                streams.push({
+                                    title: `HenaoJara - ${s.name || 'Server'}`,
+                                    streamUrl: s.url,
+                                    headers: {
+                                        "Referer": BASE_URL + '/',
+                                        "Origin": BASE_URL,
+                                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                                    }
+                                });
+                            }
+                        });
+                    } else if (embedUrl && !streams.some(x => x.streamUrl === embedUrl)) {
+                        streams.push({
+                            title: 'HenaoJara - Embed',
+                            streamUrl: embedUrl,
+                            headers: { "Referer": BASE_URL + '/' }
+                        });
+                    }
+                    if (streams.length >= 4) break;
+                }
+                if (streams.length > 0) {
+                    return JSON.stringify({ streams: streams, subtitles: "" });
+                }
+            }
+        }
+
         const response = await soraFetch(url);
         const html = await response.text();
         
@@ -1130,6 +1204,8 @@ async function searchFromCatalog(keyword) {
             const html = await response.text();
             const parsed = parseAnimeCardsFromHtml(html);
             if (parsed.length > 0) return parsed;
+            const dooplay = parseDooPlayCardsFromHtml(html);
+            if (dooplay.length > 0) return dooplay;
         }
 
         return [];
@@ -1144,7 +1220,9 @@ async function searchFromWordPress(keyword) {
         const response = await soraFetch(`${SEARCH_URL}${encodeURIComponent(keyword)}`);
         if (!response) return [];
         const html = await response.text();
-        return parseAnimeCardsFromHtml(html);
+        const parsed = parseAnimeCardsFromHtml(html);
+        if (parsed.length > 0) return parsed;
+        return parseDooPlayCardsFromHtml(html);
     } catch (error) {
         console.log('WordPress search error: ' + error);
         return [];
@@ -1203,6 +1281,28 @@ function parseAnimeCardsFromHtml(html) {
         results.push({ title, image, href });
     }
 
+    return results;
+}
+
+/**
+ * Parses henaojara.com's DooPlay theme cards (TPost B / view links) — the
+ * markup the site serves after the animejara.com Cloudflare move (Oct 2026).
+ */
+function parseDooPlayCardsFromHtml(html) {
+    const results = [];
+    const seen = new Set();
+    const cardRegex = /<a href="((?:https?:\/\/[^"\s]+|\/)view\/[^"\s]+)"[^>]*>[\s\S]{0,900}?<img[^>]*src="([^"]+)"[^>]*>[\s\S]{0,900}?<div class="Title">([\s\S]*?)<\/div>/gi;
+    let m;
+    while ((m = cardRegex.exec(html)) !== null) {
+        const href = normalizeUrl(m[1]);
+        if (!href || !/\/view\//i.test(href) || seen.has(href)) continue;
+        if (/\/view\/(letter|episode)\//i.test(href)) continue;
+        const title = cleanText(m[3]);
+        const image = decodeHtml(m[2]).trim();
+        if (!title || !image) continue;
+        seen.add(href);
+        results.push({ title, image, href });
+    }
     return results;
 }
 

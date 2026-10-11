@@ -56,8 +56,8 @@
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anidb/anidb.json",
       "sampleQuery": "one piece",
       "needs_review": true,
-      "note": "anidb.app 503 (maintenance, checked 2026-09); module searches via public AniList, episode lists via Jikan/MAL HTML/AniList count/anidb.se mirror, playable HLS for the full catalog via AniLibria (cache.libria.fun, 200 without Referer) + mp4 from anidb.se mirror shows",
-      "updated": "2026-09-27"
+      "note": "anidb.app 503 (maintenance, checked 2026-09); module searches via public AniList, episode lists via AniList count -> AniLibria (fast path) -> Jikan (timeout-guarded) -> MAL HTML, playable HLS for the full catalog via AniLibria (cache.libria.fun, 200 without Referer) + mp4 from anidb.se mirror shows",
+      "updated": "2026-10-11"
     },
     {
       "id": "anime-nexus",
@@ -73,12 +73,13 @@
     {
       "id": "henaojara",
       "name": "AnimeJara",
-      "iconUrl": "https://animejara.com/wp-content/uploads/2025/12/cropped-LOGO_ANIJARA7.png",
+      "iconUrl": "https://henaojara.com/wp-content/uploads/2020/02/cropped-HJ-192x192.png",
       "category": "anime/movies",
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/henaojara/henaojara.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-11",
+      "note": "animejara.com is Cloudflare-challenged for scripts (Oct 2026); module moved back to the original henaojara.com (same DooPlay app, script-accessible). Stream: episode pages -> trembed iframes -> multiplayer.streamhj.top resolver."
     },
     {
       "id": "flixlatam",
@@ -98,7 +99,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga/allmanga.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-27"
+      "updated": "2026-10-11"
     },
     {
       "id": "allmanga-shirox",
@@ -121,7 +122,7 @@
       "sampleQuery": "angel next door",
       "needs_review": true,
       "note": "search/details/chapters OK; image step broken: chapterPages API answers NEED_CAPTCHA to every non-interactive client on both api.mkissa.net and api.allanime.day (re-verified 2026-09-25 with the site's own build-175 key/IV/lane — upstream/edge block, not in-module). Keygen now matches the live app (mkissa build 175, lane k9).",
-      "updated": "2026-09-27"
+      "updated": "2026-10-11"
     },
     {
       "id": "allmanga-novels-shirox",
@@ -268,7 +269,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/nivod/nivod.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-11"
     },
     {
       "id": "onetouch",
@@ -644,7 +645,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/peachify/peachify.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-09-25",
+      "needs_review": true,
+      "note": "stream backends usa.eat-peach.sbs / uwu.eat-peach.sbs DNS-dead (checked 2026-10-11); search/details/episodes via peachify.top still work — module recovers automatically if the backends return"
     },
     {
       "id": "readnovels",
@@ -654,7 +657,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/readnovels/readnovels.json",
       "sampleQuery": "solo leveling",
-      "updated": "2026-09-25"
+      "updated": "2026-10-11"
     },
     {
       "id": "scan-sama",
@@ -906,7 +909,10 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/kaliscan/kaliscan.json",
       "sampleQuery": "soul",
-      "updated": "2026-09-25"
+      "updated": "2026-09-25",
+      "discontinued": true,
+      "needs_review": false,
+      "note": "kaliscan.io DNS dead (checked 2026-10-11); kaliscan.org/.app are unrelated sites — KaliScan has not relocated"
     },
     {
       "id": "latanime",
@@ -994,7 +1000,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/moflix/moflix.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-09-25",
+      "needs_review": true,
+      "note": "search API now behind a Cloudflare JS challenge (passed the harness 2026-10-05, challenge added since); works in-app only after Verify Cloudflare, same pattern as Dessin Anime. Response shape verified unchanged 2026-10-11."
     },
     {
       "id": "movix",
@@ -1461,7 +1469,8 @@
       "name": "Anime Base (DUB)",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anime-base/anime-base.json",
-      "updated": "2026-09-25"
+      "updated": "2026-09-25",
+      "note": "anime-base.net shut down — homepage shows a farewell/restructuring page (2015-2026), no search or content anymore (checked 2026-10-11)"
     },
     {
       "sourceName": "Anime-Portal",
@@ -1518,7 +1527,7 @@
     },
     {
       "sourceName": "Kuudere",
-      "iconUrl": "https://git.luna-app.eu/ibro/services/raw/branch/main/kuudere/icon.png",
+      "iconUrl": "https://reanime.to/favicon.ico",
       "author": {
         "name": "ibro",
         "icon": "https://files.catbox.moe/741wp7.png",
@@ -1538,10 +1547,11 @@
       "scriptURL": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/kuudere/kuudere.js",
       "id": "kuudere",
       "discontinued": true,
-      "name": "Kuudere",
+      "name": "Re:ANIME",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/kuudere/kuudere.json",
-      "updated": "2026-09-25"
+      "updated": "2026-10-11",
+      "note": "kuudere.to rebranded to reanime.to (Oct 2026). Search/details/episodes via SSR; streams open the flixcloud site player (native HLS cannot decode its XOR-encoded playlists)."
     },
     {
       "sourceName": "DonghuaStream",
@@ -1579,7 +1589,8 @@
       "name": "DonghuaStream",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/donghuastream/donghuastream.json",
-      "updated": "2026-09-25"
+      "updated": "2026-09-25",
+      "sampleQuery": "battle through the heavens"
     },
     {
       "sourceName": "One Piece Film Red: AmaLee Score",
@@ -1630,7 +1641,9 @@
       "name": "One Piece Treasure Edition",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/onePieceTreasureEdition/onePieceTreasureEdition.json",
-      "updated": "2026-09-25"
+      "updated": "2026-10-11",
+      "needs_review": true,
+      "note": "pixeldrain list VR7e6o5y (One Piece Treasure Edition) deleted upstream (checked 2026-10); module hardened against the crash, awaiting a new list id"
     },
     {
       "id": "allmangadub",
@@ -1760,7 +1773,8 @@
       "sampleQuery": "one piece",
       "needs_review": true,
       "review_reason": "Failed to parse URL from undefined",
-      "updated": null
+      "updated": null,
+      "note": "external module (JayGxnzalez); chapters return 0 as of 2026-10-11 — upstream/external, cannot fix here"
     },
     {
       "id": "nflwebcast",
@@ -1794,7 +1808,8 @@
       "sampleQuery": "one piece",
       "needs_review": true,
       "review_reason": "Failed to parse URL from undefined",
-      "updated": null
+      "updated": null,
+      "note": "external module (JayGxnzalez); chapters return 0 as of 2026-10-11 — upstream markup changed, cannot fix here"
     },
     {
       "id": "usatv",
@@ -1892,7 +1907,10 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/kaliscan/kaliscan.json",
       "sampleQuery": "soul",
-      "updated": "2026-09-28"
+      "updated": "2026-09-28",
+      "discontinued": true,
+      "needs_review": false,
+      "note": "kaliscan.io DNS dead (checked 2026-10-11); kaliscan.org/.app are unrelated sites — KaliScan has not relocated"
     },
     {
       "id": "lightnovelworld-eclipse",
@@ -1916,7 +1934,8 @@
       "sampleQuery": "solo leveling",
       "updated": "2026-09-28",
       "discontinued": true,
-      "note": "upstream lncrawler.monster unreachable - connection timeout (checked 2026-10)"
+      "note": "upstream lncrawler.monster unreachable (same as main LnCrawler, checked 2026-10)",
+      "needs_review": false
     },
     {
       "id": "mangabuddy-eclipse",
@@ -2040,7 +2059,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/readnovels/readnovels.json",
       "sampleQuery": "solo leveling",
-      "updated": "2026-09-28"
+      "updated": "2026-10-11"
     },
     {
       "id": "rumanhua1-eclipse",

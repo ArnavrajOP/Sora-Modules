@@ -1,7 +1,7 @@
 async function searchResults(keyword) {
     const results = [];
     try {
-        const response = await fetchv2(`https://e.kortw.cc/vodsearch/-------------.html?keyword=${keyword}`);
+        const response = await fetchv2(`https://www.nivod.cc/search.html?keyword=${encodeURIComponent(keyword)}`);
         const html = await response.text();
         
         const regex = /<li class="qy-mod-li[^>]*>[\s\S]*?<a href="([^"]+)"[\s\S]*?background-image:\s*url\(([^)]+)\)[\s\S]*?<span class="text-score">[^<]*<\/span>[\s\S]*?<span>([^<]+)<\/span>[\s\S]*?<\/li>/g;

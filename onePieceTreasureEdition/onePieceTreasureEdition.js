@@ -19,7 +19,9 @@ async function extractDetails(url) {
     const arcId = match[1];
 
     const response = await soraFetch(`https://pixeldrain.net/api/list/${arcId}`);
-    const data = await response.json();    
+    const data = await response.json();
+
+    if (!data || data.success === false || !data.title) throw new Error("list not found: " + ((data && data.message) || "unknown"));
 
     const transformedResults = [{
         description: `Title: ${data.title}\nFile Count: ${data.file_count}`,
@@ -32,23 +34,31 @@ async function extractDetails(url) {
 }
 
 async function extractEpisodes(url) {
-    const match = url.match(/https:\/\/pixeldrain\.net\/l\/([^\/]+)/);
-    if (!match) throw new Error("Invalid URL format");
-            
-    const arcId = match[1];
+    try {
+        const match = url.match(/https:\/\/pixeldrain\.net\/l\/([^\/]+)/);
+        if (!match) throw new Error("Invalid URL format");
 
-    const response = await soraFetch(`https://pixeldrain.net/api/list/${arcId}`);
-    const data = await response.json();
+        const arcId = match[1];
 
-    const transformedResults = data.files.map((result, index) => {
-        return {
-            href: `${result.id}`,
-            number: index + 1,
-        };
-    });
+        const response = await soraFetch(`https://pixeldrain.net/api/list/${arcId}`);
+        const data = await response.json();
 
-    console.log(`Episodes: ${JSON.stringify(transformedResults)}`);
-    return JSON.stringify(transformedResults);
+        const files = (data && Array.isArray(data.files)) ? data.files : [];
+        if (!files.length) throw new Error("list empty or not found: " + ((data && data.message) || "unknown"));
+
+        const transformedResults = files.map((result, index) => {
+            return {
+                href: `${result.id}`,
+                number: index + 1,
+            };
+        });
+
+        console.log(`Episodes: ${JSON.stringify(transformedResults)}`);
+        return JSON.stringify(transformedResults);
+    } catch (e) {
+        console.log('Episodes error: ' + e);
+        return JSON.stringify([]);
+    }
 }
 
 // searchResults("all");
