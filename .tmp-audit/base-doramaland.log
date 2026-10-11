@@ -1,0 +1,15 @@
+== localtest doramaland/doramaland.js type=video kw=one piece
+SEARCH ok count=6
+  - Ван-Пис | https://dorama.land/van-pis-serial | https://dorama.land/storage/generated/serials/4/v1/van-pis-s
+  - Ван-Пис 3 сезон | https://dorama.land/van-pis-3-sezon | https://dorama.land/storage/generated/serials/4/v1/van-pis-3
+  - Ван-Пис 2 сезон | https://dorama.land/van-pis-2-sezon | https://dorama.land/storage/generated/serials/3/v1/van-pis-2
+  - Ван-Пис 1 сезон | https://dorama.land/one-piece | https://dorama.land/storage/generated/serials/2/v1/one-piece
+  - Половина от половины | https://dorama.land/polovina-ot-poloviny | https://dorama.land/storage/generated/serials/0/v1/polovina-
+DETAILS ok | desc=На бескрайних морях, где каждая волна скрывает тайну, началась великая эра — вре
+EPISODES ok count=16
+  - ep 1 | https://dorama.land/van-pis-1-seriya
+  - ep 2 | https://dorama.land/van-pis-2-seriya
+  - ep 3 | https://dorama.land/van-pis-3-seriya
+  - ep 4 | https://dorama.land/van-pis-4-seriya
+  - ep 5 | https://dorama.land/van-pis-5-seriya
+STREAM ok count=0

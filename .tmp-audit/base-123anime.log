@@ -1,0 +1,19 @@
+== localtest 123anime/123anime.js type=video kw=one piece
+SEARCH ok count=28
+  - One Piece | https://123animehub.cc/anime/one-piece | https://123animehub.cc/imgs/poster/one-piece.jpg
+  - One Piece: Heroines | https://123animehub.cc/anime/one-piece-heroines | https://123animehub.cc/imgs/poster/one-piece-heroines.jpg
+  - One Piece: Dr. Chopper's Adventure Checkup - The Last Record | https://123animehub.cc/anime/one-piece-dr-chopper-no-bouken-karte-tensai-ga-nokoshita-last | https://123animehub.cc/imgs/poster/one-piece-dr-chopper-no-b
+  - One Piece: Dr. Chopper's Adventure Checkup - The Last Record | https://123animehub.cc/anime/one-piece-dr-chopper-no-bouken-karte-tensai-ga-nokoshita-last | https://123animehub.cc/imgs/poster/one-piece-dr-chopper-no-b
+  - One Piece: Dr. Chopper's Adventure Checkup - Traitors Masque | https://123animehub.cc/anime/one-piece-dr-chopper-no-bouken-karte-uragirimono-tachi-no-mas | https://123animehub.cc/imgs/poster/one-piece-dr-chopper-no-b
+DETAILS ok | desc=Barely surviving in a barrel after passing through a terrible whirlpool at sea, 
+EPISODES ok count=50
+  - ep 1 | one-piece/1/vidstreaming.io
+  - ep 2 | one-piece/2/vidstreaming.io
+  - ep 3 | one-piece/3/vidstreaming.io
+  - ep 4 | one-piece/4/vidstreaming.io
+  - ep 5 | one-piece/5/vidstreaming.io
+[mod] Stream URL Error details: zrpart2 not found Error: zrpart2 not found
+    at Object.extractStreamUrl (eval at loadModule (D:\xdfkenny-sora-modules\.tmp-audit\localtest.js:133:19), <anonymous>:137:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async D:\xdfkenny-sora-modules\.tmp-audit\localtest.js:251:34
+STREAM ok count=0

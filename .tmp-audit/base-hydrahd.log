@@ -1,0 +1,26 @@
+[mod] [HydraHD] module script loaded v2.3.0 (IMDb poster enrichment)
+== localtest hydrahd/hydrahd.js type=video kw=one piece
+SEARCH ok count=15
+  - One Piece | https://hydrahd.ws/watchseries/one-piece2-online-free | https://image.tmdb.org/t/p/w1280/e3NBGiAifW9Xt8xD5tpARskjccO
+  - ONE PIECE | https://hydrahd.ws/watchseries/one-piece-online-free | https://image.tmdb.org/t/p/w1280/rVX05xRKS5JhEYQFObCi4lAnZT4
+  - LEGO ONE PIECE | https://hydrahd.ws/watchseries/lego-one-piece-online-free | https://image.tmdb.org/t/p/w1280/hTUHZ337JzqPvRXBQ3lu0GBkOvz
+  - One Piece Film Red | https://hydrahd.ws/movie/170758-watch-one-piece-film-red-2022-online | https://image.tmdb.org/t/p/w1280/ogDXuVkO92GcETZfSofXXemw7gb
+  - One Piece: Baron Omatsuri and the Secret Island | https://hydrahd.ws/movie/185121-watch-one-piece-baron-omatsuri-and-the-secret-island-2005- | https://images.metahub.space/poster/original/tt1018764/img
+DETAILS ok | desc=Monkey D. Luffy, a pirate with rubber powers, forms the Straw Hat crew and sails
+EPISODES ok count=558
+  - ep 1 | /watchseries/one-piece2-online-free/season/1/episode/1
+  - ep 2 | /watchseries/one-piece2-online-free/season/1/episode/2
+  - ep 3 | /watchseries/one-piece2-online-free/season/1/episode/3
+  - ep 4 | /watchseries/one-piece2-online-free/season/1/episode/4
+  - ep 5 | /watchseries/one-piece2-online-free/season/1/episode/5
+[mod] [HydraHD] Parsed IDs imdb=tt0388629 tmdb=37854 url=https://hydrahd.ws/watchseries/one-piece2-online-free/season/1/episode/1
+[mod] [HydraHD] fetch failed (all attempts): https://vidsrc.hair/embed/tv/tt0388629/1/1?autostart=true
+[mod-err] VidSrc resolution failed: No player config found in vidsrc page
+[mod-err] [HydraHD] Videasy worker error: no seed in response
+[mod] [HydraHD] Direct keyless streams=0
+[mod-err] VidFast resolution failed: Could not find encrypted data in vidfast page
+[mod] [HydraHD] Servers resolved servers=12 known=3 generic=3 streams=0
+[mod] [HydraHD] Subs loaded imdb=tt0388629 type=series count=41 eng=yes autoLoad=https://dl.opensubtitles.org/en/download/filead/1957072677 src=osrest,v3,scs
+[mod] [HydraHD] Stream list final streams=0
+[mod] [HydraHD] Return summary streams=0 primary=null subtitle=https://dl.opensubtitles.org/en/download/filead/1957072677 subtitleCount=8 subs=[English,Japanese,Arabic,Turkish,Hungarian,Czech,Bulgarian,Serbian]
+STREAM ok count=0

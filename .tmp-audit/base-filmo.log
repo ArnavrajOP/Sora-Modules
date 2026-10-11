@@ -1,0 +1,23 @@
+== localtest filmo/filmo.js type=video kw=one piece
+SEARCH ok count=1
+  - Pinocchio: Unstrung | https://filmo.to/movies/pinocchio-unstrung | https://filmo.to/img/backdrop/tile/LTOVuuQjDrEikjfDkVNusWhi?
+DETAILS ok | desc=Influenced by a sinister Cricket and created by Geppetto, Pinocchio launches a v
+[mod] No seasons found - Probably a movie
+EPISODES ok count=1
+  - ep 0 | https://filmo.to/movies/pinocchio-unstrung
+[mod] Languages found: [ 'English', 'Deutsch' ]
+[mod] Selected language: English
+[mod] Chips: [
+  {
+    provider: 'VOE',
+    dataP: 'eyJpdiI6IlF5bzJoSnRBMzY0Q1V2L0YyTTcrc1E9PSIsInZhbHVlIjoieXRtNmpacnl6NzFGV1BZYWZQSUl4Y1RNM2Z4L0RKU3JpVzAzK1lJY0N2YjcvK25DdllUTXlkWVRFUnNKcFdyai9KYktWWXJqWVd0Zm1TL3FGaTMrZzhGSmhDaUhqSTJzeEFOOE9RbkVOamk3YlZSQW5PRUZJZHRUcmwyNmx4Y09UTmdDMjlKOWxzTzlsTzdyWnVqOG9wVlRIRW00RWFQK1Jhem12OGk3cy8wPSIsIm1hYyI6IjkxYWU1M2ZjYmJiYjM1ODE3MWQyODIyMjg2NDJhNmMwN2ViYWRjMjY0OTIxMzgyYjczMjc4NjA3YzRhN2FkNzAiLCJ0YWciOiIifQ=='
+  },
+  {
+    provider: 'Byse',
+    dataP: 'eyJpdiI6Ild1VE1XZ01yL3FHRGx4RTRSN0FUZXc9PSIsInZhbHVlIjoiM1JjaUNmbG5kZTZ2MFlvSEhUeUNwUitYNDFNMkVHSkdScW5qcFQ5WThxdEtVQnE3WDlNYTcxWTU4NkV0dmxXMzB0KzRYTnE2d0FlRFBBcmk2M2tZbjJYeVNFOFF3Nit5Q3g5Q0Ftd3I2dXlWS0xpTndjTGRPak9UNmV0c09Zb2t0Mi8zRHNrRnBVZGowcEdXbmJPYXJGY1lOb3VCR0kwTXZQK09wWU0zWWU0PSIsIm1hYyI6IjYxZTE5MTM2YTkxNDU3NTNkZDhiNGNjZDNiOWFhNzM2YjRjZGQ0NzNjYmMyMjExMDdmMGMzYzQyZDVkZDBjODIiLCJ0YWciOiIifQ=='
+  }
+]
+[mod] CSRF Token extracted:  AegJysnKpQORJZEvwzEoCyq7rJhFR3znCrScjCUZ
+[mod] Using cookies: __ddg8_=y5SWm8drzEMCdbE7...
+[mod] Fetch error: ReferenceError: providerName is not defined
+STREAM ok count=0

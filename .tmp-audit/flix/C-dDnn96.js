@@ -1,0 +1,1 @@
+import{B as c,z as t,au as l,u as o}from"./BTW0XSaW.js";function u(e){throw new Error("https://app.dev/e/lifecycle_outside_component")}function a(e){t===null&&u(),l&&t.l!==null?i(t).m.push(e):c(()=>{const n=o(e);if(typeof n=="function")return n})}function f(e){t===null&&u(),a(()=>()=>o(e))}function i(e){var n=e.l;return n.u??={a:[],b:[],m:[]}}export{f as a,a as o};

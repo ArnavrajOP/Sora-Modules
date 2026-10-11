@@ -1,0 +1,10 @@
+[mod] [AniHQ] module script loaded v1.1.0 (REST search + hardening)
+== localtest anihq/anihq.js type=video kw=one piece
+[mod] AniHQ search error: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+SEARCH ok count=1
+  - Error | Error | Error
+DETAILS ok | desc=Error: fetchv2 unavailable
+EPISODES ok count=1
+  - ep Error | Error: fetchv2 unavailable
+[mod] AniHQ fetch error: fetchv2 unavailable
+STREAM ok count=0

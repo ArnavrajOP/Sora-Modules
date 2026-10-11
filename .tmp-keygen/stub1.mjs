@@ -1,0 +1,12 @@
+const _sh={get(t,p){if(p===Symbol.toPrimitive)return()=>"0";if(p==="then")return undefined;return _P;},apply(){return _P;},construct(){return _P;},has(){return true;}};
+const _P=new Proxy(function(){},_sh);
+export const d = _P;
+export const o = _P;
+export const m = _P;
+export const r = _P;
+export const e = _P;
+export const f = _P;
+export const w = _P;
+export const q = _P;
+export const b = _P;
+export default _P;

@@ -1,0 +1,16 @@
+== localtest AnimeUnity/animeunity.js type=video kw=one piece
+SEARCH ok count=30
+  - One Piece | https://www.animeunity.so/info_api/12 | https://static.nexilia.it/mangaforever/2026/02/One-Piece-Elb
+  - One Piece: Oounabara ni Hirake! Dekkai Dekkai Chichi no Yume | https://www.animeunity.so/info_api/7182 | https://s4.anilist.co/file/anilistcdn/media/anime/cover/medi
+  - One Piece: Oounabara ni Hirake! Dekkai Dekkai Chichi no Yume | https://www.animeunity.so/info_api/7183 | https://s4.anilist.co/file/anilistcdn/media/anime/cover/medi
+  - One Piece Film: Red | https://www.animeunity.so/info_api/4123 | https://s4.anilist.co/file/anilistcdn/media/anime/cover/medi
+  - One Piece: Mamore! Saigo no Oobutai | https://www.animeunity.so/info_api/7199 | https://s4.anilist.co/file/anilistcdn/media/anime/cover/medi
+DETAILS ok | desc=Monkey D. Rufy è un giovane pirata sognatore che da piccolo ha inavvertitamente 
+EPISODES ok count=120
+  - ep 1 | https://animeunity.so/anime/12-one-piece/5987
+  - ep 2 | https://animeunity.so/anime/12-one-piece/5988
+  - ep 3 | https://animeunity.so/anime/12-one-piece/5989
+  - ep 4 | https://animeunity.so/anime/12-one-piece/5990
+  - ep 5 | https://animeunity.so/anime/12-one-piece/5991
+[mod] https://au-d1-05.vix-content.net/download/4/2/91/291bf7a2-8a8d-4c43-bdc7-474263feebcb/1080p.mp4?token=tvBRCc-cu8zCzHYmnHlV1w&expires=1791319725&filename=OnePiece_Ep_01_SUB_ITA.mp4
+STREAM ok count=0
