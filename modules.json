@@ -9,7 +9,8 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/yfsp/yfsp.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-15",
+      "note": "Stream API rate-limits intermittently (code 5 访问过量, observed 2026-10-15 ~1h+): v1.0.7 bounds the code-5 backoff (shared 2x8s budget, no counter re-arm) so extractStreamUrl degrades gracefully instead of looping past the 40s harness cap. search/details/episodes healthy; module recovers automatically when the upstream throttle clears."
     },
     {
       "id": "hydrahd",
@@ -21,7 +22,7 @@
       "sampleQuery": "one piece",
       "updated": "2026-10-05",
       "needs_review": true,
-      "note": "all resolvers broken as of 2026-10-11: VapLayer CDN (futurefocusedentrepreneurs.site) Cloudflare-blocks non-browser clients (Attention Required), vidsrc.hair DNS-dead, vidfast markup changed (no encrypted data), videasy API changed (no seed), xpass/moviesapi return empty. Needs fresh resolver research."
+      "note": "2026-10-15 audit: v2.4.0 VapLayer baseline worker emits streams again (futurefocusedentrepreneurs.site player payloads); vidsrc.hair still DNS-dead, videasy API still changed, xpass/moviesapi empty. Playability of the VapLayer/FlixCloud payloads in native players NOT yet verified — keeping needs_review pending that check."
     },
     {
       "id": "hydrahd-shirox",
@@ -57,8 +58,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anidb/anidb.json",
       "sampleQuery": "one piece",
-      "needs_review": true,
-      "note": "anidb.app 503 (maintenance, checked 2026-09); module searches via public AniList, episode lists via AniList count -> AniLibria (fast path) -> Jikan (timeout-guarded) -> MAL HTML, playable HLS for the full catalog via AniLibria (cache.libria.fun, 200 without Referer) + mp4 from anidb.se mirror shows",
+      "note": "Full pipeline verified working 2026-10-15 (audit): search via public AniList (10 hits), episodes, playable HLS via AniLibria (cache.libria.fun m3u8, HTTP 200 without Referer). anidb.app itself still 503 — module works around it.",
       "updated": "2026-10-11"
     },
     {
@@ -101,7 +101,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga/allmanga.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-11"
+      "updated": "2026-10-11",
+      "needs_review": true,
+      "note": "2026-10-15 audit: search + episodes healthy (1187 eps); stream step gated at the upstream edge — api.mkissa.net answers NEED_CAPTCHA to every non-interactive client and api.allanime.day 429s, same wall as the AllManga Manga image step. Keygen build-179 is live; module recovers automatically if the edge stops challenging. Not fixable in-module."
     },
     {
       "id": "allmanga-shirox",
@@ -112,7 +114,8 @@
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga-shirox/allmanga-shirox.json",
       "sampleQuery": "one piece",
       "updated": "2026-10-11",
-      "note": "Shirox build — fetchv2 impersonate:chrome, Cloudflare full browser fingerprint. Use the classic AllAnime module on Sora/Luna."
+      "note": "Shirox build of the AllAnime module (fetchv2 impersonate:chrome). 2026-10-15 audit: same stream-step outcome as the classic build — upstream edge NEED_CAPTCHA/429 gate; use the classic AllAnime module on Sora/Luna.",
+      "needs_review": true
     },
     {
       "id": "allmanga-novels",
@@ -434,8 +437,7 @@
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animeland/animeland.json",
       "sampleQuery": "one piece",
       "updated": "2026-10-05",
-      "needs_review": true,
-      "note": "player backend dead as of 2026-10-11: muembed.php returns empty, returned cache .mp4 URLs 404 — the site itself cannot play; needs upstream recovery"
+      "note": "2026-10-15 audit: revived — full pipeline works (search→episodes→stream); animesource.me cache mp4 answers HTTP 206 to plain clients (playable, no Referer needed). The 2026-10-11 field-report deadness (empty muembed.php) has been superseded."
     },
     {
       "id": "animelib",
@@ -1006,7 +1008,7 @@
       "sampleQuery": "one piece",
       "updated": "2026-09-25",
       "needs_review": true,
-      "note": "search API now behind a Cloudflare JS challenge (passed the harness 2026-10-05, challenge added since); works in-app only after Verify Cloudflare, same pattern as Dessin Anime. Response shape verified unchanged 2026-10-11."
+      "note": "Re-verified 2026-10-15: /api/v1/search answers a Cloudflare challenge page (403 Just a moment) to scripts; works in-app only after Verify Cloudflare (Dessin Anime pattern). Session-cookie flow (XSRF+session) verified unchanged; response shape confirmed 2026-10-11."
     },
     {
       "id": "movix",

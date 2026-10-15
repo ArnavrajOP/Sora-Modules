@@ -51,8 +51,12 @@ async function fetchText(url) {
 async function loadManifest(manifestUrl) {
   let cached = cacheGet(manifestCache, manifestUrl);
   if (cached) return cached;
-  const text = await fetchText(manifestUrl);
-  const json = JSON.parse(text);
+  // Local-first: our own raw URL maps to a file in this repo, so tests run
+  // against the working tree (uncommitted fixes included), not the CDN.
+  const local = localPathFromOurRawUrl(manifestUrl);
+  let json;
+  if (local && fs.existsSync(local)) json = JSON.parse(fs.readFileSync(local, 'utf8'));
+  else json = JSON.parse(await fetchText(manifestUrl));
   cacheSet(manifestCache, manifestUrl, json);
   return json;
 }
@@ -60,9 +64,26 @@ async function loadManifest(manifestUrl) {
 async function loadSource(scriptUrl) {
   let cached = cacheGet(sourceCache, scriptUrl);
   if (cached) return cached;
-  const src = await fetchText(scriptUrl);
+  const local = localPathFromOurRawUrl(scriptUrl);
+  let src;
+  if (local && fs.existsSync(local)) src = fs.readFileSync(local, 'utf8');
+  else src = await fetchText(scriptUrl);
   cacheSet(sourceCache, scriptUrl, src);
   return src;
+}
+
+/* Map a raw.githubusercontent URL of OUR repo to the matching local file
+   (handles both top-level <module>/ and ported eclipse/<module>/ paths).
+   Returns null for URLs that don't belong to this repo. */
+function localPathFromOurRawUrl(url) {
+  const marker = '/xdfkenny/xdfkenny-sora-modules/main/';
+  const u = String(url || '');
+  const i = u.indexOf(marker);
+  if (i < 0) return null;
+  const rel = u.slice(i + marker.length).split('?')[0].split('#')[0];
+  if (!rel || rel.indexOf('..') >= 0) return null;
+  const p = path.join(ROOT, rel);
+  return p.startsWith(ROOT + path.sep) ? p : null;
 }
 
 /* ---------- module sandbox ---------- */
@@ -529,6 +550,10 @@ const server = http.createServer(async (req, res) => {
   res.writeHead(405); res.end('Method Not Allowed');
 });
 
-server.listen(PORT, () => {
-  console.log('xdfkenny status server → http://localhost:' + PORT);
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log('xdfkenny status server → http://localhost:' + PORT);
+  });
+}
+
+module.exports = { server, runMediaTest, withTimeout, fetchText, localPathFromOurRawUrl, normalizeArray };

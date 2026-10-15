@@ -4,7 +4,7 @@ const YFSP_API_EPISODES = 'https://m10.yfsp.tv/v3/video/languagesplaylist';
 const YFSP_API_PLAY = 'https://m10.yfsp.tv/v3/video/play';
 const YFSP_API_SEARCH = 'https://rankv21.yfsp.tv/v3/list/briefsearch';
 const YFSP_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36';
-const YFSP_BUILD = '1.0.5';
+const YFSP_BUILD = '1.0.7';
 
 console.log('[YFSP] script build: v' + YFSP_BUILD + ' (sign=' + (typeof signStreamUrl === 'function' ? 'yes' : 'no') + ')');
 
@@ -182,6 +182,13 @@ async function extractStreamUrl(url) {
         if (episodeKey) modes.push({ label: 'episode', key: episodeKey, a: 0 });
         modes.push({ label: 'movie', key: movieKey, a: 1 });
 
+        // Persistent upstream rate-limiting (code 5) must not loop forever:
+        // resetting the attempt counter on every code 5 kept the loop alive
+        // indefinitely and blew past the harness's 40s stream cap. Bound the
+        // total backoff time (shared across both modes) so the step degrades
+        // gracefully instead of hanging.
+        let code5Backoffs = 0;
+        const MAX_CODE5_BACKOFFS = 2;
         let lastDiag = 'unknown';
         for (const mode of modes) {
             if (!mode.key) continue;
@@ -204,10 +211,15 @@ async function extractStreamUrl(url) {
                 console.log('[YFSP] play answered without sources (' + mode.label + '), body code: ' +
                     JSON.stringify(result.data && result.data.data && result.data.data.code));
                 if (result.ok && result.data && result.data.data && result.data.data.code === 5) {
-                    console.log('[YFSP] rate-limit code 5 on ' + mode.label + '; adding 8s delay');
-                    await timerSafe(8000);
-                    attempt = 1;
-                    continue;
+                    if (code5Backoffs < MAX_CODE5_BACKOFFS) {
+                        code5Backoffs++;
+                        console.log('[YFSP] rate-limit code 5 on ' + mode.label + '; 8s backoff (' + code5Backoffs + '/' + MAX_CODE5_BACKOFFS + ')');
+                        await timerSafe(8000);
+                        continue;
+                    }
+                    lastDiag = mode.label + ': rate-limited (code 5), backoff budget exhausted';
+                    console.log('[YFSP] rate-limit code 5 on ' + mode.label + '; backoff budget exhausted, giving up');
+                    break;
                 }
                 break;
             }
