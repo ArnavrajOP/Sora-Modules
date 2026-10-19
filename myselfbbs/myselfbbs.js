@@ -184,7 +184,14 @@ async function extractStreamUrl(url) {
                     }
                 }
                 if (variant) {
-                    if (variant.indexOf('http') !== 0) variant = streamUrl.substring(0, streamUrl.lastIndexOf('/') + 1) + variant;
+                    const origin = streamUrl.match(/^https?:\/\/[^\/]+/i);
+                    if (variant.indexOf('http') === 0) {
+                        // absolute
+                    } else if (variant.charAt(0) === '/') {
+                        variant = (origin ? origin[0] : MBS_BASE) + variant;
+                    } else {
+                        variant = streamUrl.substring(0, streamUrl.lastIndexOf('/') + 1) + variant;
+                    }
                     streams.push({ title: 'high', streamUrl: variant });
                 }
                 streams.push({ title: 'multi-quality (' + play.src_site + ')', streamUrl: streamUrl });

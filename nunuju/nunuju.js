@@ -24,12 +24,15 @@ function njText(res) {
 }
 
 async function njGet(url) {
-    let res = await njFetch(url);
-    let html = await njText(res);
-    // transient failures (curl-like 000 / empty body) — retry a couple of times
-    for (let i = 0; i < 2 && (!html || html.length < 2000); i++) {
-        res = await njFetch(url);
-        html = await njText(res);
+    // fetchv2 (or its Node-test fallback) may reject on transient errors /
+    // dead CDNs — catch at each attempt and retry a couple of times
+    let html = '';
+    for (let i = 0; i < 3; i++) {
+        try {
+            const res = await njFetch(url);
+            html = await njText(res);
+            if (html && html.length >= 2000) break;
+        } catch (e) { html = ''; }
     }
     return html || '';
 }
@@ -189,19 +192,21 @@ async function extractEpisodes(url) {
         const id = njDetailId(url);
         if (!id) return JSON.stringify([]);
         const html = await njGet(NUNUJU_BASE + '/vod/detail/id/' + id + '.html');
+        let source = html;
         const sids = njSidLinks(html, id);
-        const sid = sids.length ? sids[0] : '1';
-        const playHtml = await njGet(njPlayUrl(id, sid, 1));
-        const source = playHtml.indexOf('id="hl-plays-list"') !== -1 ? playHtml : html;
+        // the detail page normally lists every episode link for the active
+        // source; when it does not, fetch the play page for the first source
+        if (html.indexOf('/vod/play/id/' + id + '/sid/') === -1 && sids.length) {
+            source = await njGet(njPlayUrl(id, sids[0], 1)) || html;
+        }
         const episodes = [];
         const seen = {};
-        const re = /<a[^>]*href="\/vod\/play\/id\/' + id + '\/sid\/(\d+)\/nid\/(\d+)\.html"[^>]*>([\s\S]{0,120}?)<\/a>/g;
+        const re = new RegExp('/vod/play/id/' + id + '/sid/(\\d+)/nid/(\\d+)\\.html', 'g');
         let m;
         while ((m = re.exec(source)) !== null) {
             const epSid = m[1];
             const nid = m[2];
-            const label = njClean(m[3]);
-            const key = epSid + '/' + nid + '/' + label;
+            const key = epSid + '/' + nid;
             if (seen[key]) continue;
             seen[key] = true;
             episodes.push({
@@ -251,26 +256,35 @@ async function extractStreamUrl(url) {
             const player = njPlayerJson(page);
             const streamUrl = player ? njStreamUrlFromPlayer(JSON.stringify(player)) : '';
             if (!streamUrl) continue;
-            // reachability probe: master or media m3u8
-            const probe = await njText(await njFetch(streamUrl));
+            // reachability probe: master or media m3u8 (probe may fail on
+            // dead CDNs — njText handles null, so no rejection can escape)
+            let probe = '';
+            try { probe = await njText(await njFetch(streamUrl)); } catch (e) { probe = ''; }
             if (!njIsM3u8(probe)) continue;
             const streams = [];
             const head = probe.substring(0, 600);
             if (head.indexOf('#EXT-X-STREAM-INF') !== -1) {
-                // master playlist: resolve the last (highest) variant
+                // master playlist: resolve the highest-BANDWIDTH variant
                 const lines = probe.split('\n');
-                let variant = '';
+                let best = { bw: -1, url: '' };
                 for (let li = 0; li < lines.length; li++) {
-                    if (lines[li].indexOf('#EXT-X-STREAM-INF') === 0 && lines[li + 1]) {
-                        variant = lines[li + 1].trim().replace(/["']/g, '');
+                    if (lines[li].indexOf('#EXT-X-STREAM-INF') === 0) {
+                        const bwm = lines[li].match(/BANDWIDTH=(\d+)/);
+                        const bw = bwm ? parseInt(bwm[1], 10) : -1;
+                        const next = (lines[li + 1] || '').trim().replace(/["']/g, '');
+                        if (next && bw > best.bw) best = { bw: bw, url: next };
                     }
                 }
-                if (variant) {
-                    if (variant.indexOf('http') !== 0) {
-                        const base = streamUrl.substring(0, streamUrl.lastIndexOf('/') + 1);
-                        variant = base + variant;
+                if (best.url) {
+                    if (best.url.indexOf('http') === 0) {
+                        // absolute
+                    } else if (best.url.charAt(0) === '/') {
+                        const origin = streamUrl.match(/^https?:\/\/[^\/]+/i);
+                        best.url = (origin ? origin[0] : NUNUJU_BASE) + best.url;
+                    } else {
+                        best.url = streamUrl.substring(0, streamUrl.lastIndexOf('/') + 1) + best.url;
                     }
-                    streams.push({ title: 'high', streamUrl: variant });
+                    streams.push({ title: 'high', streamUrl: best.url });
                 }
                 streams.push({ title: 'multi-quality', streamUrl: streamUrl });
             } else {
