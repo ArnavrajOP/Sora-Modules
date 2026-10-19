@@ -136,6 +136,9 @@ var I18N = {
     'hero.sub': 'Streaming modules for anime, movies, manga and novels.',
     'hero.desc': 'A collection of JavaScript modules for Sora, Luna and Shirox — clean, reusable and focused on reliability.',
     'hero.addAll': 'Add All to Sora', 'hero.browse': 'Browse Library',
+    'f1.t': 'One-tap install', 'f1.d': 'Deep links straight into Sora. No copy-pasting manifest URLs.',
+    'f2.t': 'Search & filters', 'f2.d': 'Filter by category, supported app, language or author in real time.',
+    'f3.t': 'Always up to date', 'f3.d': 'Cards hydrate live from each manifest, so versions and languages reflect reality.',
     'stat.modules': 'Modules', 'stat.authors': 'Authors',
     'cat.all': 'All', 'cat.anime': 'Anime', 'cat.movie': 'Movies',
     'cat.manga': 'Manga', 'cat.novel': 'Novels', 'cat.torrent': 'Torrents',
@@ -154,7 +157,15 @@ var I18N = {
     'empty.t': 'No modules found', 'empty.d': 'Try a different search or filter.',
     'state.loading': 'Loading module index…', 'state.fail': 'Could not load modules.json. Serve over HTTP or check GitHub Pages.',
     'cufiy.badge': 'Cufiy',
-    'cufiy.open': 'Open in Cufiy'
+    'cufiy.open': 'Open in Cufiy',
+    'seo.t': "xdfkenny's Sora Modules Library",
+    'seo.p': "xdfkenny's sora module library is a curated collection of sora modules for streaming anime, movies, manga and novels in Sora, Luna and Shirox. Install the whole sora modules library with one tap, or pick individual modules from the grid.",
+    'seo.q1.t': 'What are sora modules?',
+    'seo.q1.d': 'Sora modules are lightweight JavaScript scrapers that plug streaming sources — anime, movies, manga, novels — into the Sora app (and Luna / Shirox). Every module in this sora module library is written and maintained by xdfkenny and verified before it ships.',
+    'seo.q2.t': 'How do I install sora modules?',
+    'seo.q2.d': 'One tap: use the "Add All to Sora" button (or the Add button on any card), which opens a sora:// deep link that installs the xdfkenny sora modules library straight into the app — no copy-pasting manifest URLs.',
+    'seo.q3.t': 'Is the xdfkenny sora module library free?',
+    'seo.q3.d': 'Yes. The sora modules library is completely free to browse and install. Optional donations help keep the xdfkenny sora module collection verified and alive.'
   },
   es: {
     'nav.home': 'Inicio', 'nav.library': 'Librería',
@@ -162,6 +173,9 @@ var I18N = {
     'hero.sub': 'Módulos de streaming para anime, películas, manga y novelas.',
     'hero.desc': 'Una colección de módulos JavaScript para Sora, Luna y Shirox — limpios, reutilizables y enfocados en fiabilidad.',
     'hero.addAll': 'Agregar todo a Sora', 'hero.browse': 'Explorar librería',
+    'f1.t': 'Instalación con un toque', 'f1.d': 'Enlaces directos a Sora. Sin copiar URLs de manifiestos.',
+    'f2.t': 'Búsqueda y filtros', 'f2.d': 'Filtra por categoría, app compatible, idioma o autor en tiempo real.',
+    'f3.t': 'Siempre actualizado', 'f3.d': 'Las tarjetas se actualizan en vivo desde cada manifiesto, por lo que versiones e idiomas reflejan la realidad.',
     'stat.modules': 'Módulos', 'stat.authors': 'Autores',
     'cat.all': 'Todo', 'cat.anime': 'Anime', 'cat.movie': 'Películas',
     'cat.manga': 'Manga', 'cat.novel': 'Novelas', 'cat.torrent': 'Torrents',
@@ -180,7 +194,15 @@ var I18N = {
     'empty.t': 'Sin resultados', 'empty.d': 'Prueba con otra búsqueda o filtro.',
     'state.loading': 'Cargando índice…', 'state.fail': 'No se pudo cargar modules.json. Sirve por HTTP o revisa GitHub Pages.',
     'cufiy.badge': 'Cufiy',
-    'cufiy.open': 'Abrir en Cufiy'
+    'cufiy.open': 'Abrir en Cufiy',
+    'seo.t': "La librería de módulos Sora de xdfkenny",
+    'seo.p': "La librería de módulos Sora de xdfkenny es una colección curada de módulos sora para anime, películas, manga y novelas en Sora, Luna y Shirox. Instala la librería completa con un toque o elige módulos individuales desde la cuadrícula.",
+    'seo.q1.t': '¿Qué son los módulos sora?',
+    'seo.q1.d': 'Los módulos sora son scripts JavaScript que añaden fuentes de streaming — anime, películas, manga, novelas — a la app Sora (y Luna / Shirox). Cada módulo de esta librería está escrito y mantenido por xdfkenny y verificado antes de publicarse.',
+    'seo.q2.t': '¿Cómo instalo los módulos sora?',
+    'seo.q2.d': 'Con un toque: usa el botón "Agregar todo a Sora" (o el botón Agregar de cada tarjeta), que abre un enlace sora:// e instala la librería de módulos sora de xdfkenny directamente en la app — sin copiar URLs de manifiesto.',
+    'seo.q3.t': '¿La librería de módulos sora de xdfkenny es gratis?',
+    'seo.q3.d': 'Sí. La librería de módulos sora es totalmente gratuita. Las donaciones opcionales ayudan a mantener la colección de módulos xdfkenny verificada y viva.'
   }
 };
 var LANG_LABELS = { en: 'EN', es: 'ES' };
