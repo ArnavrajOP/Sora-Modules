@@ -47,7 +47,8 @@ function njUnescape(s) {
 function njClean(s) {
     if (!s) return '';
     return String(s)
-        .replace(/<[^>]+>/g, ' ')
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/<[^>]*$/, '') // unclosed tag fragment at the end
         .replace(/&nbsp;/g, ' ')
         .replace(/&amp;/g, '&')
         .replace(/&quot;/g, '"')
@@ -61,11 +62,11 @@ function njField(html, label) {
     // where VALUE is plain text or wrapped in <span ...>VALUE</span>
     const idx = html.indexOf(label);
     if (idx === -1) return '';
-    const seg = html.substring(idx + label.length, idx + label.length + 220);
-    const m = seg.match(/^\s*<\/em>\s*(<span[^>]*>)?([\s\S]{0,200})/);
+    const seg = html.substring(idx + label.length, idx + label.length + 400);
+    const m = seg.match(/^\s*<\/em>\s*(<span[^>]*>)?([\s\S]{0,300})/);
     if (!m) return '';
     const val = m[2].split('</span>')[0].split('</li>')[0];
-    return njClean(val);
+    return njClean(val).replace(/[\s/]+$/, '');
 }
 
 function njDetailId(url) {

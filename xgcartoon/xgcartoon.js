@@ -121,15 +121,14 @@ async function extractDetails(url) {
             if (s) airdate = xgClean(s[1]);
         }
         let aliases = '';
-        const tags = html.match(/class="tag[^"]*"[^>]*>\s*([^<]{1,30}?)\s*<\/div>/gi);
-        if (tags) {
-            const parts = [];
-            for (let k = 0; k < tags.length && parts.length < 5; k++) {
-                const t = xgClean(tags[k].replace(/<[^>]+>/g, ''));
-                if (t && parts.indexOf(t) === -1) parts.push(t);
-            }
-            aliases = parts.join(', ');
+        const parts = [];
+        const tagRe = /class="tag[^"]*"[^>]*>\s*([^<]{1,30}?)\s*<\/div>/g;
+        let tm;
+        while ((tm = tagRe.exec(html)) !== null && parts.length < 5) {
+            const t = xgClean(tm[1]);
+            if (t && parts.indexOf(t) === -1) parts.push(t);
         }
+        aliases = parts.join(', ');
         const author = html.match(/class="topic-list-item--author[^"]*"[^>]*>\s*([^<]{0,80})/i) ||
             html.match(/class="detail-info__author[^"]*"[^>]*>\s*([^<]{0,80})/i);
         if (author && xgClean(author[1])) aliases = xgClean(author[1]) + (aliases ? ' · ' + aliases : '');
