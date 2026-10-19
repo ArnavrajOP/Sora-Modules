@@ -1,0 +1,32 @@
+{
+  "sourceName": "XgCartoon",
+  "iconUrl": "https://www.xgcartoon.com/xgct/icon/favicon-32x32.png",
+  "author": {
+    "name": "xdfkenny",
+    "icon": "https://yt3.googleusercontent.com/NHr6Y6qhYIUeoyIBdgeEYArXI1_ebVcLAuf562jPB6WSFTunOwPVuWC90eAG1zmeD6_Wy9_0mTs=s160-c-k-c0x00ffffff-no-rj",
+    "url": "https://github.com/xdfkenny"
+  },
+  "description": "Módulo de 西瓜卡通 XG Cartoon (xgcartoon.com) — películas y series de animación en chino/japonés/cantonés. Búsqueda vía /search?q=, detalles y capítulos en /detail/<slug>, streams HLS resueltos vía API content_pframe_url → CDN bzcdn (variante 1080p + master).",
+  "version": "1.0.0",
+  "language": "Chinese / Japanese / Cantonese",
+  "streamType": "HLS",
+  "quality": "1080p",
+  "baseUrl": "https://www.xgcartoon.com/",
+  "searchBaseUrl": "https://www.xgcartoon.com/search?q=%s",
+  "scriptUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/xgcartoon/xgcartoon.js",
+  "type": "anime/movies",
+  "downloadSupport": true,
+  "combo": false,
+  "asyncJS": true,
+  "streamAsyncJS": false,
+  "softsub": false,
+  "supportsMojuru": false,
+  "supportsDartotsu": false,
+  "supportsSora": true,
+  "supportsShirox": true,
+  "supportsLuna": true,
+  "supportsAnymex": false,
+  "supportsTsumi": false,
+  "supportsHiyoku": false,
+  "supportsEclipse": true
+}

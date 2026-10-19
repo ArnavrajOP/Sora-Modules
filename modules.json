@@ -143,7 +143,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/comix/comix.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-05",
+      "updated": "2026-09-25",
       "note": "Revived 2026-10-05: full contract pipeline (search → details → 1128 chapters → 14-page images) verified live in a real browser context. The CF managed challenge currently flags this egress IP for curl/URLSession, so a blocked run from a given network is IP reputation, not module breakage."
     },
     {
@@ -1896,7 +1896,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/comix/comix.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-05"
+      "updated": "2026-09-28"
     },
     {
       "id": "kaliscan-eclipse",
@@ -2092,6 +2092,36 @@
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/weebcentral/weebcentral.json",
       "sampleQuery": "one piece",
       "updated": "2026-09-28"
+    },
+    {
+      "id": "nunuju",
+      "name": "Nunuju",
+      "iconUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/nunuju/icon.png",
+      "category": "movies/shows/anime",
+      "branch": "main",
+      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/nunuju/nunuju.json",
+      "sampleQuery": "长相思",
+      "updated": "2026-10-19"
+    },
+    {
+      "id": "myselfbbs",
+      "name": "MyselfBBS",
+      "iconUrl": "https://myselfbbs.com/static/favicon.ico",
+      "category": "anime",
+      "branch": "main",
+      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/myselfbbs/myselfbbs.json",
+      "sampleQuery": "鬼滅",
+      "updated": "2026-10-19"
+    },
+    {
+      "id": "xgcartoon",
+      "name": "XgCartoon",
+      "iconUrl": "https://www.xgcartoon.com/xgct/icon/favicon-32x32.png",
+      "category": "anime",
+      "branch": "main",
+      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/xgcartoon/xgcartoon.json",
+      "sampleQuery": "zootopia",
+      "updated": "2026-10-19"
     }
   ]
 }
