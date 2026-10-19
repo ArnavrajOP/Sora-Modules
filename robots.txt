@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sora-modules.xdfke.me/sitemap.xml

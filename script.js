@@ -1006,7 +1006,7 @@ function loadCufiyBridge() {
 
 /* ---------------- init ---------------- */
 
-var LIBRARY_FALLBACK = 'https://xdfkenny.dpdns.org/xdfkenny-sora-modules/modules/?embed=true';
+var LIBRARY_FALLBACK = 'https://sora-modules.xdfke.me/modules/?embed=true';
 
 /* Dynamic library URL (reference optimization): same-origin when served over
  * HTTP, frozen fallback for file:// previews. Keeps our tested

@@ -153,4 +153,4 @@ our own cards.
 
 ## Deploy
 
-Push to `main` → FTP deploy via `.github/workflows/deploy.yml:1` to `htdocs/` + `xdfkecraft.qzz.io/htdocs/`. Frontend fetches `modules.json` locally or falls back to `RAW_REPO/main/modules.json` (`script.js:394`).
+Live site: **`https://sora-modules.xdfke.me`** — a Cloudflare Worker serves this repo's files at the subdomain root, so `robots.txt`, `sitemap.xml`, and `og-image.png` land at the web root. (Legacy FTP workflow `.github/workflows/deploy.yml:1` targets `htdocs/` + `xdfkecraft.qzz.io/htdocs/`.) Frontend fetches `modules.json` locally or falls back to `RAW_REPO/main/modules.json` (`script.js:394`). SEO URLs (canonical, sitemap, og: tags, `LIBRARY_FALLBACK` at `script.js:1009`) must point at `sora-modules.xdfke.me`.

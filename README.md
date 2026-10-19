@@ -27,7 +27,7 @@ A curated, growing collection of JavaScript scraper modules for Sora, Luna and S
 
 Browse and install one-tap from the library site — search by name, category, language or supported app:
 
-- Web library: [xdfkenny.dpdns.org](https://xdfkenny.dpdns.org/xdfkenny-sora-modules/modules/?embed=true) (also deployed to `xdfkecraft.qzz.io/htdocs/`)
+- Web library: [sora-modules.xdfke.me](https://sora-modules.xdfke.me/) (served by a Cloudflare Worker)
 - GitHub: [xdfkenny/xdfkenny-sora-modules](https://github.com/xdfkenny/xdfkenny-sora-modules)
 - Sora deep link: `sora://default_page?url=<library URL>` — one tap installs the whole set
 
