@@ -6,24 +6,40 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    /* Apply the saved/system theme before first paint so dark-mode users
+       never see a light flash. Keep in sync with initTheme() in script.js. */
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t !== 'dark' && t !== 'light') {
+          t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = t;
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute('content', t === 'dark' ? '#0A0F1E' : '#F0F7FF');
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="author" content="xdfkenny" />
   <meta name="keywords" content="sora modules, sora module library, sora modules library, sora module xdfkenny, xdfkenny library, xdfkenny sora modules, luna modules, shirox modules, anime streaming modules, movie modules, manga modules, novel modules, sora scraper modules, sora install modules, streaming modules library" />
   <meta name="theme-color" content="#0D1B2A" />
-  <title>xdfkenny modules — Sora, Luna &amp; Shirox Streaming Modules for Anime, Movies, Manga &amp; Novels</title>
-  <meta name="description" content="xdfkenny's Sora module library — streaming modules for anime, movies, manga and novels for Sora, Luna, and Shirox. One-tap install, regularly verified and updated." />
+  <title>xdfkenny modules - Sora, Luna &amp; Shirox Streaming Modules for Anime, Movies, Manga &amp; Novels</title>
+  <meta name="description" content="xdfkenny's Sora module library: streaming modules for anime, movies, manga and novels for Sora, Luna, and Shirox. One-tap install, regularly verified and updated." />
   <link rel="canonical" href="https://sora-modules.xdfke.me/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="xdfkenny modules" />
-  <meta property="og:title" content="xdfkenny modules — Sora, Luna &amp; Shirox Module Library" />
+  <meta property="og:title" content="xdfkenny modules - Sora, Luna &amp; Shirox Module Library" />
   <meta property="og:description" content="Curated streaming modules for anime, movies, manga and novels for Sora, Luna and Shirox. One-tap install." />
   <meta property="og:url" content="https://sora-modules.xdfke.me/" />
   <meta property="og:image" content="https://sora-modules.xdfke.me/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="xdfkenny modules logo — brand hexagon" />
+  <meta property="og:image:alt" content="xdfkenny modules logo, brand hexagon" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="xdfkenny modules — Sora, Luna &amp; Shirox Module Library" />
+  <meta name="twitter:title" content="xdfkenny modules - Sora, Luna &amp; Shirox Module Library" />
   <meta name="twitter:description" content="Curated streaming modules for anime, movies, manga and novels for Sora, Luna and Shirox. One-tap install." />
   <meta name="twitter:image" content="https://sora-modules.xdfke.me/og-image.png" />
   <script type="application/ld+json">
@@ -34,7 +50,7 @@
         "@type": "WebSite",
         "name": "xdfkenny modules",
         "url": "https://sora-modules.xdfke.me/",
-        "description": "Curated Sora, Luna and Shirox scraper modules for anime, movies, manga and novels — verified, one-tap install.",
+        "description": "Curated Sora, Luna and Shirox scraper modules for anime, movies, manga and novels, verified with one-tap install.",
         "author": { "@type": "Person", "name": "xdfkenny" },
         "publisher": { "@type": "Person", "name": "xdfkenny" },
         "sameAs": [
@@ -44,9 +60,9 @@
       },
       {
         "@type": "WebPage",
-        "name": "xdfkenny modules — Sora Module Library",
+        "name": "xdfkenny modules - Sora Module Library",
         "url": "https://sora-modules.xdfke.me/",
-        "description": "xdfkenny's sora module library — streaming modules for anime, movies, manga and novels for Sora, Luna, and Shirox.",
+        "description": "xdfkenny's sora module library: streaming modules for anime, movies, manga and novels for Sora, Luna, and Shirox.",
         "keywords": "sora modules, sora module library, sora modules library, sora module xdfkenny, xdfkenny library, xdfkenny sora modules, luna modules, shirox modules, anime streaming modules, manga modules, novel modules, sora scraper modules",
         "about": [
           { "@type": "Thing", "name": "Sora streaming modules" },
@@ -62,7 +78,7 @@
             "name": "What are sora modules?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Sora modules are lightweight JavaScript scrapers that plug streaming sources — anime, movies, manga, novels — into the Sora app, and its sister apps Luna and Shirox. Every module in xdfkenny's sora module library is written, verified and maintained before it ships."
+              "text": "Sora modules are lightweight JavaScript scrapers that plug streaming sources (anime, movies, manga, novels) into the Sora app, and its sister apps Luna and Shirox. Every module in xdfkenny's sora module library is written, verified and maintained before it ships."
             }
           },
           {
@@ -70,7 +86,7 @@
             "name": "How do I install sora modules?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "One tap: press the \"Add All to Sora\" button, or the Add button on any module card. It opens a sora:// deep link that installs the xdfkenny sora modules library directly into the app — no copy-pasting manifest URLs."
+              "text": "One tap: press the \"Add All to Sora\" button, or the Add button on any module card. It opens a sora:// deep link that installs the xdfkenny sora modules library directly into the app. No copy-pasting manifest URLs."
             }
           },
           {
@@ -78,7 +94,7 @@
             "name": "Does the xdfkenny sora module library work in Luna and Shirox?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. The sora modules library covers Sora, Luna and Shirox — each card in the library shows which apps it supports, so you can filter by your app."
+              "text": "Yes. The sora modules library covers Sora, Luna and Shirox. Each card in the library shows which apps it supports, so you can filter by your app."
             }
           },
           {
@@ -97,12 +113,13 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23E1F5FE'/%3E%3Cpath d='M16 5l9.5 5.5v11L16 27l-9.5-5.5v-11z' fill='%237EC8E3'/%3E%3Cpath d='M16 9.5L22 13v6l-6 3.5-6-3.5v-6z' fill='%23FFFFFF' opacity='.9'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="preconnect" href="https://code.iconify.design" />
+  <link rel="preconnect" href="https://api.iconify.design" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
   <link rel="preconnect" href="https://raw.githubusercontent.com" />
   <link rel="preconnect" href="https://img.passportindex.org" />
-  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
-  <link rel="stylesheet" href="styles.css?v=20260930b" />
+  <script defer src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  <link rel="stylesheet" href="styles.css?v=20261020a" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -157,7 +174,7 @@
           <p class="eyebrow" data-i18n="hero.eyebrow">Soft Cryo Modules</p>
           <h1 class="hero-title">xdfkenny <span>modules</span></h1>
           <p class="hero-sub" data-i18n="hero.sub">Streaming modules for anime, movies, manga and novels.</p>
-          <p class="hero-desc" data-i18n="hero.desc">A collection of JavaScript modules for Sora, Luna and Shirox — clean, reusable and focused on reliability.</p>
+          <p class="hero-desc" data-i18n="hero.desc">A collection of JavaScript modules for Sora, Luna and Shirox. Clean, reusable and focused on reliability.</p>
           <div class="hero-cta">
             <a class="btn btn-primary" id="btnHeroAddSora" href="sora://default_page?url=https%3A%2F%2Fsora-modules.xdfke.me%2Fmodules%2F%3Fembed%3Dtrue">
               <span class="material-symbols-outlined icon-sm">add_link</span> <span data-i18n="hero.addAll">Add All to Sora</span>
@@ -194,29 +211,35 @@
         </div>
       </section>
 
-      <section class="section" aria-label="About the xdfkenny sora modules library">
+      <section class="section section-faq" aria-label="Frequently asked questions">
         <div class="section-head">
           <div class="section-head-main">
             <h2 data-i18n="seo.t">xdfkenny's Sora Modules Library</h2>
             <p class="section-intro" data-i18n="seo.p">xdfkenny's sora module library is a curated collection of sora modules for streaming anime, movies, manga and novels in Sora, Luna and Shirox. Install the whole sora modules library with one tap, or pick individual modules from the grid.</p>
           </div>
         </div>
-        <div class="features">
-          <div class="feature">
-            <span class="material-symbols-outlined">quiz</span>
-            <h3 data-i18n="seo.q1.t">What are sora modules?</h3>
-            <p data-i18n="seo.q1.d">Sora modules are lightweight JavaScript scrapers that plug streaming sources — anime, movies, manga, novels — into the Sora app (and Luna / Shirox). Every module in this sora module library is written and maintained by xdfkenny and verified before it ships.</p>
-          </div>
-          <div class="feature">
-            <span class="material-symbols-outlined">gesture</span>
-            <h3 data-i18n="seo.q2.t">How do I install sora modules?</h3>
-            <p data-i18n="seo.q2.d">One tap: use the "Add All to Sora" button (or the Add button on any card), which opens a sora:// deep link that installs the xdfkenny sora modules library straight into the app — no copy-pasting manifest URLs.</p>
-          </div>
-          <div class="feature">
-            <span class="material-symbols-outlined">paid</span>
-            <h3 data-i18n="seo.q3.t">Is the xdfkenny sora module library free?</h3>
-            <p data-i18n="seo.q3.d">Yes. The sora modules library is completely free to browse and install. Optional donations help keep the xdfkenny sora module collection verified and alive.</p>
-          </div>
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary class="faq-q">
+              <span data-i18n="seo.q1.t">What are sora modules?</span>
+              <span class="material-symbols-outlined faq-chevron" aria-hidden="true">expand_more</span>
+            </summary>
+            <div class="faq-a"><p data-i18n="seo.q1.d">Sora modules are lightweight JavaScript scrapers that plug streaming sources (anime, movies, manga, novels) into the Sora app (and Luna / Shirox). Every module in this sora module library is written and maintained by xdfkenny and verified before it ships.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q">
+              <span data-i18n="seo.q2.t">How do I install sora modules?</span>
+              <span class="material-symbols-outlined faq-chevron" aria-hidden="true">expand_more</span>
+            </summary>
+            <div class="faq-a"><p data-i18n="seo.q2.d">One tap: use the "Add All to Sora" button (or the Add button on any card), which opens a sora:// deep link that installs the xdfkenny sora modules library straight into the app. No copy-pasting manifest URLs.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q">
+              <span data-i18n="seo.q3.t">Is the xdfkenny sora module library free?</span>
+              <span class="material-symbols-outlined faq-chevron" aria-hidden="true">expand_more</span>
+            </summary>
+            <div class="faq-a"><p data-i18n="seo.q3.d">Yes. The sora modules library is completely free to browse and install. Optional donations help keep the xdfkenny sora module collection verified and alive.</p></div>
+          </details>
         </div>
       </section>
     </div>
@@ -244,13 +267,13 @@
           </div>
 
           <div class="filter-pills-row">
-            <div class="filter-group chips" id="categoryFilters" role="tablist" aria-label="Category">
-              <button type="button" class="filter-pill active" data-category="all"><iconify-icon icon="material-symbols:apps-rounded" aria-hidden="true"></iconify-icon> <span data-i18n="cat.all">All</span></button>
-              <button type="button" class="filter-pill" data-category="anime"><iconify-icon icon="mdi:television-play" aria-hidden="true"></iconify-icon> <span data-i18n="cat.anime">Anime</span></button>
-              <button type="button" class="filter-pill" data-category="movie"><iconify-icon icon="mdi:movie-open-outline" aria-hidden="true"></iconify-icon> <span data-i18n="cat.movie">Movies</span></button>
-              <button type="button" class="filter-pill" data-category="manga"><iconify-icon icon="mdi:book-open-page-variant-outline" aria-hidden="true"></iconify-icon> <span data-i18n="cat.manga">Manga</span></button>
-              <button type="button" class="filter-pill" data-category="novel"><iconify-icon icon="mdi:script-text-outline" aria-hidden="true"></iconify-icon> <span data-i18n="cat.novel">Novels</span></button>
-              <button type="button" class="filter-pill" data-category="torrent"><iconify-icon icon="mdi:magnet" aria-hidden="true"></iconify-icon> <span data-i18n="cat.torrent">Torrents</span></button>
+            <div class="filter-group chips" id="categoryFilters" role="group" aria-label="Category">
+              <button type="button" class="filter-pill active" data-category="all" aria-pressed="true"><iconify-icon icon="material-symbols:apps-rounded" aria-hidden="true"></iconify-icon> <span data-i18n="cat.all">All</span></button>
+              <button type="button" class="filter-pill" data-category="anime" aria-pressed="false"><iconify-icon icon="mdi:television-play" aria-hidden="true"></iconify-icon> <span data-i18n="cat.anime">Anime</span></button>
+              <button type="button" class="filter-pill" data-category="movie" aria-pressed="false"><iconify-icon icon="mdi:movie-open-outline" aria-hidden="true"></iconify-icon> <span data-i18n="cat.movie">Movies</span></button>
+              <button type="button" class="filter-pill" data-category="manga" aria-pressed="false"><iconify-icon icon="mdi:book-open-page-variant-outline" aria-hidden="true"></iconify-icon> <span data-i18n="cat.manga">Manga</span></button>
+              <button type="button" class="filter-pill" data-category="novel" aria-pressed="false"><iconify-icon icon="mdi:script-text-outline" aria-hidden="true"></iconify-icon> <span data-i18n="cat.novel">Novels</span></button>
+              <button type="button" class="filter-pill" data-category="torrent" aria-pressed="false"><iconify-icon icon="mdi:magnet" aria-hidden="true"></iconify-icon> <span data-i18n="cat.torrent">Torrents</span></button>
             </div>
 
             <div class="filter-group filter-group-apps chips" id="appFilters" aria-label="App">
@@ -298,6 +321,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"><span class="material-symbols-outlined icon-sm">check_circle</span><span id="toastText"></span></div>
 
-  <script src="script.js?v=20260930b" defer></script>
+  <script src="script.js?v=20261020a" defer></script>
 </body>
 </html>

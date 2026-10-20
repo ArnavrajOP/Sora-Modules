@@ -109,6 +109,8 @@ function applyTheme(th) {
   document.documentElement.dataset.theme = th;
   if (themeIcon) themeIcon.textContent = th === 'dark' ? 'light_mode' : 'dark_mode';
   if (themeToggle) themeToggle.setAttribute('aria-label', th === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  var meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', th === 'dark' ? '#0A0F1E' : '#F0F7FF');
 }
 
 function initTheme() {
@@ -134,7 +136,7 @@ var I18N = {
     'nav.home': 'Home', 'nav.library': 'Library',
     'hero.eyebrow': 'Soft Cryo Modules',
     'hero.sub': 'Streaming modules for anime, movies, manga and novels.',
-    'hero.desc': 'A collection of JavaScript modules for Sora, Luna and Shirox — clean, reusable and focused on reliability.',
+    'hero.desc': 'A collection of JavaScript modules for Sora, Luna and Shirox. Clean, reusable and focused on reliability.',
     'hero.addAll': 'Add All to Sora', 'hero.browse': 'Browse Library',
     'f1.t': 'One-tap install', 'f1.d': 'Deep links straight into Sora. No copy-pasting manifest URLs.',
     'f2.t': 'Search & filters', 'f2.d': 'Filter by category, supported app, language or author in real time.',
@@ -161,9 +163,9 @@ var I18N = {
     'seo.t': "xdfkenny's Sora Modules Library",
     'seo.p': "xdfkenny's sora module library is a curated collection of sora modules for streaming anime, movies, manga and novels in Sora, Luna and Shirox. Install the whole sora modules library with one tap, or pick individual modules from the grid.",
     'seo.q1.t': 'What are sora modules?',
-    'seo.q1.d': 'Sora modules are lightweight JavaScript scrapers that plug streaming sources — anime, movies, manga, novels — into the Sora app (and Luna / Shirox). Every module in this sora module library is written and maintained by xdfkenny and verified before it ships.',
+    'seo.q1.d': 'Sora modules are lightweight JavaScript scrapers that plug streaming sources (anime, movies, manga, novels) into the Sora app (and Luna / Shirox). Every module in this sora module library is written and maintained by xdfkenny and verified before it ships.',
     'seo.q2.t': 'How do I install sora modules?',
-    'seo.q2.d': 'One tap: use the "Add All to Sora" button (or the Add button on any card), which opens a sora:// deep link that installs the xdfkenny sora modules library straight into the app — no copy-pasting manifest URLs.',
+    'seo.q2.d': 'One tap: use the "Add All to Sora" button (or the Add button on any card), which opens a sora:// deep link that installs the xdfkenny sora modules library straight into the app. No copy-pasting manifest URLs.',
     'seo.q3.t': 'Is the xdfkenny sora module library free?',
     'seo.q3.d': 'Yes. The sora modules library is completely free to browse and install. Optional donations help keep the xdfkenny sora module collection verified and alive.'
   },
@@ -171,7 +173,7 @@ var I18N = {
     'nav.home': 'Inicio', 'nav.library': 'Librería',
     'hero.eyebrow': 'Módulos Soft Cryo',
     'hero.sub': 'Módulos de streaming para anime, películas, manga y novelas.',
-    'hero.desc': 'Una colección de módulos JavaScript para Sora, Luna y Shirox — limpios, reutilizables y enfocados en fiabilidad.',
+    'hero.desc': 'Una colección de módulos JavaScript para Sora, Luna y Shirox. Limpios, reutilizables y enfocados en fiabilidad.',
     'hero.addAll': 'Agregar todo a Sora', 'hero.browse': 'Explorar librería',
     'f1.t': 'Instalación con un toque', 'f1.d': 'Enlaces directos a Sora. Sin copiar URLs de manifiestos.',
     'f2.t': 'Búsqueda y filtros', 'f2.d': 'Filtra por categoría, app compatible, idioma o autor en tiempo real.',
@@ -198,9 +200,9 @@ var I18N = {
     'seo.t': "La librería de módulos Sora de xdfkenny",
     'seo.p': "La librería de módulos Sora de xdfkenny es una colección curada de módulos sora para anime, películas, manga y novelas en Sora, Luna y Shirox. Instala la librería completa con un toque o elige módulos individuales desde la cuadrícula.",
     'seo.q1.t': '¿Qué son los módulos sora?',
-    'seo.q1.d': 'Los módulos sora son scripts JavaScript que añaden fuentes de streaming — anime, películas, manga, novelas — a la app Sora (y Luna / Shirox). Cada módulo de esta librería está escrito y mantenido por xdfkenny y verificado antes de publicarse.',
+    'seo.q1.d': 'Los módulos sora son scripts JavaScript que añaden fuentes de streaming (anime, películas, manga, novelas) a la app Sora (y Luna / Shirox). Cada módulo de esta librería está escrito y mantenido por xdfkenny y verificado antes de publicarse.',
     'seo.q2.t': '¿Cómo instalo los módulos sora?',
-    'seo.q2.d': 'Con un toque: usa el botón "Agregar todo a Sora" (o el botón Agregar de cada tarjeta), que abre un enlace sora:// e instala la librería de módulos sora de xdfkenny directamente en la app — sin copiar URLs de manifiesto.',
+    'seo.q2.d': 'Con un toque: usa el botón "Agregar todo a Sora" (o el botón Agregar de cada tarjeta), que abre un enlace sora:// e instala la librería de módulos sora de xdfkenny directamente en la app, sin copiar URLs de manifiesto.',
     'seo.q3.t': '¿La librería de módulos sora de xdfkenny es gratis?',
     'seo.q3.d': 'Sí. La librería de módulos sora es totalmente gratuita. Las donaciones opcionales ayudan a mantener la colección de módulos xdfkenny verificada y viva.'
   }
@@ -544,7 +546,7 @@ function parseLanguage(raw) {
       if (low.indexOf(L.names[i]) !== -1) { found.push(L); break; }
     }
   });
-  if (!found.length) return { label: s || '—', codes: [], multi: true };
+  if (!found.length) return { label: s || '-', codes: [], multi: true };
   var label = found.map(function (L) { return L.label; }).join(' / ');
   if (qual) label += ' (' + qual + ')';
   var codes = found.map(function (L) { return L.code; })
@@ -797,8 +799,12 @@ function initControls() {
     cats.addEventListener('click', function (ev) {
       var b = ev.target.closest('[data-category]');
       if (!b) return;
-      cats.querySelectorAll('.filter-pill').forEach(function (x) { x.classList.remove('active'); });
+      cats.querySelectorAll('.filter-pill').forEach(function (x) {
+        x.classList.remove('active');
+        x.setAttribute('aria-pressed', 'false');
+      });
       b.classList.add('active');
+      b.setAttribute('aria-pressed', 'true');
       state.cat = b.dataset.category || 'all';
       renderGrid();
     });
@@ -1054,15 +1060,19 @@ function initDonateModal() {
   var closeBtn = $('donateClose');
   var backdrop = $('donateBackdrop');
   function isMobile() { return window.matchMedia('(max-width: 768px)').matches; }
+  var lastFocus = null;
   function dismiss() {
     modal.style.display = 'none';
     document.body.style.overflow = '';
+    if (lastFocus && lastFocus.focus) { lastFocus.focus(); lastFocus = null; }
   }
   function show() {
     // only show on landing page, not library (avoids accidental clicks on library links)
     if (!isMobile() || isLibraryRoute()) return;
+    lastFocus = document.activeElement;
     modal.style.display = '';
     document.body.style.overflow = 'hidden';
+    if (closeBtn) closeBtn.focus();
   }
   function onDismiss(e) {
     // only dismiss when tapping the backdrop or modal itself, NOT the box content
