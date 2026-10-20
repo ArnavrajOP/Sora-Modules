@@ -9,7 +9,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/yfsp/yfsp.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-15",
+      "updated": "2026-10-20",
       "note": "Stream API rate-limits intermittently (code 5 访问过量, observed 2026-10-15 ~1h+): v1.0.7 bounds the code-5 backoff (shared 2x8s budget, no counter re-arm) so extractStreamUrl degrades gracefully instead of looping past the 40s harness cap. search/details/episodes healthy; module recovers automatically when the upstream throttle clears."
     },
     {
@@ -314,7 +314,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/123anime/123anime.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-11"
+      "updated": "2026-10-20"
     },
     {
       "id": "AnimeUnity",
@@ -489,7 +489,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/aniwave/aniwave.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "blackCloverPace",
@@ -499,7 +499,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/blackCloverPace/blackCloverPace.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "borucut",
@@ -509,7 +509,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/borucut/borucut.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "chireads",
@@ -529,7 +529,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/concentratedBleach/concentratedBleach.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "dbzRecut",
@@ -539,7 +539,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/dbzRecut/dbzRecut.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "dragonballrecut",
@@ -549,7 +549,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/dragonballrecut/dragonballrecut.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "gidonline",
@@ -631,7 +631,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/onigashima/onigashima.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "otaku-streamers",
@@ -683,7 +683,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/streamcloud/streamcloud.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "toontales",
@@ -795,7 +795,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anikoto/anikoto.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "animeheaven",
@@ -855,7 +855,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/arabictoons/arabictoons.json",
       "sampleQuery": "one",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "asia2tv",
@@ -1028,7 +1028,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/narucannon/narucannon.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "novelbuddy",
@@ -1038,7 +1038,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/novelbuddy/novelbuddy.json",
       "sampleQuery": "solo leveling",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "noveldot",
@@ -1050,7 +1050,7 @@
       "sampleQuery": "leveling",
       "needs_review": true,
       "note": "chapter listing logic is correct but noveldot.com serves each /chapters page very slowly and inconsistently (~10-50s each); a 500-chapter novel needs 6 parallel page fetches that exceed the 25s harness step cap. Works on shorter novels; slow upstream, not a module bug.",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "novelfire",
@@ -1060,7 +1060,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/novelfire/novelfire.json",
       "sampleQuery": "solo leveling",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "onepace",
@@ -1070,7 +1070,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/onepace/onepace.json",
       "sampleQuery": "romance dawn",
-      "updated": "2026-10-02"
+      "updated": "2026-10-20"
     },
     {
       "id": "otakutsu",
@@ -1112,7 +1112,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/rebuildOfNaruto/rebuildOfNaruto.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "ristoanime",
@@ -1122,7 +1122,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/ristoanime/ristoanime.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "rumanhua1",
@@ -1165,7 +1165,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/spacepowerfans/spacepowerfans.json",
       "sampleQuery": "dragon",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "topcinema",
@@ -1175,7 +1175,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/topcinema/topcinema.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "turkish123",
@@ -1195,7 +1195,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/uaserial/uaserial.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "xiaoxintv",
@@ -1217,7 +1217,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/yuYuHakushoPace/yuYuHakushoPace.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "sourceName": "VidLink",
@@ -1278,7 +1278,7 @@
       "name": "RGShows",
       "category": "shows/movies",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/rgshows/rgshows.json",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "sourceName": "111movies",
@@ -1305,7 +1305,7 @@
       "name": "111movies",
       "category": "shows/movies",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/111movies/111movies.json",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "sourceName": "Vidrock",
@@ -1332,7 +1332,7 @@
       "name": "Vidrock",
       "category": "shows/movies",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/vidrock/vidrock.json",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "sourceName": "VidAPI",
@@ -1358,7 +1358,7 @@
       "name": "VidAPI",
       "category": "shows/movies",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/vidapi/vidapi.json",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "sourceName": "Anify",
@@ -1384,7 +1384,7 @@
       "name": "Anify",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anify/anify.json",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "sourceName": "HDRezka",
@@ -1502,7 +1502,7 @@
       "name": "Anime-Portal",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animeportal/animeportal.json",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "sourceName": "Anizone",
@@ -1529,7 +1529,7 @@
       "name": "Anizone",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anizone/anizone.json",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "sourceName": "Kuudere",
@@ -1556,7 +1556,7 @@
       "name": "Re:ANIME",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/kuudere/kuudere.json",
-      "updated": "2026-10-11",
+      "updated": "2026-10-20",
       "note": "kuudere.to rebranded to reanime.to (Oct 2026). Search/details/episodes via SSR; streams open the flixcloud site player (native HLS cannot decode its XOR-encoded playlists)."
     },
     {
@@ -1622,7 +1622,7 @@
       "name": "One Piece Film Red: AmaLee Score",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/onePieceFilmRedAmaLeeScore/onePieceFilmRedAmaLeeScore.json",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "sourceName": "One Piece Treasure Edition",
@@ -1647,7 +1647,7 @@
       "name": "One Piece Treasure Edition",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/onePieceTreasureEdition/onePieceTreasureEdition.json",
-      "updated": "2026-10-11",
+      "updated": "2026-10-20",
       "needs_review": true,
       "note": "pixeldrain list VR7e6o5y (One Piece Treasure Edition) deleted upstream (checked 2026-10); module hardened against the crash, awaiting a new list id"
     },
@@ -2022,7 +2022,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/novelbuddy/novelbuddy.json",
       "sampleQuery": "solo leveling",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "noveldot-eclipse",
@@ -2034,7 +2034,7 @@
       "sampleQuery": "leveling",
       "needs_review": true,
       "note": "chapter listing logic is correct but noveldot.com serves each /chapters page very slowly and inconsistently (~10-50s each); a 500-chapter novel needs 6 parallel page fetches that exceed the 25s harness step cap. Works on shorter novels; slow upstream, not a module bug.",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "novelfire-eclipse",
@@ -2044,7 +2044,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/novelfire/novelfire.json",
       "sampleQuery": "solo leveling",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "readnovelfull-eclipse",
