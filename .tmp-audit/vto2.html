@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8">
+    <title>
+      VidSrc - Next generation Video Streaming API
+    </title>
+    <meta name="description" content="vidsrc - Movie streaming API. Get movie stream URL or embed code with our movie streams library. Get movie stream by IMDB or TMDB ID. The infinite web of movies. - 2embed, vidsrc, video embed api">
+    <meta name="keywords" content="2embed, vidsrc, video embed api">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="canonical" href="https://vidsrc.to/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Ubuntu+Mono&amp;display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/4.0.0/css/tooltipster.bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons%401.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper%409/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="assets/web/min/alla1f9.css?v=64f9e529">
+    
+    
+    <link rel="icon" type="image/png" href="/imgs/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/imgs/favicon.svg" />
+    <link rel="shortcut icon" href="/imgs/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/imgs/apple-touch-icon.png" />
+    <link rel="manifest" href="/imgs/site.webmanifest" />
+    
+    
+    
+    <link rel="alternate" href="https://vidsrc.to/" hreflang="en" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content="VidSrc - Next generation Video Streaming API" />
+<meta property="og:description" content="vidsrc - Movie streaming API. Get movie stream URL or embed code with our movie streams library. Get movie stream by IMDB or TMDB ID. The infinite web of movies. - 2embed, vidsrc, video embed api" />
+<meta property="og:url" content="https://vidsrc.to/" />
+<meta property="og:site_name" content="Vidsrc" />
+<meta property="article:modified_time" content="2024-12-07T18:12:09+00:00" />
+<meta property="og:image" content="/assets/web/images/logo6654.png?v1" />
+<meta name="twitter:card" content="summary_large_image" />
+    
+    
+    
+    <meta name="robots" content="index, follow">
+    <meta name="revisit-after" content="1 days">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "vidsrc",
+    "url": "https://vidsrc.to/",
+    "logo": "/assets/web/images/logo6654.png?v1",
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-800-934-9344",
+        "contactType": "customer service",
+        "areaServed": "US",
+        "availableLanguage": [
+        "English", 
+        "Russian", 
+        "Japanese",
+        "Spanish",
+        "French",
+        "German",
+        "Chinese",
+        "Arabic",
+        "Hindi",
+        "Portuguese",
+        "Bengali",
+        "Punjabi",
+        "Urdu",
+        "Italian",
+        "Dutch",
+        "Korean",
+        "Turkish",
+        "Tamil",
+        "Telugu",
+        "Marathi",
+        "Malayalam",
+        "Kannada",
+        "Gujarati",
+        "Swahili",
+        "Finnish",
+        "Danish",
+        "Norwegian",
+        "Swedish",
+        "Polish",
+        "Ukrainian",
+        "Czech",
+        "Slovak",
+        "Hungarian",
+        "Romanian",
+        "Bulgarian",
+        "Greek",
+        "Hebrew",
+        "Persian",
+        "Indonesian",
+        "Malay",
+        "Thai",
+        "Lao",
+        "Burmese",
+        "Khmer",
+        "Tagalog",
+        "Vietnamese",
+        "Nepali",
+        "Sinhala",
+        "Maldivian",
+        "Kazakh",
+        "Uzbek",
+        "Turkmen",
+        "Kyrgyz",
+        "Pashto",
+        "Kurdish"
+    ]
+    },
+    "email": "support@vidsrc.to",
+    "address": {
+        "@type": "PostalAddress",
+    "streetAddress": "2200 Rhapsody Street",
+    "addressLocality": "Ocala",
+    "addressRegion": "Florida",
+    "postalCode": "34471",
+    "addressCountry": "USA"
+    },
+    "sameAs": [
+        "https://www.facebook.com/vidsrcofficialsite",
+        "https://www.instagram.com/vidsrcofficialsite",
+        "https://twitter.com/vidsrc"
+    ],
+    "foundingDate": "2024-01-01",
+    "founder": {
+        "@type": "Person",
+        "name": "Neymar narman"
+    },
+    "description": "vidsrc - Movie streaming API. Get movie stream URL or embed code with our movie streams library. Get movie stream by IMDB or TMDB ID. The infinite web of movies. - 2embed, vidsrc, video embed api"
+}
+</script>
+    
+    
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "What is VidSrc?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "VidSrc is a movie streaming API service that provides access to movie stream URLs and embed codes. It allows developers to fetch movie streams using IMDB or TMDB IDs, making it easy to integrate movie content into applications."
+    }
+  }, {
+    "@type": "Question",
+    "name": "How does VidSrc API work?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "VidSrc API works by accepting IMDB or TMDB IDs as input and returning corresponding movie stream URLs or embed codes. This allows developers to easily integrate streaming functionality into their applications."
+    }
+  }, {
+    "@type": "Question",
+    "name": "What identification methods does VidSrc support?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "VidSrc supports both IMDB and TMDB IDs for movie identification, providing flexibility in how developers can query and access movie streams through the API."
+    }
+  }, {
+    "@type": "Question",
+    "name": "What formats does VidSrc provide?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "VidSrc provides both direct stream URLs and embed codes, allowing developers to choose the integration method that best suits their needs."
+    }
+  }, {
+    "@type": "Question",
+    "name": "What is VidSrc's movie library like?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "VidSrc offers an extensive movie streams library, described as 'infinite,' suggesting a comprehensive collection of movies available through their API service."
+    }
+  }, {
+    "@type": "Question",
+    "name": "Can I integrate VidSrc into my application?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, VidSrc is designed for integration into applications through its API. Developers can use the provided stream URLs or embed codes to incorporate movie streaming functionality."
+    }
+  }, {
+    "@type": "Question",
+    "name": "What are the main features of VidSrc?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "VidSrc's main features include movie stream URL generation, embed code provision, IMDB/TMDB ID support, and access to an extensive movie library through a developer-friendly API."
+    }
+  }, {
+    "@type": "Question",
+    "name": "How can I access movies through VidSrc?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Movies can be accessed through VidSrc by using either IMDB or TMDB IDs with the API, which then returns the appropriate stream URL or embed code for integration."
+    }
+  }, {
+    "@type": "Question",
+    "name": "What makes VidSrc useful for developers?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "VidSrc is useful for developers because it simplifies the process of adding movie streaming capabilities to applications through its straightforward API and support for multiple identification systems."
+    }
+  }, {
+    "@type": "Question",
+    "name": "Is VidSrc suitable for streaming applications?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, VidSrc is specifically designed for streaming applications, providing the necessary tools and API endpoints to integrate movie streaming functionality effectively."
+    }
+  }]
+}
+</script>
+    
+  </head>
+  
+  <body>
+      
+    <div class="body-wrapper">
+      <header class="d-flex align-items-center">
+        <div class="container">
+          <div class="wrapper d-flex align-items-center justify-content-between">
+            <a href="/" class="logo">
+              <img src="assets/web/images/logo6654.png?v1">
+            </a>
+            <ul class="d-none smooth-scroll d-sm-flex">
+              
+              <li>
+                <a href="#features">
+                  Features
+                </a>
+              </li>
+              <li>
+                <a href="#faqs">
+                  FAQs
+                </a>
+              </li>
+              <li>
+                <a href="#api">
+                  API
+                </a>
+              </li>
+              <li class="d-none d-md-block">
+                <a href="#" data-toggle="modal" data-target="#contact">
+                  Contact
+                </a>
+              </li>
+            </ul>
+            <a class="btn rounded-pill shadow-md btn-primary" href="#api">
+              Start Now
+            </a>
+          </div>
+        </div>
+      </header>
+      <main class="">
+        <div class="container">
+          <section class="hero text-center d-flex align-items-center flex-column">
+            <h1 class="major-color">
+              <span>
+                Next generation
+              </span>
+              <br>
+              <span class=" gardient-primary">
+                Video Streaming API
+              </span>
+            </h1>
+            <p class="mt-3 sub-text">
+              We offer free streaming links for movies and episodes that can be
+              <br>
+              effortlessly integrated into your website through our embed links, API
+            </p>
+          </section>
+        </div>
+        <section id="demo-player">
+          <div class="container">
+            <div class="wrapper">
+              <ul class="nav my-4" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="Movie-tab" data-toggle="tab" data-target="#Movie"
+                  type="button" role="tab" aria-controls="Movie" aria-selected="true">
+                    Movie Player
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="Series-tab" data-toggle="tab" data-target="#Series"
+                  type="button" role="tab" aria-controls="Series" aria-selected="false">
+                    Series Player
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content mt-3">
+                <div class="tab-pane active" id="Movie" role="tabpanel" aria-labelledby="Movie-tab">
+                  <form class="d-flex movie justify-content-center demo">
+                    <input type="hidden" name="type" value="movie">
+                    <div class="form-group">
+                      <input type="text" class="form-control text-center form-control-lg" placeholder="IMDb or TMDB"
+                      name="id" data-default="385687">
+                    </div>
+                  </form>
+                </div>
+                <div class="tab-pane " id="Series" role="tabpanel" aria-labelledby="Series-tab">
+                  <form class="d-flex series justify-content-center demo">
+                    <input type="hidden" name="type" value="tv">
+                    <div class="form-group d-flex">
+                      <input type="text" class="form-control text-center form-control-lg" placeholder="IMDb or TMDB"
+                      name="id" data-default="tt0944947">
+                      <input type="number" min="0" class="form-control text-center form-control-lg"
+                      placeholder="SS number" name="season">
+                      <input type="number" min="0" class="form-control text-center form-control-lg"
+                      placeholder="EP number" name="episode">
+                    </div>
+                  </form>
+                </div>
+                <input type="text" class="form-control text-center" id="link-demo">
+                <div class="player-main mt-3">
+                  <div id="player">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section-padding" id="features">
+          <div class="container">
+            <h2 class="section-title">
+              <span class="major-color">
+                Deliver an optimized
+              </span>
+              <span class="gardient-primary">
+                User Experience
+              </span>
+            </h2>
+            <p class="sub-text my-3">
+              There are plenty of essential features optimized to provide the best user
+              experience.
+            </p>
+            <div class="row mt-5">
+              <div class="col shadow-md col-12 col-sm-6 col-lg-3 pb-4 ex-box more-height">
+                <div class="rounded p-3">
+                  <lord-icon class="feature-ico" src="https://cdn.lordicon.com/xhsumrcb.json"
+                  target="div" trigger="loop-on-hover" colors="primary:#0e3d3f,secondary:#f8c55c">
+                  </lord-icon>
+                  <h5 class="mt-auto">
+                    Auto Update
+                  </h5>
+                  <div class="text-muted">
+                    Links are automatically updated with new or better quality as soon as
+                    they are available online.
+                  </div>
+                </div>
+              </div>
+              <div class="col shadow-md col-12 col-sm-6 col-lg-3 pb-4 ex-box more-height">
+                <div class="rounded p-3">
+                  <lord-icon class="feature-ico" src="https://cdn.lordicon.com/ivhjpjsw.json"
+                  target="div" trigger="loop-on-hover" colors="primary:#0e3d3f,secondary:#f8c55c">
+                  </lord-icon>
+                  <h5 class="mt-auto">
+                    Responsive
+                  </h5>
+                  <div class="text-muted">
+                    The player is responsive and can work on every Desktop, Mobile, Tablet
+                    without problem.
+                  </div>
+                </div>
+              </div>
+              <div class="col shadow-md col-12 col-sm-6 col-lg-3 pb-4 ex-box more-height">
+                <div class="rounded p-3">
+                  <lord-icon class="feature-ico" src="https://cdn.lordicon.com/ydqfeguo.json"
+                  target="div" trigger="loop-on-hover" colors="primary:#0e3d3f,secondary:#f8c55c">
+                  </lord-icon>
+                  <h5 class="mt-auto">
+                    High Quality
+                  </h5>
+                  <div class="text-muted">
+                    The quality of the links is the latest available, mostly are 1080p.
+                  </div>
+                </div>
+              </div>
+              <div class="col shadow-md col-12 col-sm-6 col-lg-3 pb-4 ex-box more-height">
+                <div class="rounded p-3">
+                  <lord-icon class="feature-ico" src="https://cdn.lordicon.com/qtiwxsuo.json"
+                  target="div" trigger="loop-on-hover" colors="primary:#0e3d3f,secondary:#f8c55c">
+                  </lord-icon>
+                  <h5 class="mt-auto">
+                    Fast Streaming Servers
+                  </h5>
+                  <div class="text-muted">
+                    The player includes a list of fastest streaming servers, users can easily
+                    optional.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section-padding" id="faqs">
+          <div class="container">
+            <h2 class="section-title">
+              Frequently asked questions
+            </h2>
+            <div class="sub-text">
+              <a href="#" data-toggle="modal" data-target="#contact">
+                Contact us
+              </a>
+              if you have any more questions.
+            </div>
+            <div class="ex-box mansonry mt-5">
+              <div class="rounded p-3">
+                <h5 class="mt-auto">
+                  Are your links protected from DMCA?
+                </h5>
+                <div class="text-muted mt-2">
+                  Our links are secure and protected, ensuring that they are not subject
+                  to removal due to DMCA notices.
+                </div>
+              </div>
+              <div class="rounded p-3">
+                <h5 class="mt-auto">
+                  Are subtitles available for all movies and TV shows?
+                </h5>
+                <div class="text-muted mt-2">
+                  We source subtitles from various websites, ensuring we have a wide selection
+                  available for almost every title.
+                </div>
+              </div>
+              <div class="rounded p-3">
+                <h5 class="mt-auto">
+                  How do I utilize your API?
+                </h5>
+                <div class="text-muted mt-2">
+                  Using our API requires basic programming knowledge. However, if you require
+                  any assistance, feel free to contact our support team.
+                </div>
+              </div>
+              <div class="rounded p-3">
+                <h5 class="mt-auto">
+                  What should I do if I come across incorrect movies or TV shows?
+                </h5>
+                <div class="text-muted mt-2">
+                  If you notice any inaccuracies with a movie or TV show, please utilize
+                  the report button on the player. Our team will promptly address and rectify
+                  the issue.
+                </div>
+              </div>
+              <div class="rounded p-3">
+                <h5 class="mt-auto">
+                  Is it possible to change the video quality?
+                </h5>
+                <div class="text-muted mt-2">
+                  Yes! The player has a range of quality options.
+                </div>
+              </div>
+              <div class="rounded p-3">
+                <h5 class="mt-auto">
+                  Do you offer movies and TV shows in languages other than English?
+                </h5>
+                <div class="text-muted mt-2">
+                  While our server primarily caters to English-speaking audiences, we do
+                  host a vast collection of global movies in their original language. However,
+                  most of our videos have subtitles included.
+                </div>
+              </div>
+              <div class="rounded p-3">
+                <h5 class="mt-auto">
+                  Can i use this API for anime?
+                </h5>
+                <div class="text-muted mt-2">
+                  Currently we do not support anime, we may do that in the future.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section-padding" id="api">
+          <div class="container">
+            <h2 class="section-title">
+              <span class="gardient-primary">
+                API
+              </span>
+              Documentation
+            </h2>
+            <div class="sub-text">
+              Detailed representation of the API endpoints for Vidsrc includes comprehensive
+              information regarding the available methods, request formats, required
+              parameters and optional parameters.
+            </div>
+            <div class="row mt-4">
+              <div class="mx-auto col-12 col-lg-6 p-3">
+                <div class="accordion">
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5 class="mb-0">
+                        <button class="btn btn-card w-100 text-left" type="button" data-toggle="collapse"
+                        data-target="#api-Movie" aria-expanded="false" aria-controls="api-Movie">
+                          <b>
+                            Movie Embed URL
+                          </b>
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="api-Movie" class="collapse" aria-labelledby="api-Movie" data-parent="#api-Movie">
+                      <div class="card-body">
+                        <div class="copy-quote mb-2 d-flex align-items-center">
+                          <h6 class="mr-2 my-0 ">
+                            Endpoint
+                          </h6>
+                          <div class="copy-text">
+                            <input type="text" class="text" value="embed/movie/{id}" />
+                            <button class="btn">
+                              <i class="bi bi-clipboard-fill">
+                              </i>
+                            </button>
+                          </div>
+                        </div>
+                        <h6>
+                          Valid parameters:
+                        </h6>
+                        <p>
+                          - {id}
+                          <span class="text-danger">
+                            required
+                          </span>
+                          - from
+                          <a href="https://imdb.com/">
+                            imdb.com
+                          </a>
+                          or
+                          <a href="https://themoviedb.com/">
+                            themoviedb.com
+                          </a>
+                          , imdb id must have
+                          <b class="text-warning">
+                            tt
+                          </b>
+                          prefix.
+                        </p>
+                        <h6>
+                          Examples
+                        </h6>
+                        <p>
+                          https://vidsrc.to/embed/movie/tt17048514
+                        </p>
+                        <p>
+                          https://vidsrc.to/embed/movie/927085
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5 class="mb-0">
+                        <button class="btn btn-card w-100 text-left" type="button" data-toggle="collapse"
+                        data-target="#api-tvshows" aria-controls="api-tvshows">
+                          <b>
+                            TV Shows Embed URL
+                          </b>
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="api-tvshows" class="collapse" aria-labelledby="api-tvshows" data-parent="#api-tvshows">
+                      <div class="card-body">
+                        <div class="copy-quote mb-2 d-flex align-items-center">
+                          <h6 class="mr-2 my-0 ">
+                            Endpoint
+                          </h6>
+                          <div class="copy-text">
+                            <input type="text" class="text" value="embed/tv/%7bid%7d.html" />
+                            <button class="btn">
+                              <i class="bi bi-clipboard-fill">
+                              </i>
+                            </button>
+                          </div>
+                        </div>
+                        <h6>
+                          Valid parameters:
+                        </h6>
+                        <p>
+                          - {id}
+                          <span class="text-danger">
+                            required
+                          </span>
+                          - from
+                          <a href="https://imdb.com/">
+                            imdb.com
+                          </a>
+                          or
+                          <a href="https://themoviedb.com/">
+                            themoviedb.com
+                          </a>
+                          , imdb id must have
+                          <b class="text-warning">
+                            tt
+                          </b>
+                          prefix.
+                        </p>
+                        <h6>
+                          Examples
+                        </h6>
+                        <p>
+                          https://vidsrc.to/embed/tv/tt18382028
+                        </p>
+                        <p>
+                          https://vidsrc.to/embed/tv/158876
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5 class="mb-0">
+                        <button class="btn btn-card w-100 text-left" type="button" data-toggle="collapse"
+                        data-target="#api-season" aria-controls="api-season">
+                          <b>
+                            TV Shows Season Embed URL
+                          </b>
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="api-season" class="collapse" aria-labelledby="api-season" data-parent="#api-season">
+                      <div class="card-body">
+                        <div class="copy-quote mb-2 d-flex align-items-center">
+                          <h6 class="mr-2 my-0 ">
+                            Endpoint
+                          </h6>
+                          <div class="copy-text">
+                            <input type="text" class="text" value="embed/tv/{id}/{season}"
+                            />
+                            <button class="btn">
+                              <i class="bi bi-clipboard-fill">
+                              </i>
+                            </button>
+                          </div>
+                        </div>
+                        <h6>
+                          Valid parameters:
+                        </h6>
+                        <p>
+                          - {id}
+                          <span class="text-danger">
+                            required
+                          </span>
+                          - from
+                          <a href="https://imdb.com/">
+                            imdb.com
+                          </a>
+                          or
+                          <a href="https://themoviedb.com/">
+                            themoviedb.com
+                          </a>
+                          , imdb id must have
+                          <b class="text-warning">
+                            tt
+                          </b>
+                          prefix.
+                        </p>
+                        <p>
+                          - {season}
+                          <span class="text-danger">
+                            required
+                          </span>
+                          - the season number
+                        </p>
+                        <h6>
+                          Examples
+                        </h6>
+                        <p>
+                          https://vidsrc.to/embed/tv/tt18382028/1
+                        </p>
+                        <p>
+                          https://vidsrc.to/embed/tv/158876/1
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5 class="mb-0">
+                        <button class="btn btn-card w-100 text-left" type="button" data-toggle="collapse"
+                        data-target="#api-episode" aria-controls="api-episode">
+                          <b>
+                            TV Shows Episode Embed URL
+                          </b>
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="api-episode" class="collapse" aria-labelledby="api-episode" data-parent="#api-episode">
+                      <div class="card-body">
+                        <div class="copy-quote mb-2 d-flex align-items-center">
+                          <h6 class="mr-2 my-0 ">
+                            Endpoint
+                          </h6>
+                          <div class="copy-text">
+                            <input type="text" class="text" value="embed/tv/{id}/{season}/{episode}"
+                            />
+                            <button class="btn">
+                              <i class="bi bi-clipboard-fill">
+                              </i>
+                            </button>
+                          </div>
+                        </div>
+                        <h6>
+                          Valid parameters:
+                        </h6>
+                        <p>
+                          - {id}
+                          <span class="text-danger">
+                            required
+                          </span>
+                          - from
+                          <a href="https://imdb.com/">
+                            imdb.com
+                          </a>
+                          or
+                          <a href="https://themoviedb.com/">
+                            themoviedb.com
+                          </a>
+                          , imdb id must have
+                          <b class="text-warning">
+                            tt
+                          </b>
+                          prefix.
+                        </p>
+                        <p>
+                          - {season}
+                          <span class="text-danger">
+                            required
+                          </span>
+                          - the eason number
+                        </p>
+                        <p>
+                          - {episode}
+                          <span class="text-danger">
+                            required
+                          </span>
+                          - the episode number
+                        </p>
+                        <h6>
+                          Examples
+                        </h6>
+                        <p>
+                          https://vidsrc.to/embed/tv/tt18382028/1/5
+                        </p>
+                        <p>
+                          https://vidsrc.to/embed/tv/158876/1/5
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mx-auto col-12 col-lg-6 p-3">
+                <div class="accordion">
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5 class="mb-0">
+                        <button class="btn btn-card w-100 text-left" type="button" data-toggle="collapse"
+                        data-target="#list-Movie" aria-expanded="false" aria-controls="collapseOne">
+                          <b>
+                            List Latest Movies
+                          </b>
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="list-Movie" class="collapse" aria-labelledby="headingOne" data-parent="#list-Movie">
+                      <div class="card-body">
+                        <div class="copy-quote mb-2 d-flex align-items-center">
+                          <h6 class="mr-2 my-0 ">
+                            Endpoint
+                          </h6>
+                          <div class="copy-text">
+                            <input type="text" class="text" value="vapi/movie/{type}/{page}"
+                            />
+                            <button class="btn">
+                              <i class="bi bi-clipboard-fill">
+                              </i>
+                            </button>
+                          </div>
+                        </div>
+                        <h6>
+                          Valid parameters:
+                        </h6>
+                        <p>
+                          - {type}
+                          <span class="text-danger">
+                            required
+                          </span>
+                          - "new" for new release or "add" for recently added.
+                        </p>
+                        <p>
+                          - {page}
+                          <span class="text-default">
+                            optional
+                          </span>
+                        </p>
+                        <h6>
+                          Examples
+                        </h6>
+                        <p>
+                          https://vidsrc.to/vapi/movie/new
+                        </p>
+                        <p>
+                          https://vidsrc.to/vapi/movie/new/15
+                        </p>
+                        <p>
+                          https://vidsrc.to/vapi/movie/add
+                        </p>
+                        <p>
+                          https://vidsrc.to/vapi/movie/add/15
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5 class="mb-0">
+                        <button class="btn btn-card w-100 text-left" type="button" data-toggle="collapse"
+                        data-target="#list-tvshows" aria-controls="list-tvshows">
+                          <b>
+                            List Latest TV Shows
+                          </b>
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="list-tvshows" class="collapse" aria-labelledby="list-tvshows"
+                    data-parent="#list-tvshows">
+                      <div class="card-body">
+                        <div class="copy-quote mb-2 d-flex align-items-center">
+                          <h6 class="mr-2 my-0 ">
+                            Endpoint
+                          </h6>
+                          <div class="copy-text">
+                            <input type="text" class="text" value="vapi/tv/{type}/{page}"
+                            />
+                            <button class="btn">
+                              <i class="bi bi-clipboard-fill">
+                              </i>
+                            </button>
+                          </div>
+                        </div>
+                        <h6>
+                          Valid parameters:
+                        </h6>
+                        <p>
+                          - {type}
+                          <span class="text-danger">
+                            required
+                          </span>
+                          - "new" for new release or "add" for recently added.
+                        </p>
+                        <p>
+                          - {page}
+                          <span class="text-default">
+                            optional
+                          </span>
+                        </p>
+                        <h6>
+                          Examples
+                        </h6>
+                        <p>
+                          https://vidsrc.to/vapi/tv/new
+                        </p>
+                        <p>
+                          https://vidsrc.to/vapi/tv/new/15
+                        </p>
+                        <p>
+                          https://vidsrc.to/vapi/tv/add
+                        </p>
+                        <p>
+                          https://vidsrc.to/vapi/tv/add/15
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5 class="mb-0">
+                        <button class="btn btn-card w-100 text-left" type="button" data-toggle="collapse"
+                        data-target="#list-episode" aria-controls="collapseOne">
+                          <b>
+                            List Latest Episodes
+                          </b>
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="list-episode" class="collapse" aria-labelledby="list-episode"
+                    data-parent="#list-episode">
+                      <div class="card-body">
+                        <div class="copy-quote mb-2 d-flex align-items-center">
+                          <h6 class="mr-2 my-0 ">
+                            Endpoint
+                          </h6>
+                          <div class="copy-text">
+                            <input type="text" class="text" value="vapi/episode/latest/{page}"
+                            />
+                            <button class="btn">
+                              <i class="bi bi-clipboard-fill">
+                              </i>
+                            </button>
+                          </div>
+                        </div>
+                        <h6>
+                          Valid parameters:
+                        </h6>
+                        <p>
+                          - {page}
+                          <span class="text-default">
+                            optional
+                          </span>
+                        </p>
+                        <h6>
+                          Examples
+                        </h6>
+                        <p>
+                          https://vidsrc.to/vapi/episode/latest
+                        </p>
+                        <p>
+                          https://vidsrc.to/vapi/episode/latest/15
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5 class="mb-0">
+                        <button class="btn btn-card w-100 text-left" type="button" data-toggle="collapse"
+                        data-target="#custom-subtitle" aria-controls="collapseOne">
+                          <b>
+                            Use custom subtitles
+                          </b>
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="custom-subtitle" class="collapse" aria-labelledby="custom-subtitle">
+                      <div class="card-body">
+                        <p>
+                          You can load your own subtitles by two methods:
+                        </p>
+                        <h6>
+                          Single file:
+                        </h6>
+                        <p>
+                          https://vidsrc.to/embed/movie/
+                        </p>
+                        <p>
+                          - {sub_file}
+                          <span class="text-danger">
+                            required
+                          </span>
+                          - Url to .vtt sub
+                        </p>
+                        <p>
+                          - {sub_label} optional
+                        </p>
+                        <h6>
+                          Multiple file:
+                        </h6>
+                        <p>
+                          https://vidsrc.to/embed/movie/{id}?sub.info={sub_json}
+                        </p>
+                        <p>
+                          - {sub_json}
+                          <span class="text-danger">
+                            required
+                          </span>
+                          - A json file with this format:
+                        </p>
+                        <code>
+                          <pre style="color:unset">
+                            [ { file: "https://domain.com/file1.vtt", label: "English", kind: "captions"
+                            }, { file: "https://domain.com/file2.vtt", label: "Japanese", kind: "captions"
+                            } ]
+                          </pre>
+                        </code>
+                        <p>
+                          <span class="text-danger">
+                            *
+                          </span>
+                          {sub_file} or {sub_json} must have
+                          <i>
+                            Access-Control-Allow-Origin: *
+                          </i>
+                          header
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      
+      <!-- wp:paragraph -->
+<p>Video streaming services have evolved dramatically over the last decade. From content delivery advancements to personalized experiences, today’s users expect smooth, high-quality streams every time. For businesses, this demand comes with a challenge—how can organizations deliver seamless video experiences while maintaining scalability, security, and cost-effectiveness?</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Enter <strong>VidSrc</strong>, the next-generation Video Streaming API poised to transform the way businesses integrate and deliver video content.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>This blog will take a deep look into the unmatched capabilities of VidSrc, its features, and why it’s the go-to solution for modern enterprises looking to stay ahead in the video streaming space.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Why Businesses Need a Next-Gen Video Streaming API</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Traditional video streaming has its limitations. Buffering issues, unoptimized infrastructure, and lack of flexibility often lead to poor user experiences and lost engagement. Today’s businesses—whether running an e-learning platform, hosting video webinars, or even delivering live sports—require technology that is built for scale, security, and unparalleled performance.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Video APIs</strong> have emerged as a critical resource for any company looking to integrate video streaming quickly without building an expensive, complex infrastructure from scratch. VidSrc raises the bar with its next-generation technology, catering to modern use cases and future-ready needs.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>1. Built for Speed and Scalability</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Users are less forgiving of buffering delays or video crashes. With <strong>VidSrc</strong>, businesses can tap into lightning-fast delivery powered by global CDNs designed for high traffic. Its infrastructure ensures videos stream beautifully—whether you’re dealing with 100 or 100,000 viewers at a time.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Adaptive Bitrate Streaming adjusts video quality instantly based on device performance and network speed.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>High-speed encoding and compression reduce file sizes without loss of quality, delivering seamless streaming even on low-bandwidth connections.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>2. Fully Customizable Video Integration</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Unlike rigid, one-size-fits-all platforms, <strong>VidSrc</strong> offers unparalleled customization. Developers can easily configure playback features, interfaces, or branding elements, ensuring videos integrate smoothly with your app or website.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Fully customizable player designs allow businesses to incorporate their branding seamlessly.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>APIs provide full control, from implementing custom user controls like “chapters” to altering playback speed or adding subtitles.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>It’s your video, exactly how you envision it.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>3. Advanced Analytics for Smarter Decisions</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>How are your users engaging with video content? What content retains the most viewers? Understanding user behavior is essential for constantly refining your video strategy.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>VidSrc’s <strong>analytics dashboard</strong> provides granular insights into viewer engagement, drop-off points, and geographical reach. Gain access to real-time metrics and leverage data-driven decision-making to optimize your content strategy.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Heat maps reveal where engagement drops so you can refine weak sections.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Integration with marketing automation tools tailors follow-up campaigns to user video interactions.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>4. Next-Level Security and Reliability</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>With increasing concerns around data breaches and pirated streams, <strong>security</strong> is no longer optional for video platforms. VidSrc is built with enterprise-grade security tools to protect everything from sensitive data to exclusive live streams.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>AES-256 encryption:</strong> Keeps your video streams safe from unauthorized access.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Token authentication:</strong> Ensures that only authorized users can view your premium content.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>To top it off, VidSrc is exceptionally reliable, meaning zero downtime for critical live events or prerecorded courses.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>5. Cross-Device, Cross-Platform Integration</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Today’s viewers jump across phones, tablets, laptops, and TVs effortlessly. VidSrc ensures your videos travel seamlessly alongside them. With <strong>cross-platform compatibility</strong>, your business delivers high-quality viewing experiences on any device or operating system.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Full support for Android, iOS, desktop, and smart TVs.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Automatic responsiveness ensures attractive and functional playback, regardless of screen size.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>No more disconnected user experiences—just unified delivery, everywhere.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">VidSrc’s Key Features and Use Cases</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>From e-learning platforms to event live-streaming services, VidSrc adapts beautifully to meet a variety of business needs. Here are some standout features and potential applications.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Feature Highlights</h3>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Content Recommendations:</strong> Improve user retention by serving personalized content suggestions powered by AI.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Multi-language Subtitles:</strong> Expand audience accessibility with automatic or custom subtitle integration.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Live Streaming:</strong> Host live events with low latency, unrivaled stability, and real-time viewer interaction.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>On-demand Playback:</strong> Empower users to access premium packages or courses at their convenience.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Where VidSrc is Making a Difference</h3>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>E-learning Platforms</strong> utilize VidSrc for seamless lesson streaming with integrated assessments.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Media Companies</strong> distribute high-demand content globally without worrying about downtime.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Fitness Apps</strong> provide personalized video recommendations for improved workout engagement.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Gaming Channels</strong> offer high-resolution streams that keep interactive discussions smooth and immersive.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>No matter your industry, VidSrc finds its unique fit to enhance your streaming strategy.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Getting Started with VidSrc</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Implementing the <strong>VidSrc API</strong> is straightforward, requiring no prior expertise in video streaming technologies. A robust developer toolkit provides access to detailed documentation, SDKs, and code examples to help businesses set up and tailor video experiences easily.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Simple Steps to Streamlining Integration</h3>
+<!-- /wp:heading -->
+
+<!-- wp:list {"ordered":true} -->
+<ol class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Sign up for Free Trial Access:</strong> Explore every capability VidSrc has to offer with no initial investment.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Test the API on Your Platform:</strong> Integrate sample scripts using VidSrc’s sandbox environment.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Go Live:</strong> Seamlessly transition to production environments with minimal steps required.</li>
+<!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>With VidSrc, onboarding is faster than you think, taking your business one step closer to delivering next-gen streaming experiences.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Why Choose VidSrc?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Cost-Efficient Innovation:</strong> VidSrc offers flexible pricing models designed to scale and grow with your business needs.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Dedicated Support:</strong> A 24/7 support team ensures any issue is resolved swiftly.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Future-Proof Technology:</strong> Built for a world moving toward higher-quality videos, VidSrc helps your business stay competitive as an industry leader.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Unlock the Power of Seamless Video Experiences</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Investing in a reliable video streaming API is less about nice-to-haves and more about future-proofing your business. Whether you’re building an on-demand platform, hosting live events, or personalizing content distribution, VidSrc is the next-generation solution for all your video streaming challenges.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Stop settling for “good enough” video experiences. Switch to VidSrc today and elevate your business’s potential to deliver unforgettable streaming moments.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Sign up for a free trial now</strong> and discover how VidSrc can redefine the way your business delivers videos.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">FAQ</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>What is VidSrc?</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>VidSrc is an advanced video streaming API designed to provide seamless, high-quality video experiences for businesses of all sizes. Whether you need on-demand streaming, live event hosting, or tailored content delivery, VidSrc has you covered.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>Who can benefit from using VidSrc?</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>VidSrc is ideal for businesses across various industries, including media, education, e-commerce, and more. If your organization relies on video to communicate, engage, or entertain, VidSrc is the perfect tool to enhance your streaming capabilities.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>How easy is it to integrate VidSrc into my platform?</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>VidSrc is designed with developers in mind, offering clear documentation and powerful tools for simple and efficient integration. With support for popular programming languages and frameworks, you can quickly add robust video streaming functionality to your platform.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>Is a free trial available?</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Yes! VidSrc offers a free trial so you can experience its capabilities firsthand. Sign up to explore how VidSrc can elevate your video delivery and transform user engagement.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>Where can I get support if I encounter issues?</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Our dedicated support team is available to assist you with any questions or problems. Visit our support portal, or contact us directly for fast and reliable assistance.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>How to Download VidSrc Videos</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Downloading videos from VidSrc is simple and straightforward. First, ensure that you have the proper permissions to download the content. Once verified, access the video you want to download and locate the download option, which may be available in the video settings or playback controls, depending on your platform integration. If no direct download option is visible, you can use the VidSrc API to retrieve and download the video file programmatically. For detailed instructions, refer to the VidSrc documentation or consult with our support team for guidance.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>Troubleshooting VidSrc Downloads</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>If you encounter any issues while attempting to download videos from VidSrc, there are a few steps you can take to resolve the problem. First, check your internet connection to ensure it is stable, as a weak connection can disrupt the download process. Next, ensure that your account has the appropriate permissions to access and download the desired video. If you are using the VidSrc API, double-check the API request and parameters to confirm they are correctly configured. For platform-specific issues, verify that you have the latest version of the VidSrc application or plugin installed. Should the problem persist, reach out to our support team with details of the issue, and they will assist you further.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><strong>How to Use VidSrc</strong></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Using VidSrc is straightforward and designed for user convenience. To start, log in to your VidSrc account using your credentials. Once logged in, you can browse the platform's extensive library or search for specific videos using the search bar. To watch a video, simply click on the thumbnail, and the player will open, allowing you to stream instantly. For downloading, select the download option beneath the video you wish to save, and choose the preferred format and resolution. If you are using VidSrc's API, consult the official documentation for detailed instructions on generating requests, customizing parameters, and integrating it into your workflows. VidSrc's intuitive interface ensures all users, from casual viewers to developers, can easily access its features.</p>
+<!-- /wp:paragraph -->
+      
+      
+      <footer class="py-5">
+        <div class="container">
+          <div class="d-flex mb-3">
+            <span>
+              © 2023 VidSrc. All rights reserved.
+            </span>
+            <a class="ml-auto" data-toggle="modal" data-target="#contact" href="#">
+              Contact
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <div class="modal fade" id="contact">
+      <div class="modal-dialog limit-w modal-dialog-centered">
+        <div class="modal-content bg p-4">
+          <div class="modal-close" data-dismiss="modal">
+            <i class="bi bi-x">
+            </i>
+          </div>
+          <h4 class="major-color">
+            Contact us
+          </h4>
+          <p class="text-muted">
+            Tell us a bit about yourself, and we’ll tell you a lot more about us.
+          </p>
+          <form class="ajax" method="post" action="https://vidsrc.to/contact-submit">
+            <div class="form-group mt-2">
+              <input type="email" class="form-control form-control-lg" placeholder="Your Email"
+              name="email">
+            </div>
+            <div class="form-group mb-3">
+              <input type="text" class="form-control form-control-lg" placeholder="Subject"
+              name="subject">
+            </div>
+            <div class="form-group">
+              <textarea rows="5" type="text" class="form-control form-control-lg" placeholder="Leave us a message"
+              name="message">
+              </textarea>
+            </div>
+            <div class="form-group">
+              <span class="captcha">
+              </span>
+            </div>
+            <button type="submit" class="submit btn btn-lg btn-primary">
+              Send
+              <i class="bi bi-send-fill">
+              </i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      window.grecaptcha_key = '6LfipQgoAAAAANNC-hY-Q5MhG0vJ-Ke_Ii5d-A2w';
+    </script>
+    <script type="text/javascript" src="https://www.google.com/recaptcha/api.js">
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js">
+    </script>
+    <script src="https://cdn.lordicon.com/bhenfmcm.js">
+    </script>
+    <script type="text/javascript" src="assets/web/min/alla1f9.js?v=64f9e529">
+    </script>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a490c1a66e3c9595',t:'MTc5MTc1MjAyOQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+</html>

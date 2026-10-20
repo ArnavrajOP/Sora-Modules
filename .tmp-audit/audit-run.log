@@ -1,0 +1,356 @@
+audit: 172 modules, concurrency 8
+
+[D]  anime-nexus                no-results      0.353s  search=OK:0   search returned 0 items
+     dessin-anime               working         0.912s  search=OK:1   stream x1 → 
+   * hydrahd                    working         4.962s  search=OK:15  stream x3 → https://futurefocusedentrepreneurs.site/nnQPPoSQm/pl/H4sIAAAAAAAAAw3M3WKCIBgA0
+     hydrahd-shirox             working         4.987s  search=OK:15  stream x3 → https://futurefocusedentrepreneurs.site/nnQPPoSQm/pl/H4sIAAAAAAAAAw3M3WKCIBgA0
+   * anidb                      working         7.008s  search=OK:10  stream x1 → https://cache.libria.fun/videos/media/ts/10290/1/720/69ebd857ac3003ccfdb30c195
+[D]  comix                      no-results       0.54s  search=OK:0   search returned 0 items
+     flixlatam                  working        10.302s  search=OK:12  stream x1 → https://ugc-cdn-caching-n3jh5sxj3nhn9kw0e1.cloudwindow-route.com/engine/hls2-c
+[D]  torrentio                  working         3.039s  search=OK:27  stream x500 → magnet:?xt=urn:btih:26ae1a154c19af80ae5bfac98b8f1d923b68af44&dn=One%20Piece%
+     kissasian                  no-results       1.23s  search=OK:0   search returned 0 items
+   * allmanga-novels            images-broken   6.667s  search=OK:4   images fail: 0 imgs
+     aniliberty                 working         1.662s  search=OK:11  stream x3 → https://cache.libria.fun/videos/media/ts/10290/1/1080/6e7f45803b46cbc95dc61af7
+     iptv-org                   working         0.491s  search=OK:6   stream x1 → https://jmp2.uk/plu-69affcad8940750a23a7231a.m3u8
+     animevost                  working         1.656s  search=OK:24  stream x2 → http://video.animetop.info/720/2147414641.mp4
+     henaojara                  working        14.269s  search=OK:16  stream x5 → https://hgcloud.to/e/7ciflfuoeqqm
+     allmanga-novels-shirox     images-broken   9.286s  search=OK:26  images fail: 0 imgs
+     animegg                    working         2.986s  search=OK:78  stream x1 → https://www.animegg.org/play/265000/video.mp4?for=101792079851089
+     kisskh                     working         2.471s  search=OK:22  stream x1 → https://hls.cdnvideo11.shop/hls07/8792/Ep1_index.m3u8?v=iju4hadrvsv
+     allmanga                   stream-broken  16.102s  search=OK:26  no usable stream (eps=1187)
+     mangadex                   working         2.746s  search=OK:36  images 18
+     nivod                      working         2.961s  search=OK:11  stream x10 → https://vv.jisuzyv.com/play/b2k9l41d/index.m3u8
+     lmanime                    working         5.506s  search=OK:2   stream x1 → https://cdndirector.dailymotion.com/cdn/manifest/video/x9rix6o.m3u8?sec=SDNK3Z
+     onetouch                   working         2.468s  search=OK:2   stream x1 → https://aapanel.devcorp.me/assets/e1091373-4ff7-5f25-a561-421e115f500c.m3u8
+[D]  lncrawler                  working         4.803s  search=OK:10  text 1704B/0img
+     onwave                     working         2.326s  search=OK:24  stream x3 → https://cloud.solodcdn.com/useruploads/6af7b6ba-2fcc-4b38-81b9-2d142fcc8618/d1
+     allmanga-shirox            stream-broken  18.441s  search=OK:26  no usable stream (eps=1187)
+     yummyanime                 working         2.785s  search=OK:30  stream x1 → https://cloud.solodcdn.com/useruploads/d9284598-85e3-482c-b8fb-6944baa3be36/73
+     AnimeWorld                 working         3.526s  search=OK:40  stream x1 → https://srv26-jupiter.sweetpixel.org/DDL/ANIME/OnePieceSUBITA/OnePiece_Ep_0001
+     123anime                   working         3.954s  search=OK:28  stream x1 → https://fetch.nexabloom.top/anime/d85cba32d0ae588929c465acc4ee1d09/8a1fc814662
+     airflix                    working         1.893s  search=OK:73  stream x3 → https://futurefocusedentrepreneurs.site/nnQPPoSQm/pl/H4sIAAAAAAAAAwXB0W6DIBQA0
+     AnimeUnity                 working         4.911s  search=OK:30  stream x1 → https://au-d1-05.vix-content.net/download/4/2/91/291bf7a2-8a8d-4c43-bdc7-47426
+     an1me                      working         3.294s  search=OK:107 stream x1 → https://an1me.to/anime_attribute/sub/
+   * aksv                       working         4.158s  search=OK:24  stream x2 → https://s302d1.downet.net/download/1792166263/6ad0f7f739f28/One.Last.Shot.2026
+     StreamingUnity             working         7.552s  search=OK:60  stream x1 → https://vixcloud.co/playlist/682356?token=30d42b17deb27d4a53b0cd39317437c6&exp
+     aether                     working         7.936s  search=OK:20  stream x3 → https://futurefocusedentrepreneurs.site/nnQPPoSQm/pl/H4sIAAAAAAAAAw3OW3KCMBQA0
+     anidub                     working         4.903s  search=OK:40  stream x3 → https://ok6-1.vkuser.net/?expires=1792166263099&srcIp=201.209.80.115&pr=90&src
+     animeav1                   working         2.368s  search=OK:20  stream x1 → https://player.zilla-networks.com/m3u8/7601658844858539e438dceee32e7924
+   * animeland                  working         1.665s  search=OK:9   stream x1 → https://animesource.me/cache/opnebulandiadub1.html.mp4
+   * anineko                    no-results      0.602s  search=OK:0   search returned 0 items
+     animenosub                 working         2.883s  search=OK:10  stream x1 → https://prx-1566-ant-r.vmpx.online/hls2/02/02961/ewxq44iwlrpt_n/master.m3u8?t=
+     animelib                   working         3.407s  search=OK:60  stream x6 → https://cloud.solodcdn.com/useruploads/8d53f9b5-059c-49d9-9141-b5eb96b3af1f/b8
+     anitube                    stream-broken    3.03s  search=OK:6   no usable stream (eps=0)
+     animedefenders             stream-broken   4.882s  search=OK:1   no usable stream (eps=1)
+     blackCloverPace            working           1.5s  search=OK:2   stream x1 → https://pixeldrain.net/api/file/d7xNJbwb?download
+     borucut                    working         1.727s  search=OK:5   stream x1 → https://pixeldrain.net/api/file/Ly7PvjBu?download
+     concentratedBleach         working         1.507s  search=OK:6   stream x1 → https://pixeldrain.net/api/filesystem/%2FrwPVCu7Z%2F01%20-%20Substitute%20Soul
+     dbzRecut                   working         1.246s  search=OK:4   stream x1 → https://pixeldrain.net/api/file/3ftz4zKv?download
+     dragonballrecut            working         2.651s  search=OK:1   stream x1 → https://archive.org/download/dragon-ball-recut/Dragon.Ball.Recut.E01.v2.Bulma.
+     aniwave                    working         6.121s  search=OK:24  stream x2 → https://ru-cdn1.echovideo.to/cdn/092e3d2d14736a0ad53867906eb1495fdefdbcea5dbde
+     mangabuddy                 working         1.565s  search=OK:24  images 51
+     mangafreak                 working         2.036s  search=OK:7   images 13
+     chireads                   working         6.859s  search=OK:43  text 12775B/0img
+   * nakanime                   no-results      0.337s  search=OK:0   search returned 0 items
+     anime-sama                 working        15.046s  search=OK:5   stream x1 → https://prx-1562-ant-o.vmpx.online/hls2/03/00888/ze0dv8b88jpo_,n,l,.urlset/mas
+   * nimegami                   search-broken  25.004s  search=FAIL   timeout 25000ms en search
+     mangaworld                 working         2.899s  search=OK:6   images 37
+     gidonline                  stream-broken   6.798s  search=OK:3   no usable stream (eps=0)
+     onigashima                 working         1.249s  search=OK:1   stream x1 → https://pixeldrain.net/api/file/ZDs9YsGk?download
+   * peachify                   working         1.503s  search=OK:73  stream x1 → https://vidlink.pro/tv/37854/1/1
+     imdb                       working         8.286s  search=OK:57  stream x3 → https://futurefocusedentrepreneurs.site/nnQPPoSQm/pl/H4sIAAAAAAAAAw3C0W6CMBQA0
+     monoschinos2               working         4.974s  search=OK:30  stream x1 → https://wwv.monoschinos2.net/ver/one-piece-heroines-episodio-1
+     readnovels                 working           2.8s  search=OK:20  text 14997B/0img
+     yfsp                       stream-broken  42.635s  search=OK:1   timeout 40000ms en stream
+     scan-sama                  working          3.13s  search=OK:3   images 55
+     toontales                  working         2.061s  search=OK:9   stream x1 → https://ww.toontales.net/dd/blue-rhythm.mp4
+     otaku-streamers            working         5.152s  search=OK:8   stream x1 → https://error.org/
+     vidfast                    working         1.701s  search=OK:73  stream x1 → https://vidlink.pro/tv/37854/1/1
+     videasy                    stream-broken   1.961s  search=OK:73  no usable stream (eps=1180)
+     weebcentral                working         1.898s  search=OK:6   images 17
+   * Nakastream                 no-results      1.018s  search=OK:0   search returned 0 items
+     xpass                      working         2.068s  search=OK:73  stream x1 → https://vidlink.pro/tv/37854/1/1
+     1tamilcrow                 stream-broken   2.166s  search=OK:10  no usable stream (eps=1)
+     animeheaven                working         1.344s  search=OK:4   stream x4 → https://ax.animeheaven.me/video.mp4?2c523c8cd9cc129bd13fc7407fa81220&eed805517
+     animesdigital              working          2.98s  search=OK:4   stream x1 → https://cdn-s01.mywallpaper-4k-image.net/stream/sv/o/one-piece/1134.mp4/index.
+     animesrbija                stream-broken   2.121s  search=OK:18  no usable stream (eps=0)
+     anikoto                    stream-broken   3.809s  search=OK:328 no usable stream (eps=1)
+     animexin                   stream-broken   2.462s  search=OK:3   no usable stream (eps=0)
+     voir-anime                 working         8.245s  search=OK:10  stream x1 → https://ugc-cdn-caching-n3wqli8udznhgz3hja.cloudwindow-route.com/engine/hls2-c
+     vidcore                    working        10.212s  search=OK:73  stream x1 → https://vidlink.pro/tv/37854/1/1
+     arabictoons                working         3.686s  search=OK:6   stream x1 → https://stream.foupix.com:8443/animeios2/1740913500/flinstones_02.mp4/index.m3
+     doramaland                 stream-broken   2.598s  search=OK:6   no usable stream (eps=16)
+     filmpalast                 stream-broken    1.57s  search=OK:5   no usable stream (eps=16)
+[D]  kaliscan                   no-results      0.143s  search=OK:0   search returned 0 items
+   * lightnovelworld            text-broken     0.396s  search=OK:1   text fail: sin resultados de búsqueda
+     asia2tv                    working         5.341s  search=OK:1   stream x1 → https://strm5.uqload.vc/hls2/04/02210/tl4d922mj142_n/master.m3u8?t=Of99gO7UH-Z
+     filmo                      stream-broken    2.33s  search=OK:1   no usable stream (eps=1)
+     anihq                      stream-broken  10.304s  search=OK:1   no usable stream (eps=1)
+   * mangafire                  no-results      0.452s  search=OK:0   search returned 0 items
+   * latanime                   stream-broken   1.235s  search=OK:1   no usable stream (eps=1)
+     catflix                    stream-broken   4.541s  search=OK:20  no usable stream (eps=1464)
+   * miruro                     no-results      0.658s  search=OK:0   search returned 0 items
+     narucannon                 working         1.127s  search=OK:2   stream x1 → https://pixeldrain.net/api/file/EDg7Q9Uu?download
+   * moflix                     stream-broken   1.678s  search=OK:1   sin resultados de búsqueda
+     mangataro                  working         2.751s  search=OK:50  images 21
+     novelbuddy                 working         2.878s  search=OK:24  text 14351B/0img
+     mangakatana                working         5.545s  search=OK:5   images 52
+     luciferdonghua             working         5.877s  search=OK:1   stream x1 → https://cdndirector.dailymotion.com/cdn/manifest/video/x9xxlfc.m3u8?sec=AEhVxE
+     novelfire                  working         2.884s  search=OK:4   text 32B/0img
+     animeweek                  working        14.905s  search=OK:24  stream x1 → https://cdndania.com/cdn/hls/7f16f580abadf98e21a4df0aa7e72728/master.m3u8?md5=
+   * otakutsu                   stream-broken   2.076s  search=OK:27  no usable stream (eps=0)
+     onepace                    working         2.833s  search=OK:9   stream x1 → https://pixeldrain.net/api/file/RwHyfKZs?download
+   * rumanhua1                  search-broken   0.379s  search=FAIL   fetch failed
+     rebuildOfNaruto            working          1.21s  search=OK:8   stream x1 → https://pixeldrain.net/api/file/giuJRnhy?download
+     purstream                  working         3.436s  search=OK:15  stream x1 → https://free.finepulfe.xyz/animes/movie/1051942/premium-qwoih5/master.m3u8
+     readnovelfull              working         4.268s  search=OK:9   text 14162B/0img
+     shizaproject               stream-broken   2.237s  search=OK:2   no usable stream (eps=0)
+     sameband                   working         2.656s  search=OK:1   stream x3 → https://sameband.studio/v/anime/One%20Piece%20Heroines/One%20Piece%20Heroines%
+     ristoanime                 working         4.492s  search=OK:3   stream x1 → https://prx-1564-ant-q.vmpx.online/hls2/04/01181/wmt4a13doejt_,n,l,.urlset/mas
+     movix                      working        11.847s  search=OK:34  stream x3 → https://94.131.217.15/v4/G4hQDozD-a-vXenINYC0sw/1792089902/ipk/gcgh5/master.m3
+     turkish123                 stream-broken    2.54s  search=OK:2   no usable stream (eps=26)
+     yuYuHakushoPace            working         1.291s  search=OK:1   stream x1 → https://pixeldrain.net/api/file/PCwHACep
+     uaserial                   stream-broken   3.214s  search=OK:12  no usable stream (eps=0)
+     spacepowerfans             working         6.007s  search=OK:9   stream x2 → https://dc703.4shared.com/img/EUc98OZWjq/3ea6c33a/dlink__2Fdownload_2FEUc98OZW
+   * xiaoxintv                  working         3.078s  search=OK:13  stream x1 → https://cdn3.ryplay3.com/20240810/9165_80e3fbae/2000k/hls/index.m3u8
+[D]  vidlink                    stream-broken   9.526s  search=OK:73  Cannot read properties of null (reading 'stream')
+[D]  vidapi                     stream-broken   7.751s  search=OK:20  no usable stream (eps=1180)
+[D]  rgshows                    stream-broken   9.565s  search=OK:73  no usable stream (eps=1180)
+[D]  111movies                  stream-broken   9.599s  search=OK:73  no usable stream (eps=1180)
+[D]  vidrock                    stream-broken    9.17s  search=OK:73  no usable stream (eps=1180)
+[D]  anime-base                 stream-broken   0.596s  search=OK:1   sin resultados de búsqueda
+[D]  anizone                    stream-broken   0.786s  search=OK:1   sin resultados de búsqueda
+[D]  hdrezka                    stream-broken    2.25s  search=OK:36  no usable stream (eps=1)
+   * noveldot                   working        23.754s  search=OK:7   text 3586B/0img
+[D]  onePieceFilmRedAmaLeeScore working         0.001s  search=OK:1   stream x1 → https://pixeldrain.net/api/file/5doVw29C
+     topcinema                  stream-broken  16.349s  search=OK:20  no usable stream (eps=26)
+[D]  kuudere                    working         1.536s  search=OK:36  stream x1 → https://flixcloud.cc/e/rtt4nppua1i6?v=1
+[D]* onePieceTreasureEdition    working         0.843s  search=OK:1   stream x1 → https://pixeldrain.net/api/file/https://pixeldrain.net/l/VR7e6o5y?download
+[D]  donghuastream              stream-broken   2.188s  search=OK:2   no usable stream (eps=12)
+[D]  animeportal                stream-broken   3.861s  search=OK:24  no usable stream (eps=0)
+[E]  anikotodub                 working         1.885s  search=OK:30  stream x2 → https://megap.shiora.top/f899139df5e1059396431415e770c6dd/b23b2bb864c4f8876052
+[E]  anikotosub                 working         1.728s  search=OK:30  stream x2 → https://megap.shiora.top/f899139df5e1059396431415e770c6dd/61b87186ab260d050034
+[E]* animepahedub               stream-broken   0.957s  search=OK:1   sin resultados de búsqueda
+[E]  animepahesub               stream-broken   0.824s  search=OK:1   sin resultados de búsqueda
+[E]* batcave                    no-results      0.293s  search=OK:0   search returned 0 items
+[E]  allmangasub                stream-broken   3.264s  search=OK:26  no usable stream (eps=1181)
+[D]  anify                      stream-broken   7.424s  search=OK:10  no usable stream (eps=1211)
+[E]  allmangadub                stream-broken    3.76s  search=OK:3   no usable stream (eps=1161)
+[D]  anoboye                    working         6.822s  search=OK:2   stream x1 → https://files.catbox.moe/avolvc.mp4
+[E]  nflwebcast                 working         1.563s  search=OK:1   stream x2 → https://webcast-origin.b-cdn.net/bcdn_token=fq0r3qq78Vhi2XLTrcSQnFKBoP5dqDNXEF
+[E]  mlbwebcast                 working         2.178s  search=OK:2   stream x2 → https://webcast-origin.b-cdn.net/bcdn_token=c8ZG3EEDMAefpDQYyPBgrR0RsS35l-047I
+[E]  usatv                      working         0.264s  search=OK:4   stream x3 → https://a1xs.vip/40000011
+[E]* weebcentral-kanzen         load-error      0.101s  search=FAIL   No se pudo cargar el módulo: searchResults is not defined
+[E]* mangadot                   working         2.543s  search=OK:28  images 17
+[E]* anibd                      stream-broken   3.333s  search=OK:1   no usable stream (eps=1)
+[E]* readfreecomicsonline       images-broken   4.564s  search=OK:10  images fail: 0 imgs
+[E]  emby                       stream-broken   6.905s  search=OK:1   no usable stream (eps=1)
+   * allmanga-novels-eclipse    images-broken   5.905s  search=OK:4   images fail: 0 imgs
+[D]  comix-eclipse              no-results      0.381s  search=OK:0   search returned 0 items
+[D]  kaliscan-eclipse           no-results      0.151s  search=OK:0   search returned 0 items
+   * lightnovelworld-eclipse    text-broken     0.277s  search=OK:1   text fail: sin resultados de búsqueda
+[E]  jellyfin                   stream-broken   9.171s  search=OK:1   no usable stream (eps=1)
+     chireads-eclipse           working         6.536s  search=OK:43  text 12775B/0img
+     mangabuddy-eclipse         working         1.417s  search=OK:24  images 51
+   * mangafire-eclipse          no-results      0.329s  search=OK:0   search returned 0 items
+     mangadex-eclipse           working         1.763s  search=OK:36  images 18
+[D]  lncrawler-eclipse          working         5.174s  search=OK:10  text 1704B/0img
+     mangafreak-eclipse         working         1.825s  search=OK:7   images 13
+     mangataro-eclipse          working         2.513s  search=OK:50  images 21
+     mangaworld-eclipse         working         2.684s  search=OK:6   images 37
+     mangakatana-eclipse        working         5.537s  search=OK:5   images 52
+     novelbuddy-eclipse         working         2.605s  search=OK:24  text 14351B/0img
+     novelfire-eclipse          working         1.808s  search=OK:4   text 6563B/0img
+[E]* onepacedub                 search-broken  25.115s  search=FAIL   timeout 25000ms en search
+   * rumanhua1-eclipse          search-broken   0.362s  search=FAIL   fetch failed
+     readnovelfull-eclipse      working         2.819s  search=OK:9   text 14162B/0img
+[E]  animexdub                  working        27.227s  search=OK:24  stream x2 → https://fetch.nexabloom.top/anime/f899139df5e1059396431415e770c6dd/b23b2bb864c
+[E]  animex                     working        27.509s  search=OK:24  stream x6 → https://fetch.nexabloom.top/anime/f899139df5e1059396431415e770c6dd/61b87186ab2
+     readnovels-eclipse         working         2.481s  search=OK:20  text 14997B/0img
+     weebcentral-eclipse        working         1.758s  search=OK:6   images 17
+     scan-sama-eclipse          working         3.126s  search=OK:3   images 55
+[E]* mangaball                  images-broken  35.147s  search=OK:31  images fail: 0 imgs
+     streamcloud                working        80.142s  search=OK:20  stream x2 → 
+   * noveldot-eclipse           working        54.421s  search=OK:7   text 32B/0img
+
+AUDIT SUMMARY — 2026-10-15T15:59:58.892Z
+total: 172   (discontinued: 0, external: 0, active+local: 172)
+status counts: no-results=13  working=106  images-broken=5  stream-broken=41  search-broken=4  text-broken=2  load-error=1
+
+ACTIONABLE (active, local, non-working, non-load-error):
+  allmanga-novels            images-broken  (needs_review) images fail: 0 imgs
+  anineko                    no-results     (needs_review) search returned 0 items
+  nakanime                   no-results     (needs_review) search returned 0 items
+  nimegami                   search-broken  (needs_review) timeout 25000ms en search
+  Nakastream                 no-results     (needs_review) search returned 0 items
+  lightnovelworld            text-broken    (needs_review) text fail: sin resultados de búsqueda
+  mangafire                  no-results     (needs_review) search returned 0 items
+  latanime                   stream-broken  (needs_review) no usable stream (eps=1)
+  miruro                     no-results     (needs_review) search returned 0 items
+  moflix                     stream-broken  (needs_review) sin resultados de búsqueda
+  otakutsu                   stream-broken  (needs_review) no usable stream (eps=0)
+  rumanhua1                  search-broken  (needs_review) fetch failed
+  animepahedub               stream-broken  (needs_review) sin resultados de búsqueda
+  batcave                    no-results     (needs_review) search returned 0 items
+  anibd                      stream-broken  (needs_review) no usable stream (eps=1)
+  readfreecomicsonline       images-broken  (needs_review) images fail: 0 imgs
+  allmanga-novels-eclipse    images-broken  (needs_review) images fail: 0 imgs
+  lightnovelworld-eclipse    text-broken    (needs_review) text fail: sin resultados de búsqueda
+  mangafire-eclipse          no-results     (needs_review) search returned 0 items
+  onepacedub                 search-broken  (needs_review) timeout 25000ms en search
+  rumanhua1-eclipse          search-broken  (needs_review) fetch failed
+  mangaball                  images-broken  (needs_review) images fail: 0 imgs
+  anime-nexus                no-results     search returned 0 items
+  comix                      no-results     search returned 0 items
+  kissasian                  no-results     search returned 0 items
+  allmanga-novels-shirox     images-broken  images fail: 0 imgs
+  allmanga                   stream-broken  no usable stream (eps=1187)
+  allmanga-shirox            stream-broken  no usable stream (eps=1187)
+  anitube                    stream-broken  no usable stream (eps=0)
+  animedefenders             stream-broken  no usable stream (eps=1)
+  gidonline                  stream-broken  no usable stream (eps=0)
+  yfsp                       stream-broken  timeout 40000ms en stream
+  videasy                    stream-broken  no usable stream (eps=1180)
+  1tamilcrow                 stream-broken  no usable stream (eps=1)
+  animesrbija                stream-broken  no usable stream (eps=0)
+  anikoto                    stream-broken  no usable stream (eps=1)
+  animexin                   stream-broken  no usable stream (eps=0)
+  doramaland                 stream-broken  no usable stream (eps=16)
+  filmpalast                 stream-broken  no usable stream (eps=16)
+  kaliscan                   no-results     search returned 0 items
+  filmo                      stream-broken  no usable stream (eps=1)
+  anihq                      stream-broken  no usable stream (eps=1)
+  catflix                    stream-broken  no usable stream (eps=1464)
+  shizaproject               stream-broken  no usable stream (eps=0)
+  turkish123                 stream-broken  no usable stream (eps=26)
+  uaserial                   stream-broken  no usable stream (eps=0)
+  vidlink                    stream-broken  Cannot read properties of null (reading 'stream')
+  vidapi                     stream-broken  no usable stream (eps=1180)
+  rgshows                    stream-broken  no usable stream (eps=1180)
+  111movies                  stream-broken  no usable stream (eps=1180)
+  vidrock                    stream-broken  no usable stream (eps=1180)
+  anime-base                 stream-broken  sin resultados de búsqueda
+  anizone                    stream-broken  sin resultados de búsqueda
+  hdrezka                    stream-broken  no usable stream (eps=1)
+  topcinema                  stream-broken  no usable stream (eps=26)
+  donghuastream              stream-broken  no usable stream (eps=12)
+  animeportal                stream-broken  no usable stream (eps=0)
+  animepahesub               stream-broken  sin resultados de búsqueda
+  allmangasub                stream-broken  no usable stream (eps=1181)
+  anify                      stream-broken  no usable stream (eps=1211)
+  allmangadub                stream-broken  no usable stream (eps=1161)
+  emby                       stream-broken  no usable stream (eps=1)
+  comix-eclipse              no-results     search returned 0 items
+  kaliscan-eclipse           no-results     search returned 0 items
+  jellyfin                   stream-broken  no usable stream (eps=1)
+
+WORKING:
+  dessin-anime  stream x1 → 
+  hydrahd  https://futurefocusedentrepreneurs.site/nnQPPoSQm/pl/H4sIAAAAAAAAAw3M3
+  hydrahd-shirox  https://futurefocusedentrepreneurs.site/nnQPPoSQm/pl/H4sIAAAAAAAAAw3M3
+  anidb  https://cache.libria.fun/videos/media/ts/10290/1/720/69ebd857ac3003ccf
+  flixlatam  https://ugc-cdn-caching-n3jh5sxj3nhn9kw0e1.cloudwindow-route.com/engin
+  torrentio  magnet:?xt=urn:btih:26ae1a154c19af80ae5bfac98b8f1d923b68af44&dn=One%20
+  aniliberty  https://cache.libria.fun/videos/media/ts/10290/1/1080/6e7f45803b46cbc9
+  iptv-org  https://jmp2.uk/plu-69affcad8940750a23a7231a.m3u8
+  animevost  http://video.animetop.info/720/2147414641.mp4
+  henaojara  https://hgcloud.to/e/7ciflfuoeqqm
+  animegg  https://www.animegg.org/play/265000/video.mp4?for=101792079851089
+  kisskh  https://hls.cdnvideo11.shop/hls07/8792/Ep1_index.m3u8?v=iju4hadrvsv
+  mangadex  images 18
+  nivod  https://vv.jisuzyv.com/play/b2k9l41d/index.m3u8
+  lmanime  https://cdndirector.dailymotion.com/cdn/manifest/video/x9rix6o.m3u8?se
+  onetouch  https://aapanel.devcorp.me/assets/e1091373-4ff7-5f25-a561-421e115f500c
+  lncrawler  text 1704B/0img
+  onwave  https://cloud.solodcdn.com/useruploads/6af7b6ba-2fcc-4b38-81b9-2d142fc
+  yummyanime  https://cloud.solodcdn.com/useruploads/d9284598-85e3-482c-b8fb-6944baa
+  AnimeWorld  https://srv26-jupiter.sweetpixel.org/DDL/ANIME/OnePieceSUBITA/OnePiece
+  123anime  https://fetch.nexabloom.top/anime/d85cba32d0ae588929c465acc4ee1d09/8a1
+  airflix  https://futurefocusedentrepreneurs.site/nnQPPoSQm/pl/H4sIAAAAAAAAAwXB0
+  AnimeUnity  https://au-d1-05.vix-content.net/download/4/2/91/291bf7a2-8a8d-4c43-bd
+  an1me  https://an1me.to/anime_attribute/sub/
+  aksv  https://s302d1.downet.net/download/1792166263/6ad0f7f739f28/One.Last.S
+  StreamingUnity  https://vixcloud.co/playlist/682356?token=30d42b17deb27d4a53b0cd393174
+  aether  https://futurefocusedentrepreneurs.site/nnQPPoSQm/pl/H4sIAAAAAAAAAw3OW
+  anidub  https://ok6-1.vkuser.net/?expires=1792166263099&srcIp=201.209.80.115&p
+  animeav1  https://player.zilla-networks.com/m3u8/7601658844858539e438dceee32e792
+  animeland  https://animesource.me/cache/opnebulandiadub1.html.mp4
+  animenosub  https://prx-1566-ant-r.vmpx.online/hls2/02/02961/ewxq44iwlrpt_n/master
+  animelib  https://cloud.solodcdn.com/useruploads/8d53f9b5-059c-49d9-9141-b5eb96b
+  blackCloverPace  https://pixeldrain.net/api/file/d7xNJbwb?download
+  borucut  https://pixeldrain.net/api/file/Ly7PvjBu?download
+  concentratedBleach  https://pixeldrain.net/api/filesystem/%2FrwPVCu7Z%2F01%20-%20Substitut
+  dbzRecut  https://pixeldrain.net/api/file/3ftz4zKv?download
+  dragonballrecut  https://archive.org/download/dragon-ball-recut/Dragon.Ball.Recut.E01.v
+  aniwave  https://ru-cdn1.echovideo.to/cdn/092e3d2d14736a0ad53867906eb1495fdefdb
+  mangabuddy  images 51
+  mangafreak  images 13
+  chireads  text 12775B/0img
+  anime-sama  https://prx-1562-ant-o.vmpx.online/hls2/03/00888/ze0dv8b88jpo_,n,l,.ur
+  mangaworld  images 37
+  onigashima  https://pixeldrain.net/api/file/ZDs9YsGk?download
+  peachify  https://vidlink.pro/tv/37854/1/1
+  imdb  https://futurefocusedentrepreneurs.site/nnQPPoSQm/pl/H4sIAAAAAAAAAw3C0
+  monoschinos2  https://wwv.monoschinos2.net/ver/one-piece-heroines-episodio-1
+  readnovels  text 14997B/0img
+  scan-sama  images 55
+  toontales  https://ww.toontales.net/dd/blue-rhythm.mp4
+  otaku-streamers  https://error.org/
+  vidfast  https://vidlink.pro/tv/37854/1/1
+  weebcentral  images 17
+  xpass  https://vidlink.pro/tv/37854/1/1
+  animeheaven  https://ax.animeheaven.me/video.mp4?2c523c8cd9cc129bd13fc7407fa81220&e
+  animesdigital  https://cdn-s01.mywallpaper-4k-image.net/stream/sv/o/one-piece/1134.mp
+  voir-anime  https://ugc-cdn-caching-n3wqli8udznhgz3hja.cloudwindow-route.com/engin
+  vidcore  https://vidlink.pro/tv/37854/1/1
+  arabictoons  https://stream.foupix.com:8443/animeios2/1740913500/flinstones_02.mp4/
+  asia2tv  https://strm5.uqload.vc/hls2/04/02210/tl4d922mj142_n/master.m3u8?t=Of9
+  narucannon  https://pixeldrain.net/api/file/EDg7Q9Uu?download
+  mangataro  images 21
+  novelbuddy  text 14351B/0img
+  mangakatana  images 52
+  luciferdonghua  https://cdndirector.dailymotion.com/cdn/manifest/video/x9xxlfc.m3u8?se
+  novelfire  text 32B/0img
+  animeweek  https://cdndania.com/cdn/hls/7f16f580abadf98e21a4df0aa7e72728/master.m
+  onepace  https://pixeldrain.net/api/file/RwHyfKZs?download
+  rebuildOfNaruto  https://pixeldrain.net/api/file/giuJRnhy?download
+  purstream  https://free.finepulfe.xyz/animes/movie/1051942/premium-qwoih5/master.
+  readnovelfull  text 14162B/0img
+  sameband  https://sameband.studio/v/anime/One%20Piece%20Heroines/One%20Piece%20H
+  ristoanime  https://prx-1564-ant-q.vmpx.online/hls2/04/01181/wmt4a13doejt_,n,l,.ur
+  movix  https://94.131.217.15/v4/G4hQDozD-a-vXenINYC0sw/1792089902/ipk/gcgh5/m
+  yuYuHakushoPace  https://pixeldrain.net/api/file/PCwHACep
+  spacepowerfans  https://dc703.4shared.com/img/EUc98OZWjq/3ea6c33a/dlink__2Fdownload_2F
+  xiaoxintv  https://cdn3.ryplay3.com/20240810/9165_80e3fbae/2000k/hls/index.m3u8
+  noveldot  text 3586B/0img
+  onePieceFilmRedAmaLeeScore  https://pixeldrain.net/api/file/5doVw29C
+  kuudere  https://flixcloud.cc/e/rtt4nppua1i6?v=1
+  onePieceTreasureEdition  https://pixeldrain.net/api/file/https://pixeldrain.net/l/VR7e6o5y?down
+  anikotodub  https://megap.shiora.top/f899139df5e1059396431415e770c6dd/b23b2bb864c4
+  anikotosub  https://megap.shiora.top/f899139df5e1059396431415e770c6dd/61b87186ab26
+  anoboye  https://files.catbox.moe/avolvc.mp4
+  nflwebcast  https://webcast-origin.b-cdn.net/bcdn_token=fq0r3qq78Vhi2XLTrcSQnFKBoP
+  mlbwebcast  https://webcast-origin.b-cdn.net/bcdn_token=c8ZG3EEDMAefpDQYyPBgrR0RsS
+  usatv  https://a1xs.vip/40000011
+  mangadot  images 17
+  chireads-eclipse  text 12775B/0img
+  mangabuddy-eclipse  images 51
+  mangadex-eclipse  images 18
+  lncrawler-eclipse  text 1704B/0img
+  mangafreak-eclipse  images 13
+  mangataro-eclipse  images 21
+  mangaworld-eclipse  images 37
+  mangakatana-eclipse  images 52
+  novelbuddy-eclipse  text 14351B/0img
+  novelfire-eclipse  text 6563B/0img
+  readnovelfull-eclipse  text 14162B/0img
+  animexdub  https://fetch.nexabloom.top/anime/f899139df5e1059396431415e770c6dd/b23
+  animex  https://fetch.nexabloom.top/anime/f899139df5e1059396431415e770c6dd/61b
+  readnovels-eclipse  text 14997B/0img
+  weebcentral-eclipse  images 17
+  scan-sama-eclipse  images 55
+  streamcloud  stream x2 → 
+  noveldot-eclipse  text 32B/0img
+
+results → D:\xdfkenny-sora-modules\.tmp-audit\audit-results.jsonl
+summary → D:\xdfkenny-sora-modules\.tmp-audit\audit-summary.txt

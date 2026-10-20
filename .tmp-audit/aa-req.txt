@@ -1,0 +1,11 @@
+URL: https://api.mkissa.net/api?variables=%7B%22showId%22%3A%22ReooPAxPMsHM4KPMY%22%2C%22translationType%22%3A%22sub%22%2C%22episodeString%22%3A%221%22%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%227641f193d13bc738ccb650fa7c59d17c5afe663b89ab33f0ddbd6a1c50b4b813%22%7D%2C%22aaReq%22%3A%22AfLTLP0IG%2Fx%2Fo7166uuRKBKzmMn5IWkONiFUXXreDCIJjZp%2BSuo1fFLLGzuf9iL%2BFOzabQx8TJ3%2BKY0%2Fty8sHOOhH7i6gm%2FJGaRPNJYlO%2BNPgWyylrowr2ai91Nza3aSbwr3%2Bb2tV6gdCzKxwwSVQuUaU2ZxRZqg0T2xTx%2FX%2B%2BI37PBoEvGO6NImo%2F%2BxnTW5B3FUlkUxZH%2BQSq%2FB1QcQcjTvij2e%22%2C%22k%22%3A%22k7%22%7D
+
+HEADERS:
+{
+ "Content-Type": "application/json",
+ "Referer": "https://mkissa.to/",
+ "Origin": "https://mkissa.to",
+ "x-build-id": "179",
+ "Accept": "application/json, text/plain, */*",
+ "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+}
