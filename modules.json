@@ -2,15 +2,16 @@
   "repo": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules",
   "modules": [
     {
-      "id": "yfsp",
-      "name": "YFSP",
-      "iconUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/yfsp/icon.png",
-      "category": "movies/shows/anime",
+      "id": "allmanga",
+      "name": "AllAnime",
+      "iconUrl": "https://allmanga.to/pics/avatar-w.png",
+      "category": "anime",
       "branch": "main",
-      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/yfsp/yfsp.json",
+      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga/allmanga.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-20",
-      "note": "Stream API rate-limits intermittently (code 5 访问过量, observed 2026-10-15 ~1h+): v1.0.7 bounds the code-5 backoff (shared 2x8s budget, no counter re-arm) so extractStreamUrl degrades gracefully instead of looping past the 40s harness cap. search/details/episodes healthy; module recovers automatically when the upstream throttle clears."
+      "updated": "2026-10-11",
+      "needs_review": true,
+      "note": "2026-10-15 audit: search + episodes healthy (1187 eps); stream step gated at the upstream edge — api.mkissa.net answers NEED_CAPTCHA to every non-interactive client and api.allanime.day 429s, same wall as the AllManga Manga image step. Keygen build-179 is live; module recovers automatically if the edge stops challenging. Not fixable in-module."
     },
     {
       "id": "hydrahd",
@@ -35,18 +36,6 @@
       "updated": null
     },
     {
-      "id": "dessin-anime",
-      "name": "Dessin Anime",
-      "iconUrl": "https://dessinanime.cc/apple-icon.png",
-      "category": "anime",
-      "branch": "main",
-      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/dessin-anime/dessin-anime.json",
-      "sampleQuery": "naruto",
-      "updated": "2026-09-21",
-      "badge": "new",
-      "note": "player4me decrypted 100% locally (AES-128-CBC); works on Shirox after tapping Verify Cloudflare for dessinanime.cc."
-    },
-    {
       "id": "anidb",
       "name": "AniDB",
       "iconUrl": "https://anidb.app/images/fav-192.png",
@@ -60,6 +49,98 @@
       "sampleQuery": "one piece",
       "note": "Full pipeline verified working 2026-10-15 (audit): search via public AniList (10 hits), episodes, playable HLS via AniLibria (cache.libria.fun m3u8, HTTP 200 without Referer). anidb.app itself still 503 — module works around it.",
       "updated": "2026-10-11"
+    },
+    {
+      "id": "anikoto",
+      "name": "Anikoto",
+      "iconUrl": "https://git.luna-app.eu/ibro/services/raw/branch/main/anikoto/icon.png",
+      "category": "anime",
+      "branch": "main",
+      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anikoto/anikoto.json",
+      "sampleQuery": "one piece",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "anikotodub",
+      "name": "Anikoto DUB",
+      "iconUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/Anikoto-DUB/icon.png",
+      "category": "anime",
+      "branch": "main",
+      "manifestUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/Anikoto-DUB/anikoto-dub.json",
+      "sampleQuery": "one piece",
+      "updated": null
+    },
+    {
+      "id": "anikotosub",
+      "name": "Anikoto SUB",
+      "iconUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/Anikoto-DUB/icon.png",
+      "category": "anime",
+      "branch": "main",
+      "manifestUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/Anikoto-SUB/anikoto-sub.json",
+      "sampleQuery": "one piece",
+      "updated": null
+    },
+    {
+      "id": "anidub",
+      "name": "AniDub",
+      "iconUrl": "https://anidub.org/templates/CinemaBlue/images/jutfun.png",
+      "category": "anime",
+      "branch": "main",
+      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anidub/anidub.json",
+      "sampleQuery": "one piece",
+      "updated": "2026-09-25"
+    },
+    {
+      "id": "123anime",
+      "name": "123Anime",
+      "iconUrl": "https://123animehub.cc/assets/favicons/apple-touch-icon.png",
+      "category": "anime",
+      "branch": "main",
+      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/123anime/123anime.json",
+      "sampleQuery": "one piece",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "yfsp",
+      "name": "YFSP",
+      "iconUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/yfsp/icon.png",
+      "category": "movies/shows/anime",
+      "branch": "main",
+      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/yfsp/yfsp.json",
+      "sampleQuery": "one piece",
+      "updated": "2026-10-20",
+      "note": "Stream API rate-limits intermittently (code 5 访问过量, observed 2026-10-15 ~1h+): v1.0.7 bounds the code-5 backoff (shared 2x8s budget, no counter re-arm) so extractStreamUrl degrades gracefully instead of looping past the 40s harness cap. search/details/episodes healthy; module recovers automatically when the upstream throttle clears."
+    },
+    {
+      "id": "allmangadub",
+      "name": "AllManga (DUB)",
+      "iconUrl": "https://allmanga.to/pics/avatar-w.png",
+      "category": "anime",
+      "branch": "main",
+      "manifestUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/AllManga-DUB/allmanga-dub.json",
+      "sampleQuery": "one piece",
+      "updated": null
+    },
+    {
+      "id": "allmangasub",
+      "name": "AllManga (SUB)",
+      "iconUrl": "https://allmanga.to/pics/avatar-w.png",
+      "category": "anime",
+      "branch": "main",
+      "manifestUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/AllManga-SUB/allmanga-sub.json",
+      "sampleQuery": "one piece",
+      "updated": null
+    },
+    {
+      "id": "dessin-anime",
+      "name": "Dessin Anime",
+      "iconUrl": "https://dessinanime.cc/apple-icon.png",
+      "category": "anime",
+      "branch": "main",
+      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/dessin-anime/dessin-anime.json",
+      "sampleQuery": "naruto",
+      "updated": "2026-09-21",
+      "note": "player4me decrypted 100% locally (AES-128-CBC); works on Shirox after tapping Verify Cloudflare for dessinanime.cc."
     },
     {
       "id": "anime-nexus",
@@ -92,18 +173,6 @@
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/flixlatam/flixlatam.json",
       "sampleQuery": "one piece",
       "updated": "2026-09-25"
-    },
-    {
-      "id": "allmanga",
-      "name": "AllAnime",
-      "iconUrl": "https://allmanga.to/pics/avatar-w.png",
-      "category": "anime",
-      "branch": "main",
-      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga/allmanga.json",
-      "sampleQuery": "one piece",
-      "updated": "2026-10-11",
-      "needs_review": true,
-      "note": "2026-10-15 audit: search + episodes healthy (1187 eps); stream step gated at the upstream edge — api.mkissa.net answers NEED_CAPTCHA to every non-interactive client and api.allanime.day 429s, same wall as the AllManga Manga image step. Keygen build-179 is live; module recovers automatically if the edge stops challenging. Not fixable in-module."
     },
     {
       "id": "allmanga-shirox",
@@ -307,16 +376,6 @@
       "updated": "2026-09-25"
     },
     {
-      "id": "123anime",
-      "name": "123Anime",
-      "iconUrl": "https://123animehub.cc/assets/favicons/apple-touch-icon.png",
-      "category": "anime",
-      "branch": "main",
-      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/123anime/123anime.json",
-      "sampleQuery": "one piece",
-      "updated": "2026-10-20"
-    },
-    {
       "id": "AnimeUnity",
       "name": "AnimeUnity",
       "iconUrl": "https://raw.githubusercontent.com/cranci1/Ryu/2f10226aa087154974a70c1ec78aa83a47daced9/Ryu/Assets.xcassets/Sources/AnimeUnity.imageset/apple-touch-icon.jpg",
@@ -385,16 +444,6 @@
       "category": "anime",
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/an1me/an1me.json",
-      "sampleQuery": "one piece",
-      "updated": "2026-09-25"
-    },
-    {
-      "id": "anidub",
-      "name": "AniDub",
-      "iconUrl": "https://anidub.org/templates/CinemaBlue/images/jutfun.png",
-      "category": "anime",
-      "branch": "main",
-      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anidub/anidub.json",
       "sampleQuery": "one piece",
       "updated": "2026-09-25"
     },
@@ -786,16 +835,6 @@
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anihq/anihq.json",
       "sampleQuery": "one piece",
       "updated": "2026-09-27"
-    },
-    {
-      "id": "anikoto",
-      "name": "Anikoto",
-      "iconUrl": "https://git.luna-app.eu/ibro/services/raw/branch/main/anikoto/icon.png",
-      "category": "anime",
-      "branch": "main",
-      "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anikoto/anikoto.json",
-      "sampleQuery": "one piece",
-      "updated": "2026-10-20"
     },
     {
       "id": "animeheaven",
@@ -1652,46 +1691,6 @@
       "note": "pixeldrain list VR7e6o5y (One Piece Treasure Edition) deleted upstream (checked 2026-10); module hardened against the crash, awaiting a new list id"
     },
     {
-      "id": "allmangadub",
-      "name": "AllManga (DUB)",
-      "iconUrl": "https://allmanga.to/pics/avatar-w.png",
-      "category": "anime",
-      "branch": "main",
-      "manifestUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/AllManga-DUB/allmanga-dub.json",
-      "sampleQuery": "one piece",
-      "updated": null
-    },
-    {
-      "id": "allmangasub",
-      "name": "AllManga (SUB)",
-      "iconUrl": "https://allmanga.to/pics/avatar-w.png",
-      "category": "anime",
-      "branch": "main",
-      "manifestUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/AllManga-SUB/allmanga-sub.json",
-      "sampleQuery": "one piece",
-      "updated": null
-    },
-    {
-      "id": "anikotodub",
-      "name": "Anikoto DUB",
-      "iconUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/Anikoto-DUB/icon.png",
-      "category": "anime",
-      "branch": "main",
-      "manifestUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/Anikoto-DUB/anikoto-dub.json",
-      "sampleQuery": "one piece",
-      "updated": null
-    },
-    {
-      "id": "anikotosub",
-      "name": "Anikoto SUB",
-      "iconUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/Anikoto-DUB/icon.png",
-      "category": "anime",
-      "branch": "main",
-      "manifestUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/Anikoto-SUB/anikoto-sub.json",
-      "sampleQuery": "one piece",
-      "updated": null
-    },
-    {
       "id": "animepahedub",
       "name": "Animepahe (DUB)",
       "iconUrl": "https://raw.githubusercontent.com/JayGxnzalez/Modules/refs/heads/main/Animepahe-DUB/Icon.png",
@@ -2107,7 +2106,8 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/nunuju/nunuju.json",
       "sampleQuery": "闹鬼酒店",
-      "updated": "2026-10-19"
+      "updated": "2026-10-19",
+      "badge": "new"
     },
     {
       "id": "myselfbbs",
@@ -2117,7 +2117,8 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/myselfbbs/myselfbbs.json",
       "sampleQuery": "鬼滅",
-      "updated": "2026-10-19"
+      "updated": "2026-10-19",
+      "badge": "new"
     },
     {
       "id": "xgcartoon",
@@ -2127,7 +2128,8 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/xgcartoon/xgcartoon.json",
       "sampleQuery": "zootopia",
-      "updated": "2026-10-19"
+      "updated": "2026-10-19",
+      "badge": "new"
     }
   ]
 }
