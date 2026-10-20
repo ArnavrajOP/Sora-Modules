@@ -259,7 +259,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animegg/animegg.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "animevost",
@@ -279,7 +279,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/iptv-org/iptv-org.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "kisskh",
@@ -289,7 +289,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/kisskh/kisskh.json",
       "sampleQuery": "lovely runner",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "lmanime",
@@ -299,7 +299,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/lmanime/lmanime.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "lncrawler",
@@ -309,7 +309,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/lncrawler/lncrawler.json",
       "sampleQuery": "solo leveling",
-      "updated": "2026-09-25",
+      "updated": "2026-10-20",
       "discontinued": true,
       "note": "upstream lncrawler.monster unreachable - connection timeout from both site and API hosts (checked 2026-10)"
     },
@@ -321,7 +321,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/mangadex/mangadex.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "nimegami",
@@ -333,7 +333,7 @@
       "sampleQuery": "one piece",
       "needs_review": true,
       "note": "upstream nimegami.id unreachable - Cloudflare origin down (checked 2026-10)",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "nivod",
@@ -343,7 +343,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/nivod/nivod.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-11"
+      "updated": "2026-10-20"
     },
     {
       "id": "onetouch",
@@ -353,7 +353,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/onetouch/onetouch.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "onwave",
@@ -423,7 +423,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/airflix/airflix.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "aksv",
@@ -435,7 +435,7 @@
       "sampleQuery": "one piece",
       "needs_review": true,
       "note": "upstream ak.sv unreachable (redirect loop/timeouts, checked 2026-09)",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "an1me",
@@ -445,7 +445,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/an1me/an1me.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "anime-sama",
@@ -465,7 +465,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animeav1/animeav1.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "animedefenders",
@@ -475,7 +475,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animedefenders/animedefenders.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "animeland",
@@ -485,7 +485,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animeland/animeland.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-05",
+      "updated": "2026-10-20",
       "note": "2026-10-15 audit: revived — full pipeline works (search→episodes→stream); animesource.me cache mp4 answers HTTP 206 to plain clients (playable, no Referer needed). The 2026-10-11 field-report deadness (empty muembed.php) has been superseded."
     },
     {
@@ -496,7 +496,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animelib/animelib.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "animenosub",
@@ -506,7 +506,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animenosub/animenosub.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "anineko",
@@ -518,7 +518,7 @@
       "sampleQuery": "one piece",
       "needs_review": true,
       "note": "upstream anineko.to /browser returns a PHP database-connection error (backend down, checked 2026-10)",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "anitube",
@@ -528,7 +528,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anitube/anitube.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "aniwave",
@@ -568,7 +568,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/chireads/chireads.json",
       "sampleQuery": "solo leveling",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "concentratedBleach",
@@ -618,7 +618,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/imdb/imdb.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "mangabuddy",
@@ -628,7 +628,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/mangabuddy/mangabuddy.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "mangafreak",
@@ -638,7 +638,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/mangafreak/mangafreak.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "mangaworld",
@@ -648,7 +648,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/mangaworld/mangaworld.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "monoschinos2",
@@ -658,7 +658,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/monoschinos2/monoschinos2.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "nakanime",
@@ -690,7 +690,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/otaku-streamers/otaku-streamers.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "peachify",
@@ -700,7 +700,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/peachify/peachify.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25",
+      "updated": "2026-10-20",
       "needs_review": true,
       "note": "stream backends usa.eat-peach.sbs / uwu.eat-peach.sbs DNS-dead (checked 2026-10-11); search/details/episodes via peachify.top still work — module recovers automatically if the backends return"
     },
@@ -712,7 +712,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/readnovels/readnovels.json",
       "sampleQuery": "solo leveling",
-      "updated": "2026-10-11"
+      "updated": "2026-10-20"
     },
     {
       "id": "scan-sama",
@@ -742,7 +742,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/toontales/toontales.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "vidcore",
@@ -752,7 +752,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/vidcore/vidcore.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "videasy",
@@ -762,7 +762,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/videasy/videasy.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "vidfast",
@@ -772,7 +772,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/vidfast/vidfast.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "voir-anime",
@@ -792,7 +792,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/weebcentral/weebcentral.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "xpass",
@@ -802,7 +802,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/xpass/xpass.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "1tamilcrow",
@@ -812,7 +812,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/1tamilcrow/1tamilcrow.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "Nakastream",
@@ -834,7 +834,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anihq/anihq.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-27"
+      "updated": "2026-10-20"
     },
     {
       "id": "animeheaven",
@@ -844,7 +844,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animeheaven/animeheaven.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "animesdigital",
@@ -854,7 +854,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animesdigital/animesdigital.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "animesrbija",
@@ -864,7 +864,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animesrbija/animesrbija.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "animeweek",
@@ -874,7 +874,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animeweek/animeweek.json",
       "sampleQuery": "원피스",
-      "updated": "2026-10-02"
+      "updated": "2026-10-20"
     },
     {
       "id": "animexin",
@@ -884,7 +884,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animexin/animexin.json",
       "sampleQuery": "renegade",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "arabictoons",
@@ -904,7 +904,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/asia2tv/asia2tv.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "catflix",
@@ -924,7 +924,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/doramaland/doramaland.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "filmo",
@@ -934,7 +934,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/filmo/filmo.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "filmpalast",
@@ -944,7 +944,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/filmpalast/filmpalast.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "kaliscan",
@@ -954,7 +954,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/kaliscan/kaliscan.json",
       "sampleQuery": "soul",
-      "updated": "2026-09-25",
+      "updated": "2026-10-20",
       "discontinued": true,
       "needs_review": false,
       "note": "kaliscan.io DNS dead (checked 2026-10-11); kaliscan.org/.app are unrelated sites — KaliScan has not relocated"
@@ -969,7 +969,7 @@
       "sampleQuery": "one piece",
       "needs_review": true,
       "note": "upstream latanime.org returns 403 Cloudflare-block to scripts (checked 2026-09)",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "lightnovelworld",
@@ -981,7 +981,7 @@
       "sampleQuery": "solo leveling",
       "needs_review": true,
       "note": "upstream serves Cloudflare challenge to scripts (checked 2026-09)",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "luciferdonghua",
@@ -991,7 +991,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/luciferdonghua/luciferdonghua.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "mangafire",
@@ -1003,7 +1003,7 @@
       "sampleQuery": "one piece",
       "needs_review": true,
       "note": "upstream serves Cloudflare challenge shell to scripts (checked 2026-10)",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "mangakatana",
@@ -1013,7 +1013,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/mangakatana/mangakatana.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "mangataro",
@@ -1023,7 +1023,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/mangataro/mangataro.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "miruro",
@@ -1045,7 +1045,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/moflix/moflix.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25",
+      "updated": "2026-10-20",
       "needs_review": true,
       "note": "Re-verified 2026-10-15: /api/v1/search answers a Cloudflare challenge page (403 Just a moment) to scripts; works in-app only after Verify Cloudflare (Dessin Anime pattern). Session-cookie flow (XSRF+session) verified unchanged; response shape confirmed 2026-10-11."
     },
@@ -1119,7 +1119,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/otakutsu/otakutsu.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25",
+      "updated": "2026-10-20",
       "needs_review": true,
       "note": "site otakutsu.cc unreachable, search API returns no results (checked 2026-10)"
     },
@@ -1141,7 +1141,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/readnovelfull/readnovelfull.json",
       "sampleQuery": "leveling",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "rebuildOfNaruto",
@@ -1174,7 +1174,7 @@
       "needs_review": true,
       "review_reason": "fetch failed",
       "note": "upstream rumanhua1.com unreachable (checked 2026-10)",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "sameband",
@@ -1224,7 +1224,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/turkish123/turkish123.json",
       "sampleQuery": "atla",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "id": "uaserial",
@@ -1244,7 +1244,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/xiaoxintv/xiaoxintv.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25",
+      "updated": "2026-10-20",
       "needs_review": true,
       "note": "upstream xiaoxintv.cc 301-redirects to xiaoheimi.cc which is unreachable (checked 2026-10)"
     },
@@ -1262,8 +1262,9 @@
       "sourceName": "VidLink",
       "iconUrl": "https://files.catbox.moe/cp4uzk.png",
       "author": {
-        "name": "50/50",
-        "icon": "https://files.catbox.moe/741wp7.png"
+        "name": "xdfkenny",
+        "icon": "https://yt3.googleusercontent.com/NHr6Y6qhYIUeoyIBdgeEYArXI1_ebVcLAuf562jPB6WSFTunOwPVuWC90eAG1zmeD6_Wy9_0mTs=s160-c-k-c0x00ffffff-no-rj",
+        "url": "https://github.com/xdfkenny"
       },
       "version": "1.0.1",
       "language": "English",
@@ -1290,7 +1291,7 @@
       "name": "VidLink",
       "category": "shows/movies/anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/vidlink/vidlink.json",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "sourceName": "RGShows",
@@ -1456,8 +1457,9 @@
       "sourceName": "Anoboye",
       "iconUrl": "https://i3.wp.com/anoboye.com/wp-content/uploads/2025/05/Anoboye-300x300.jpg",
       "author": {
-        "name": "50/50",
-        "icon": "https://files.catbox.moe/741wp7.png"
+        "name": "xdfkenny",
+        "icon": "https://yt3.googleusercontent.com/NHr6Y6qhYIUeoyIBdgeEYArXI1_ebVcLAuf562jPB6WSFTunOwPVuWC90eAG1zmeD6_Wy9_0mTs=s160-c-k-c0x00ffffff-no-rj",
+        "url": "https://github.com/xdfkenny"
       },
       "version": "1.0.1",
       "language": "Chinese",
@@ -1488,7 +1490,7 @@
       "name": "Anoboye",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anoboye/anoboye.json",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20"
     },
     {
       "sourceName": "Anime Base (DUB)",
@@ -1514,7 +1516,7 @@
       "name": "Anime Base (DUB)",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anime-base/anime-base.json",
-      "updated": "2026-09-25",
+      "updated": "2026-10-20",
       "note": "anime-base.net shut down — homepage shows a farewell/restructuring page (2015-2026), no search or content anymore (checked 2026-10-11)"
     },
     {
@@ -1602,8 +1604,9 @@
       "sourceName": "DonghuaStream",
       "iconUrl": "https://donghuastream.org/wp-content/uploads/2023/05/cropped-Donghua-Stream-scaled-1-192x192.jpeg",
       "author": {
-        "name": "50/50",
-        "icon": "https://files.catbox.moe/741wp7.png"
+        "name": "xdfkenny",
+        "icon": "https://yt3.googleusercontent.com/NHr6Y6qhYIUeoyIBdgeEYArXI1_ebVcLAuf562jPB6WSFTunOwPVuWC90eAG1zmeD6_Wy9_0mTs=s160-c-k-c0x00ffffff-no-rj",
+        "url": "https://github.com/xdfkenny"
       },
       "version": "1.0.0",
       "language": "Chinese",
@@ -1634,7 +1637,7 @@
       "name": "DonghuaStream",
       "category": "anime",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/donghuastream/donghuastream.json",
-      "updated": "2026-09-25",
+      "updated": "2026-10-20",
       "sampleQuery": "battle through the heavens"
     },
     {
@@ -1891,7 +1894,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/chireads/chireads.json",
       "sampleQuery": "solo leveling",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "comix-eclipse",
@@ -1911,7 +1914,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/kaliscan/kaliscan.json",
       "sampleQuery": "soul",
-      "updated": "2026-09-28",
+      "updated": "2026-10-20",
       "discontinued": true,
       "needs_review": false,
       "note": "kaliscan.io DNS dead (checked 2026-10-11); kaliscan.org/.app are unrelated sites — KaliScan has not relocated"
@@ -1926,7 +1929,7 @@
       "sampleQuery": "solo leveling",
       "needs_review": true,
       "note": "upstream serves Cloudflare challenge to scripts (checked 2026-09)",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "lncrawler-eclipse",
@@ -1936,7 +1939,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/lncrawler/lncrawler.json",
       "sampleQuery": "solo leveling",
-      "updated": "2026-09-28",
+      "updated": "2026-10-20",
       "discontinued": true,
       "note": "upstream lncrawler.monster unreachable (same as main LnCrawler, checked 2026-10)",
       "needs_review": false
@@ -1949,7 +1952,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/mangabuddy/mangabuddy.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "mangadex-eclipse",
@@ -1959,7 +1962,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/mangadex/mangadex.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "mangafire-eclipse",
@@ -1971,7 +1974,7 @@
       "sampleQuery": "one piece",
       "needs_review": true,
       "note": "upstream serves Cloudflare challenge shell to scripts (checked 2026-10)",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "mangafreak-eclipse",
@@ -1981,7 +1984,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/mangafreak/mangafreak.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "mangakatana-eclipse",
@@ -1991,7 +1994,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/mangakatana/mangakatana.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "mangataro-eclipse",
@@ -2001,7 +2004,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/mangataro/mangataro.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "mangaworld-eclipse",
@@ -2011,7 +2014,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/mangaworld/mangaworld.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "novelbuddy-eclipse",
@@ -2053,7 +2056,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/readnovelfull/readnovelfull.json",
       "sampleQuery": "leveling",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "readnovels-eclipse",
@@ -2063,7 +2066,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/readnovels/readnovels.json",
       "sampleQuery": "solo leveling",
-      "updated": "2026-10-11"
+      "updated": "2026-10-20"
     },
     {
       "id": "rumanhua1-eclipse",
@@ -2076,7 +2079,7 @@
       "needs_review": true,
       "note": "upstream rumanhua1.com unreachable (checked 2026-10)",
       "review_reason": "fetch failed",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "scan-sama-eclipse",
@@ -2096,7 +2099,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/weebcentral/weebcentral.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-28"
+      "updated": "2026-10-20"
     },
     {
       "id": "nunuju",

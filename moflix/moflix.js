@@ -943,7 +943,7 @@ async function doodstreamExtractor(html, url = null) {
 /* {REQUIRED PLUGINS: unbaser} */
 /**
  * @name earnvidsExtractor
- * @author 50/50
+ * @author xdfkenny
  */
 async function earnvidsExtractor(html, url = null) {
     try {
@@ -981,7 +981,7 @@ async function mp4uploadExtractor(html, url = null) {
 /* {REQUIRED PLUGINS: unbaser} */
 /**
  * @name packerExtractor
- * @author 50/50
+ * @author xdfkenny
  */
 async function packerExtractor(data, url = null) {
     const obfuscatedScript = data.match(/<script[^>]*>\s*(eval\(function\(p,a,c,k,e,d.*?\)[\s\S]*?)<\/script>/);
@@ -995,7 +995,7 @@ async function packerExtractor(data, url = null) {
 
 /**
  * @name sendvidExtractor
- * @author 50/50
+ * @author xdfkenny
  */
 async function sendvidExtractor(data, url = null) {
     const match = data.match(/var\s+video_source\s*=\s*"([^"]+)"/);
@@ -1106,7 +1106,7 @@ async function uqloadExtractor(html, embedUrl) {
 /* {REQUIRED PLUGINS: unbaser} */
 /**
  * @name videospkExtractor
- * @author 50/50
+ * @author xdfkenny
  */
 async function videospkExtractor(data, url = null) {
         const obfuscatedScript = data.match(/<script[^>]*>\s*(eval\(function\(p,a,c,k,e,d.*?\)[\s\S]*?)<\/script>/);
