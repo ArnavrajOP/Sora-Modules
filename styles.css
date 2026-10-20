@@ -186,13 +186,15 @@ p {
   letter-spacing: -0.02em;
 }
 
-.brand-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: var(--r-full);
-  background: var(--accent);
-  box-shadow: 0 0 0 0 rgba(126, 200, 227, 0.6);
-  animation: statusPulse 2.4s ease-in-out infinite;
+.brand-mark {
+  display: inline-flex;
+  flex: none;
+}
+
+.brand-mark svg {
+  display: block;
+  border-radius: 9px;
+  box-shadow: var(--shadow-sm);
 }
 
 .nav-links {
@@ -311,11 +313,17 @@ p {
 }
 
 .eyebrow {
-  margin: 0 0 18px;
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 16px;
+  padding: 6px 14px;
+  border-radius: var(--r-full);
+  background: var(--frost);
+  border: 1px solid var(--border);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 500;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--fg-muted);
 }
@@ -340,16 +348,50 @@ p {
 .hero-sub {
   margin: 22px auto 12px;
   font-size: clamp(17px, 2.4vw, 20px);
-  font-style: italic;
-  color: var(--fg-muted);
+  font-weight: 500;
+  color: var(--fg);
   max-width: 46ch;
 }
 
 .hero-desc {
-  margin: 0 auto 30px;
+  margin: 0 auto 14px;
   font-size: 15px;
   color: var(--fg-muted);
   max-width: 54ch;
+}
+
+/* Scannable value tags (checkmark pills) under the hero description */
+.hero-tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 auto 30px;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 13px;
+  border-radius: var(--r-full);
+  background: var(--frost);
+  border: 1px solid var(--border);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--fg-muted);
+}
+
+.hero-tag .icon-sm {
+  font-size: 14px;
+  color: var(--accent-ink);
+}
+
+/* App-compat note under the hero CTAs */
+.hero-note {
+  margin: 16px auto 0;
+  font-size: 12.5px;
+  color: var(--fg-muted);
 }
 
 .hero-cta {
@@ -553,8 +595,10 @@ main {
 }
 
 /* Secondary frost outline */
+/* Secondary frost outline — solid/translucent fill so it stays tactile
+   against both page backgrounds */
 .btn-secondary {
-  background: transparent;
+  background: #fff;
   color: var(--accent-ink);
   border: 1.5px solid var(--accent);
 }
@@ -567,7 +611,7 @@ main {
 
 /* Ghost soft link */
 .btn-ghost {
-  background: transparent;
+  background: #fff;
   color: var(--accent-ink);
   border: 1.5px solid var(--border);
 }
@@ -1627,6 +1671,11 @@ a.btn-card-action.btn-card-sora:hover,
     display: none;
   }
 
+  /* Extra room under the stats so they clear mobile browser chrome */
+  .hero {
+    padding-bottom: 96px;
+  }
+
   .grid {
     grid-template-columns: 1fr;
   }
@@ -2025,7 +2074,8 @@ html[data-theme="dark"] .hero-hex { background: linear-gradient(135deg, #1E344B,
 html[data-theme="dark"] .eyebrow { color: #8A9AB3; }
 html[data-theme="dark"] .hero-title { color: #E6EDF3; }
 html[data-theme="dark"] .hero-title span { background: linear-gradient(120deg, #8ED0F0, #5A9AC5); -webkit-background-clip: text; background-clip: text; }
-html[data-theme="dark"] .hero-sub, html[data-theme="dark"] .hero-desc { color: #8A9AB3; }
+html[data-theme="dark"] .hero-sub { color: #E6EDF3; }
+html[data-theme="dark"] .hero-desc { color: #8A9AB3; }
 html[data-theme="dark"] .card { background: #141E32; }
 html[data-theme="dark"] .card-head { border-bottom-color: #2A3A52; }
 html[data-theme="dark"] .card-icon { background: #1E2D45; border-color: #2A3A52; color: #8ED0F0; }
@@ -2049,7 +2099,7 @@ html[data-theme="dark"] .search-input:focus { background: #1A2335; border-color:
 html[data-theme="dark"] .filter-pill { background: #141E32; color: #8A9AB3; }
 html[data-theme="dark"] .filter-pill:hover { background: #1E2D45; color: #E6EDF3; }
 html[data-theme="dark"] .filter-pill.active { background: linear-gradient(135deg, #2B7A9E, #20648E); color: #fff; border-color: #2B7A9E; }
-html[data-theme="dark"] .stat, html[data-theme="dark"] .feature { background: #141E32; border-color: #2A3A52; }
+html[data-theme="dark"] .stat, html[data-theme="dark"] .feature { background: #141E32; border-color: #33496B; box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(142, 208, 240, 0.05); }
 html[data-theme="dark"] .footer { background: linear-gradient(180deg, #0A0F1E 0%, #141E32 100%); border-top-color: #2A3A52; }
 html[data-theme="dark"] .footer-bottom { background: #0F1729; }
 html[data-theme="dark"] .icon-btn { background: #141E32; border-color: #2A3A52; color: #8A9AB3; }
@@ -2062,6 +2112,12 @@ html[data-theme="dark"] .faq-a code { background: #1E2D45; }
 /* Mobile nav dropdown panel was hardcoded light; theme it for dark mode. */
 html[data-theme="dark"] .nav-links { background: rgba(10, 15, 30, 0.98); }
 html[data-theme="dark"] .split .copy { border-left-color: rgba(255, 255, 255, 0.08); }
+/* Solid-white secondary/ghost fills are light-mode only */
+html[data-theme="dark"] .btn-secondary,
+html[data-theme="dark"] .btn-ghost {
+  background: rgba(126, 200, 227, 0.07);
+  border-color: #3A5575;
+}
 
 html[data-theme="light"] { color-scheme: light; }
 
@@ -2081,7 +2137,8 @@ html[data-theme="light"] { color-scheme: light; }
 .stats { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
 .stat { background: var(--bg-warm); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 18px 30px; min-width: 140px; box-shadow: var(--shadow-sm); }
 .stat-num { font-family: var(--font-display); font-size: 34px; font-weight: 800; letter-spacing: -0.03em; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
-.stat-lbl { color: var(--fg-muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 4px; }
+.stat-lbl { display: inline-flex; align-items: center; gap: 6px; color: var(--fg-muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 4px; }
+.stat-lbl .material-symbols-outlined { font-size: 15px; color: var(--accent-ink); }
 
 .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
 .feature { background: var(--bg-warm); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; box-shadow: var(--shadow-sm); }
