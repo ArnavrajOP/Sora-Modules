@@ -89,7 +89,7 @@ if (!entry) { console.error('module not found:', id); process.exit(1); }
   if (g.extractEpisodes) {
     let eps = J(await g.extractEpisodes(key));
     if (!Array.isArray(eps)) eps = [eps];
-    console.log('count:', eps.length, 'first:', JSON.stringify(eps[0]).slice(0,200));
+    console.log('count:', eps.length, 'first:', eps[0] ? JSON.stringify(eps[0]).slice(0,200) : '(none)');
     const epKey = (eps[0] && (eps[0].href || eps[0].id)) || key;
     console.log('\n== stream ==');
     const raw = await g.extractStreamUrl(epKey);

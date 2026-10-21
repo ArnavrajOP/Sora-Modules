@@ -91,7 +91,7 @@
       "sampleQuery": "one piece",
       "needs_review": true,
       "note": "2026-10-20: module pipeline is healthy (search 40 → details → episodes → vkuser.net voice stream) but anidub.org is flaky from this egress — 3 of 4 TCP connects time out at :443, so the episode step intermittently drops (eps=undefined) and the stream step then has no source. Upstream-availability wall, not a module bug; re-test on a clean connection.",
-      "updated": "2026-10-20"
+      "updated": "2026-09-25"
     },
     {
       "id": "123anime",
@@ -210,8 +210,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga-novels-shirox/allmanga-novels-shirox.json",
       "sampleQuery": "one punch man",
-      "updated": "2026-10-11",
-      "note": "Shirox build of the AllManga manga module (kanzen contract). Use the classic AllManga Manga module on Sora/Luna."
+      "updated": "2026-10-20",
+      "note": "Shirox build of the AllManga manga module (kanzen contract). 2026-10-20: image step broken same as the classic build - the chapterPages API answers NEED_CAPTCHA to every non-interactive client on api.mkissa.net / api.allanime.day (upstream/edge block, not in-module). See the allmanga-novels entry; module recovers if the edge stops challenging.",
+      "needs_review": true
     },
     {
       "id": "comix",
@@ -222,7 +223,7 @@
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/comix/comix.json",
       "sampleQuery": "one piece",
       "needs_review": true,
-      "updated": "2026-10-20",
+      "updated": "2026-09-25",
       "note": "2026-10-20 re-check: comix.to AND comix.ws both answer 403 'Just a moment' (CF managed challenge) to the api/v1 search from this egress — no-results, so the harness can't reach past the wall. The 2026-10-05 revival (search → details → 1128 chapters → 14-page images) was verified in a real browser context where the CF challenge clears; a blocked run is IP/TLS reputation, not module breakage. Clears needs_review when a browser-context re-verify passes."
     },
     {
@@ -246,7 +247,7 @@
       "sampleQuery": "lovely runner",
       "needs_review": true,
       "note": "2026-10-20 audit: upstream gone. kissasian.su now answers a 43-byte JSON stub (\"peakaboo\", no content, /ajax/search + /ajax/filter are 404); .com is a for-sale parking page, .cc/.tv/.net time out or TLS-drop. No live successor domain found. Not fixable in-module — record only.",
-      "updated": "2026-10-20"
+      "updated": "2026-09-25"
     },
     {
       "id": "aniliberty",
@@ -484,7 +485,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animedefenders/animedefenders.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-20"
+      "updated": "2026-10-20",
+      "needs_review": true,
+      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
     },
     {
       "id": "animeland",
@@ -537,7 +540,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anitube/anitube.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-20"
+      "updated": "2026-10-20",
+      "needs_review": true,
+      "note": "2026-10-20 audit: episode list is flaky (eps=0 on sweep, 1 on re-probe) and the CDN/Dailymotion stream step resolves intermittently - upstream-availability wall, like anidub. Re-test on a clean connection."
     },
     {
       "id": "aniwave",
@@ -617,7 +622,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/gidonline/gidonline.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "updated": "2026-10-20",
+      "needs_review": true,
+      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
     },
     {
       "id": "imdb",
@@ -844,6 +851,8 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anihq/anihq.json",
       "sampleQuery": "one piece",
+      "needs_review": true,
+      "note": "2026-10-20: anihq.cc (the kiranime site the module targets) answers 403 'Just a moment' (CF managed challenge) to the wp-json kiranime REST endpoint from this egress — same reputation wall as comix/moflix. The alternate anihq.com is a different non-kiranime hub (no /wp-json kiranime routes, /watch/ structure), so it is not a drop-in substitute. Not fixable in-module; clears on a clean browser context / residential egress.",
       "updated": "2026-10-20"
     },
     {
@@ -874,7 +883,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animesrbija/animesrbija.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-20"
+      "updated": "2026-10-20",
+      "needs_review": true,
+      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
     },
     {
       "id": "animeweek",
@@ -894,7 +905,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animexin/animexin.json",
       "sampleQuery": "renegade",
-      "updated": "2026-10-20"
+      "updated": "2026-10-20",
+      "needs_review": true,
+      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
     },
     {
       "id": "arabictoons",
@@ -934,7 +947,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/doramaland/doramaland.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-20"
+      "updated": "2026-10-20",
+      "needs_review": true,
+      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
     },
     {
       "id": "filmo",
@@ -954,7 +969,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/filmpalast/filmpalast.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-20"
+      "updated": "2026-10-20",
+      "needs_review": true,
+      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
     },
     {
       "id": "kaliscan",
@@ -1203,8 +1220,9 @@
       "category": "anime",
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/shizaproject/shizaproject.json",
-      "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "sampleQuery": "frieren",
+      "note": "2026-10-20: module pipeline is healthy — GraphQL search→release→episodes + kodik/sibnet embeds → solodcdn m3u8 verified live (Frieren 28/28 eps with playable streams). The 'one piece' query only reads empty because ShizaProject's One Piece release window (490–700) has no uploaded VideoFile embeds, so the harness read it as stream-broken; re-pointed sampleQuery to a stocked title.",
+      "updated": "2026-10-20"
     },
     {
       "id": "spacepowerfans",
@@ -1224,7 +1242,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/topcinema/topcinema.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-20"
+      "updated": "2026-10-20",
+      "needs_review": true,
+      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
     },
     {
       "id": "turkish123",
@@ -1234,7 +1254,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/turkish123/turkish123.json",
       "sampleQuery": "atla",
-      "updated": "2026-10-20"
+      "updated": "2026-10-20",
+      "needs_review": true,
+      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
     },
     {
       "id": "uaserial",
@@ -1244,7 +1266,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/uaserial/uaserial.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-20"
+      "updated": "2026-10-20",
+      "needs_review": true,
+      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
     },
     {
       "id": "xiaoxintv",
