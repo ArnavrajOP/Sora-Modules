@@ -487,7 +487,7 @@
       "sampleQuery": "one piece",
       "updated": "2026-10-20",
       "needs_review": true,
-      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
+      "note": "Recorded 2026-10-21: upstream API dead. The whole resolver chain (search via eng.animeapps.top/api/search2.php, episodes via epeng.animeapps.top/api2.php, stream via epeng.animeapps.top/apilink.php) now returns 404 Not Found on all four endpoints, so searchResults falls to its Error fallback and there is no episode/stream source. The host eng.animeapps.top/ still serves 200, so the API files were removed/renamed upstream. In-module revival requires re-reversing the new animeapps.top API; re-probe when a live API is found."
     },
     {
       "id": "animeland",
@@ -622,9 +622,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/gidonline/gidonline.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25",
+      "updated": "2026-10-21",
       "needs_review": true,
-      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
+      "note": "Hygiened 2026-10-21 (v1.0.2): removed a stray module-level extractStreamUrl() call that fired a network request at load, replaced cross-call `global.transformedStreams` state (undefined in the bare host) with a per-call local, and made both function catches return JSON envelopes instead of a raw null / bare []. Still needs_review: the resolver backend moved - api.embess.ws/embed now answers 422, and the live player is a token-gated SPA (alias-as.newplayjj.com:9443 + /build/*.js) that fetches its m3u8/mpd at runtime, so a deep reverse of the new source API is required to get a playable stream."
     },
     {
       "id": "imdb",

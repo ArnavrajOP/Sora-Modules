@@ -74,7 +74,7 @@ async function searchResults(keyword) {
 
 // extractDetails("https://gidonline.eu/5658-serial-vo-vse-tyazhkie.html");
 // extractEpisodes("https://gidonline.eu/5658-serial-vo-vse-tyazhkie.html");
-extractStreamUrl("https://gidonline.eu/5658-serial-vo-vse-tyazhkie.html|tv/1/1/778074");
+// extractStreamUrl("https://gidonline.eu/5658-serial-vo-vse-tyazhkie.html|tv/1/1/778074");
 
 // extractDetails("https://gidonline.eu/5347-put-vo-vse-tyazhkie.html");
 // extractEpisodes("https://gidonline.eu/5347-put-vo-vse-tyazhkie.html");
@@ -232,7 +232,7 @@ async function extractEpisodes(url) {
     return JSON.stringify(allEpisodes); // array of episodes with href, number, and season
   } catch (error) {
     console.error("Fetch error:", error);
-    return [];
+    return JSON.stringify([]);
   }
 }
 
@@ -242,12 +242,13 @@ async function extractEpisodes(url) {
  * @returns {Promise<string|null>} - The stream URL or null if not found.
  */
 async function extractStreamUrl(url) {
+  const empty = { streams: [], subtitles: "" };
   try {
-    const [urlPart, hrefPart] = url.split("|");
+    const [urlPart, hrefPart] = String(url || "").split("|");
+    if (!urlPart) return JSON.stringify(empty);
 
-    console.log("Extracting stream HREF from:", hrefPart);
-
-    const [type, season, episode, episodeId] = hrefPart.split("/");
+    const hrefSegs = (hrefPart || "").split("/");
+    const [type, season, episode] = hrefSegs;
 
     const response = await soraFetch(urlPart);
     const data = (await response.text) ? await response.text() : response;
@@ -305,6 +306,7 @@ async function extractStreamUrl(url) {
     */
 
     const streams = {};
+    const transformedStreams = [];
 
     for (const iframeSrc of iframeSrcs) {
       if (!iframeSrc.startsWith("https://api.embess.ws/embed/")) continue;
@@ -347,9 +349,7 @@ async function extractStreamUrl(url) {
 
             console.log("season object", seasonObj);
 
-            if (!global.transformedStreams) global.transformedStreams = [];
-
-            global.transformedStreams.push({
+            transformedStreams.push({
               title: ep.title,
               streamUrl: ep.hls,
               headers: {
@@ -358,8 +358,6 @@ async function extractStreamUrl(url) {
                 "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:141.0) Gecko/20100101 Firefox/141.0",
               }
             });
-
-            console.log("global.transformedStreams:", global.transformedStreams);
           }
         }
       } else {
@@ -372,10 +370,7 @@ async function extractStreamUrl(url) {
           if (scriptMatch) {
             const hlsUrl = scriptMatch[1];
             streams[hostName] = hlsUrl;
-            // Push directly to transformedStreams array
-            if (!global.transformedStreams) global.transformedStreams = [];
-
-            global.transformedStreams.push({
+            transformedStreams.push({
               title: hostName,
               streamUrl: hlsUrl,
               headers: {
@@ -391,9 +386,6 @@ async function extractStreamUrl(url) {
       }
     }
 
-    // Use global.transformedStreams if available, otherwise fallback to empty array
-    const transformedStreams = global.transformedStreams || [];
-
     const transformedResults = {
       streams: transformedStreams,
       subtitles: "",
@@ -403,7 +395,7 @@ async function extractStreamUrl(url) {
     return JSON.stringify(transformedResults);
   } catch (error) {
     console.log("Error extracting stream URLs:", error);
-    return null;
+    return JSON.stringify({ streams: [], subtitles: "" });
   }
 }
 
