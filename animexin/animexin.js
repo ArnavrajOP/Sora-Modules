@@ -67,14 +67,16 @@ async function extractStreamUrl(url) {
     const html = await response.text();
     console.log("1")
     const optionRegex = /<option value="([^"]+)"[^>]*>\s*([\s\S]*?)\s*<\/option>/g;
-    const allowedLabels = ["Hardsub English Dailymotion", "Hardsub Indonesia Dailymotion"];
+    // The live option labels carry an engine suffix ("... Dailymotion AX",
+    // "All Sub Player Dailymotion AX"); match on the "Dailymotion" substring
+    // instead of a fixed exact list, which silently dropped every option.
     const videoOptions = [];
     console.log("2")
     let match;
     while ((match = optionRegex.exec(html)) !== null) {
         const base64 = match[1];
         const label = match[2].trim();
-        if (!base64 || !allowedLabels.includes(label)) continue;
+        if (!base64 || !label.includes("Dailymotion")) continue;
 
         const decodedValue = atob(base64);
         if (!decodedValue) continue;
@@ -83,7 +85,10 @@ async function extractStreamUrl(url) {
         const videoId = idMatch ? idMatch[1] : null;
         if (!videoId) continue;
 
-        videoOptions.push({ videoId, label: label.replace(" Dailymotion", "") });
+        let title = "Dailymotion";
+        if (label.includes("English")) title = "HardSub English";
+        else if (label.includes("Indonesia") || label.includes("Indo")) title = "HardSub Indonesian";
+        videoOptions.push({ videoId, label: title });
     }
     console.log("3")
     async function getBestHls(hlsUrl) {
@@ -120,8 +125,9 @@ async function extractStreamUrl(url) {
 
             const bestHls = await getBestHls(hlsLink);
             streams.push({
-                title: option.label.toUpperCase().startsWith("HARDSUB ENGLISH") ? "HardSub English" : "HardSub Indonesian",
-                streamUrl: bestHls
+                title: option.label,
+                streamUrl: bestHls,
+                headers: { "Referer": "https://www.dailymotion.com/" }
             });
         } catch (err) {
             continue;

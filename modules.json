@@ -885,7 +885,7 @@
       "sampleQuery": "one piece",
       "updated": "2026-10-20",
       "needs_review": true,
-      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
+      "note": "Recorded 2026-10-21: Next.js App Router site. searchResults works via the RSC dehydrated query; anime detail + episode data ARE present in the RSC flight payload ([\"episodes\",<animeId>] React-Query state: {id,number,filler,...}), but episode objects carry no playable href and the site's play/watch route is unknown. The detail page embeds only an ad playerBridge (zone 11316538...) - no m3u8/source in RSC, and the client JS chunks that would reveal the route are unfetchable (Cloudflare). Stream layer is gated - in-module revival not feasible until the play route + source are identified. needs_review; re-probe after the site ships a stable client build."
     },
     {
       "id": "animeweek",
@@ -905,9 +905,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animexin/animexin.json",
       "sampleQuery": "renegade",
-      "updated": "2026-10-20",
+      "updated": "2026-10-21",
       "needs_review": true,
-      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
+      "note": "Repaired 2026-10-21 (v1.0.3): the Dailymotion option-label filter was an exact list that no longer matched the live labels (which gained an \" AX\" engine suffix + an \"All Sub Player\" variant), so every option was skipped and extractStreamUrl returned []. Now matches on the \"Dailymotion\" substring and emits {title,streamUrl,headers:{Referer}} per option - verified to produce 3 cdndirector.dailymotion m3u8 objects on episode pages. Still needs_review because Dailymotion's cdndirector manifest answers 403 from this host (geo-restricted to the content's region); playable in reachable regions, not certifiable here."
     },
     {
       "id": "arabictoons",
@@ -1253,7 +1253,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/turkish123/turkish123.json",
       "sampleQuery": "atla",
-      "updated": "2026-10-21",
+      "updated": "2026-10-20",
       "note": "Revived 2026-10-21: rewired the live resolver (download_navi → engifuosi /f/ server page) and added an unobtrusive `while(c--)` packer decoder; extractStreamUrl now emits the jwplayer master.m3u8 (v1.0.9). search/details/episodes/stream all verified live."
     },
     {
