@@ -199,17 +199,20 @@ async function extractStreamUrl(url) {
 
         let streamEmbeds = [];
 
-        for (const match of matches) {
-            const url2 = "https://topcinema.io/wp-content/themes/movies2023/Ajaxat/Single/Server.php";
+        // Derive the AJAX base from the watch page's own origin (the site has
+        // rotated domains; .io now 301s). Falls back to the current live host.
+        const siteBase = (String(watchUrl).match(/^https?:\/\/[^\/]+/) || ["https://topcinema.film"])[0];
+        const url2 = siteBase + "/wp-content/themes/movies2023/Ajaxat/Single/Server.php";
 
-            const headers = {
-                "Origin": "https://topcinema.io",
-                "Referer": "https://topcinema.io/",
+        const headers = {
+                "Origin": siteBase,
+                "Referer": siteBase + "/",
                 "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0",
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                 "X-Requested-With": "XMLHttpRequest",
             };
 
+        for (const match of matches) {
             const response2 = await soraFetch(url2, { method: "POST", headers, body: `id=${match.dataId}&i=${match.dataServer}` });
             if (!response2) continue;
             const html2 = await response2.text();
@@ -243,10 +246,11 @@ async function extractStreamUrl(url) {
         //     }
         // } 
         if (streamEmbed.includes("updown")) {
+            const origin = (String(streamEmbed).match(/^https?:\/\/[^\/]+/)||["https://"])[0];
             const response3 = await soraFetch(streamEmbed, {
                 headers: {
                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/244.178.44.111 Safari/537.36",
-                    "Referer": "https://topcinema.io/",
+                    "Referer": origin + "/",
                     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
                 }
             });
@@ -256,8 +260,8 @@ async function extractStreamUrl(url) {
             if (!scriptMatch) continue;
 
             const unpackedScript = unpack(scriptMatch[1]);
-            const streamMatch = unpackedScript.match(/(?<=file:")[^"]+/);
-            const stream = streamMatch ? streamMatch[0].trim() : '';
+            const fileM = unpackedScript.match(/file\s*:\s*["'](https?:\/\/[^"']+)["']/i);
+            const stream = fileM ? fileM[1].trim() : '';
 
             if (stream) {
                 streams.push({
@@ -265,7 +269,7 @@ async function extractStreamUrl(url) {
                     streamUrl: stream,
                     headers: {
                         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/244.178.44.111 Safari/537.36",
-                        "Referer": "https://updown.icu/"
+                        "Referer": origin + "/"
                     }
                 });
             }
@@ -559,8 +563,57 @@ function detect(source) {
     return source.replace(" ", "").startsWith("eval(function(p,a,c,k,e,");
 }
 
+/* Unobtrusive `while(c--)` packer used by the current resolvers
+ * (updown/streamwish/vidtube/filemoon). Its decoder is:
+ *   function(p,a,c,k,e,d){ while(c--) if(k[c]) p=p.replace(/\b c.toString(a) \b/g, k[c]); return p }
+ * where a=radix, c=count, k=symtab[]. The payload tokens are the *descending*
+ * index values in base `a`, each replaced by symtab[index] — which is a
+ * different (and incompatible) algorithm from classic p.a.c.k.e.r.'s
+ * `payload.replace(/\b\w+\b/g, lookup)`. `source` is the captured
+ * `eval(function(...){...}('payload',a,c,'syms'.split('|')...))` text. */
+function unpackUnobtrusive(source) {
+    const m = source.indexOf("}(");
+    if (m < 0) return null;
+    let i = m + 2;                        // at the payload's opening quote
+    i++;
+    let payload = "";
+    while (i < source.length) {
+        const ch = source[i];
+        if (ch === "\\") { payload += source[i + 1]; i += 2; continue; }
+        if (ch === "'") break;
+        payload += ch; i++;
+    }
+    i++; i++;                             // past closing quote + comma
+    const radM = /^\d+/.exec(source.slice(i)); if (!radM) return null;
+    const radix = radM[0]; i += radix.length;
+    i++;
+    const cntM = /^\d+/.exec(source.slice(i)); if (!cntM) return null;
+    const count = cntM[0]; i += count.length;
+    i++; i++;                             // comma + symtab opening quote
+    let syms = "";
+    while (i < source.length) {
+        const ch = source[i];
+        if (ch === "\\") { syms += source[i + 1]; i += 2; continue; }
+        if (ch === "'") break;
+        syms += ch; i++;
+    }
+    const symtab = syms.split("|");
+    const R = parseInt(radix, 10), C = parseInt(count, 10);
+    let out = payload;
+    for (let c = C - 1; c >= 0; c--) {
+        if (symtab[c]) out = out.replace(new RegExp("\\b" + c.toString(R) + "\\b", "g"), symtab[c]);
+    }
+    return out;
+}
+
 function unpack(source) {
     /* Unpacks P.A.C.K.E.R. packed js code. */
+    // Unobtrusive `while(c--)` form (what the live resolvers ship) — decode with
+    // the matching algorithm; the classic path below produces garbage for it.
+    if (source.indexOf("while(c--)") !== -1) {
+        const dec = unpackUnobtrusive(source);
+        if (dec) return dec;
+    }
     let { payload, symtab, radix, count } = _filterargs(source);
     if (count != symtab.length) {
         throw Error("Malformed p.a.c.k.e.r. symtab.");

@@ -210,7 +210,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga-novels-shirox/allmanga-novels-shirox.json",
       "sampleQuery": "one punch man",
-      "updated": "2026-10-20",
+      "updated": "2026-10-11",
       "note": "Shirox build of the AllManga manga module (kanzen contract). 2026-10-20: image step broken same as the classic build - the chapterPages API answers NEED_CAPTCHA to every non-interactive client on api.mkissa.net / api.allanime.day (upstream/edge block, not in-module). See the allmanga-novels entry; module recovers if the edge stops challenging.",
       "needs_review": true
     },
@@ -622,7 +622,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/gidonline/gidonline.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-20",
+      "updated": "2026-09-25",
       "needs_review": true,
       "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
     },
@@ -1222,7 +1222,7 @@
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/shizaproject/shizaproject.json",
       "sampleQuery": "frieren",
       "note": "2026-10-20: module pipeline is healthy — GraphQL search→release→episodes + kodik/sibnet embeds → solodcdn m3u8 verified live (Frieren 28/28 eps with playable streams). The 'one piece' query only reads empty because ShizaProject's One Piece release window (490–700) has no uploaded VideoFile embeds, so the harness read it as stream-broken; re-pointed sampleQuery to a stocked title.",
-      "updated": "2026-10-20"
+      "updated": "2026-09-25"
     },
     {
       "id": "spacepowerfans",
@@ -1242,9 +1242,8 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/topcinema/topcinema.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-20",
-      "needs_review": true,
-      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
+      "updated": "2026-10-21",
+      "note": "Revived 2026-10-20 (v1.1.2): the Server.php AJAX endpoint had moved off the hardcoded topcinema.io (now 301) — the base is now derived from the watch page's own origin (topcinema.film). The live resolvers (updown.cam/streamwish.fun/vidtube) ship an Unobtrusive while(c--) packer the classic unpacker mis-decoded, so a pure-JS Unobtrusive decoder was added and the updown branch now emits the playable mp4 (200 with the updown Referer). Full pipeline verified."
     },
     {
       "id": "turkish123",
