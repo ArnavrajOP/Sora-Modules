@@ -1,19 +1,19 @@
 // Settings start
-const baseUrl = "streamingcommunityz.jetzt"; // Non aggiungere 'https://' all'inizio o "/" alla fine
+const baseUrl = "streamingcommunityz.build"; // Non aggiungere 'https://' all'inizio o "/" alla fine
 const patcher = true; // Attiva/Disattiva questo se le stream non funzionano
 // Settings end
- 
+
 function getFullDomain() {
     return `https://${baseUrl}`;
 }
- 
-console.log(extractStreamUrl("https://streamingcommunityz.plus/it/iframe/3?episode_id=62"))
- 
+
 async function searchResults(keyword) {
-    const response = await soraFetch(
-        `${getFullDomain()}/it/archive?search=${keyword}`
-    );
-    const html = await response.text();
+    try {
+        const response = await soraFetch(
+            `${getFullDomain()}/it/archive?search=${encodeURIComponent(keyword)}`
+        );
+        if (!response) return JSON.stringify([]);
+        const html = await response.text();
  
     const regex = /<div[^>]*id="app"[^>]*data-page="([^"]*)"/;
     const match = regex.exec(html);
@@ -42,11 +42,17 @@ async function searchResults(keyword) {
  
     console.log(results);
     return JSON.stringify(results);
+    } catch (error) {
+        console.log("search error:", error);
+        return JSON.stringify([]);
+    }
 }
- 
+
 async function extractDetails(url) {
-    const response = await soraFetch(`${url}/season-1`);
-    const html = await response.text();
+    try {
+        const response = await soraFetch(`${url}/season-1`);
+        if (!response) return JSON.stringify([]);
+        const html = await response.text();
  
     const regex = /<div[^>]*id="app"[^>]*data-page="([^"]*)"/;
     const match = regex.exec(html);
@@ -71,14 +77,19 @@ async function extractDetails(url) {
             .replaceAll("&#39;", "'") || "N/A",
         airdate: titleData.release_date || "N/A",
     }]);
+    } catch (error) {
+        console.log("details error:", error);
+        return JSON.stringify([{ description: "", aliases: "N/A", airdate: "" }]);
+    }
 }
- 
+
 async function extractEpisodes(url) {
     try {
         const episodes = [];
         const baseTitleUrl = url.replace(/\/season-\d+$/, "");
- 
+
         const response = await soraFetch(`${baseTitleUrl}/season-1`);
+        if (!response) return JSON.stringify(episodes);
         const html = await response.text();
         const regex = /<div[^>]*id="app"[^>]*data-page="([^"]*)"/;
         const match = regex.exec(html);
@@ -144,18 +155,20 @@ async function extractStreamUrl(url) {
         }
  
         const response1 = await soraFetch(modifiedUrl);
+        if (!response1) return JSON.stringify({ streams: [] });
         const html1 = await response1.text();
  
         const iframeMatch = html1.match(/<iframe[^>]*src=["']([^"']+)["']/i);
         if (!iframeMatch) {
             console.log("No iframe found in the HTML.");
-            return null;
+            return JSON.stringify({ streams: [], subtitle: "" });
         }
- 
+
         const embedUrl = iframeMatch[1].replace(/&amp;/g, "&");
         console.log("Embed URL:", embedUrl);
- 
+
         const response2 = await soraFetch(embedUrl);
+        if (!response2) return JSON.stringify({ streams: [], subtitle: "" });
         const html2 = await response2.text();
  
         if (html2.includes("window.masterPlaylist")) {
@@ -183,32 +196,41 @@ async function extractStreamUrl(url) {
         const m3u8Match = html2.match(/(https?:\/\/[^'"\s]+\.m3u8[^'"\s]*)/i);
         if (m3u8Match) {
             console.log("Final URL found (.m3u8 Match):", m3u8Match[1]);
-            return m3u8Match[1];
+            return JSON.stringify({
+                streams: [{ title: "VixCloud", streamUrl: m3u8Match[1], headers: { Referer: embedUrl } }],
+                subtitle: ""
+            });
         }
- 
+
         const scriptMatches = html2.match(/<script[^>]*>(.*?)<\/script>/gis);
         if (scriptMatches) {
             for (const script of scriptMatches) {
                 const streamMatch = script.match(/['"]?(https?:\/\/[^'"\s]+\.m3u8[^'"\s]*)/i);
                 if (streamMatch) {
                     console.log("Final URL found (Script Match):", streamMatch[1]);
-                    return streamMatch[1];
+                    return JSON.stringify({
+                        streams: [{ title: "VixCloud", streamUrl: streamMatch[1], headers: { Referer: embedUrl } }],
+                        subtitle: ""
+                    });
                 }
             }
         }
- 
+
         const videoMatch = html2.match(/(?:src|source|url)['"]?\s*[:=]\s*['"]?(https?:\/\/[^'"\s]+(?:\.mp4|\.m3u8|\.mpd)[^'"\s]*)/i);
         if (videoMatch) {
             console.log("Final URL found (Video Source):", videoMatch[1]);
-            return videoMatch[1];
+            return JSON.stringify({
+                streams: [{ title: "VixCloud", streamUrl: videoMatch[1], headers: { Referer: embedUrl } }],
+                subtitle: ""
+            });
         }
- 
+
         console.log("No stream URL found. HTML preview:", html2.substring(0, 1000));
-        return null;
- 
+        return JSON.stringify({ streams: [], subtitle: "" });
+
     } catch (error) {
         console.error("Fetch error during stream extraction:", error);
-        return null;
+        return JSON.stringify({ streams: [], subtitle: "" });
     }
 }
  

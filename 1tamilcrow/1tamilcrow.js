@@ -143,7 +143,8 @@ async function extractStreamUrl(url) {
 
         const streams = [{
             title: "Auto",
-            streamUrl: bestHls
+            streamUrl: bestHls,
+            headers: { Referer: "https://www.dailymotion.com/" }
         }];
 
         return JSON.stringify({ streams: streams });

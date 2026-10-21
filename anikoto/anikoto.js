@@ -246,7 +246,22 @@ class Anikoto {
         if (!srcResp || srcResp.status !== 200 || typeof srcResp.json !== "function") return null;
         let data;
         try { data = await srcResp.json(); } catch (e) { return null; }
-        if (!data?.sources?.file) return null;
+
+        // Since 2026-10 the megaplay getSources endpoint answers an encrypted
+        // `enc` blob instead of a plain `sources` object. Decrypt it (shared
+        // AES-256-CBC key with the 123anime megaplay chain) and accept both
+        // the decrypted shapes: {"file": ...} or {"sources": {"file": ...}}.
+        if (!data?.sources?.file && data.enc) {
+            try {
+                const dec = _mpDecryptSources(data.enc);
+                data = Object.assign({}, data, dec);
+            } catch (e) {
+                console.error("[Anikoto] megaplay enc decrypt failed:", e);
+                return null;
+            }
+        }
+        const sourceFile = data?.sources?.file || data?.file || data?.url || data?.link;
+        if (!sourceFile) return null;
     
         // Subtitle extraction
         const tracks = data.tracks || [];
@@ -275,7 +290,7 @@ class Anikoto {
             }));
     
         return {
-            streamUrl: data.sources.file,
+            streamUrl: sourceFile,
             subtitles: englishSub,
             subtitlesHeaders: { Referer: "https://megaplay.buzz/" },
             allSubtitles: allSubtitles,
@@ -309,7 +324,17 @@ class Anikoto {
         if (!srcResp || srcResp.status !== 200 || typeof srcResp.json !== "function") return null;
         let data;
         try { data = await srcResp.json(); } catch (e) { return null; }
-        if (!data?.sources?.file) return null;
+        if (!data?.sources?.file && data.enc) {
+            try {
+                const dec = _mpDecryptSources(data.enc);
+                data = Object.assign({}, data, dec);
+            } catch (e) {
+                console.error("[Anikoto] vidplay enc decrypt failed:", e);
+                return null;
+            }
+        }
+        const sourceFile = data?.sources?.file || data?.file || data?.url || data?.link;
+        if (!sourceFile) return null;
     
         const tracks = data.tracks || [];
         console.log("[Anikoto] Vidplay tracks: " + JSON.stringify(tracks));
@@ -336,7 +361,7 @@ class Anikoto {
             }));
     
         return {
-            streamUrl: data.sources.file,
+            streamUrl: sourceFile,
             subtitles: englishSub,
             subtitlesHeaders: { Referer: "https://vidwish.live/" },
             allSubtitles: allSubtitles,
@@ -811,6 +836,156 @@ function unpack(source) {
 
     source = payload.replace(/\b\w+\b/g, lookup);
     return source;
+}
+
+// ─── AES-256-CBC decryptor (ported from the 123anime megaplay chain) ───
+// The megaplay.buzz / vidwish.live getSources endpoints now answer an
+// encrypted `enc` blob instead of a plain `sources` object. It is
+// AES-256-CBC with a 16-byte ascii key zero-padded to 32 and a 16-byte
+// ascii IV — the same fixed key as the 123anime deployment. Verified
+// byte-exact against the live megaplay.buzz getSources payload 2026-10-20.
+const _A256 = (function () {
+    const sbox = [], invSbox = [], rcon = [0x01];
+    (function init() {
+        const log = new Uint8Array(256), alog = new Uint8Array(256);
+        let a = 1;
+        for (let i = 0; i < 255; i++) {
+            alog[i] = a; log[a] = i;
+            a ^= (a << 1) ^ ((a & 0x80) ? 0x11b : 0); a &= 0xff;
+        }
+        const inv = (g) => g === 0 ? 0 : alog[(255 - log[g]) % 255];
+        for (let i = 0; i < 256; i++) {
+            let s = inv(i), xf = s;
+            for (let k = 0; k < 4; k++) { xf = ((xf << 1) | (xf >> 7)) & 0xff; s ^= xf; }
+            s ^= 0x63;
+            sbox[i] = s; invSbox[s] = i;
+        }
+        for (let i = 1; i < 14; i++) {
+            rcon[i] = (rcon[i - 1] << 1) ^ ((rcon[i - 1] & 0x80) ? 0x11b : 0);
+            rcon[i] &= 0xff;
+        }
+    })();
+
+    function expandKey(key) { // key: 32 bytes -> 60 words
+        const w = new Array(60);
+        for (let i = 0; i < 8; i++)
+            w[i] = [key[4 * i], key[4 * i + 1], key[4 * i + 2], key[4 * i + 3]];
+        for (let i = 8; i < 60; i++) {
+            let t = w[i - 1].slice();
+            if (i % 8 === 0) {
+                t = [t[1], t[2], t[3], t[0]].map(b => sbox[b]);
+                t[0] ^= rcon[i / 8 - 1];
+            } else if (i % 8 === 4) {
+                t = t.map(b => sbox[b]);
+            }
+            w[i] = w[i - 8].map((b, j) => b ^ t[j]);
+        }
+        return w;
+    }
+
+    function mul(a, b) {
+        let r = 0;
+        for (let i = 0; i < 8; i++) {
+            if (b & 1) r ^= a;
+            const hi = a & 0x80; a = (a << 1) & 0xff; if (hi) a ^= 0x1b;
+            b >>= 1;
+        }
+        return r & 0xff;
+    }
+
+    function decryptBlock(inp, w) {
+        const s = [[], [], [], []];
+        for (let i = 0; i < 16; i++) s[i % 4][(i / 4) | 0] = inp[i];
+        const addRound = (rnd) => {
+            for (let c = 0; c < 4; c++)
+                for (let r = 0; r < 4; r++)
+                    s[r][c] ^= w[rnd * 4 + c][r];
+        };
+        const invSub = () => {
+            for (let r = 0; r < 4; r++)
+                for (let c = 0; c < 4; c++) s[r][c] = invSbox[s[r][c]];
+        };
+        const invShift = () => {
+            for (let r = 1; r < 4; r++) {
+                const row = s[r].slice();
+                for (let c = 0; c < 4; c++) s[r][c] = row[(c - r + 4) % 4];
+            }
+        };
+        const invMix = () => {
+            for (let c = 0; c < 4; c++) {
+                const a0 = s[0][c], a1 = s[1][c], a2 = s[2][c], a3 = s[3][c];
+                s[0][c] = mul(a0,14)^mul(a1,11)^mul(a2,13)^mul(a3,9);
+                s[1][c] = mul(a0,9)^mul(a1,14)^mul(a2,11)^mul(a3,13);
+                s[2][c] = mul(a0,13)^mul(a1,9)^mul(a2,14)^mul(a3,11);
+                s[3][c] = mul(a0,11)^mul(a1,13)^mul(a2,9)^mul(a3,14);
+            }
+        };
+        addRound(14);
+        for (let rnd = 13; rnd >= 1; rnd--) {
+            invShift(); invSub(); addRound(rnd); invMix();
+        }
+        invShift(); invSub(); addRound(0);
+        const out = new Array(16);
+        for (let i = 0; i < 16; i++) out[i] = s[i % 4][(i / 4) | 0];
+        return out;
+    }
+
+    function cbcDecrypt(cipher, key, iv) {
+        const w = expandKey(key);
+        const out = new Array(cipher.length);
+        let prev = iv;
+        for (let off = 0; off + 16 <= cipher.length; off += 16) {
+            const block = cipher.slice(off, off + 16);
+            const dec = decryptBlock(block, w);
+            for (let i = 0; i < 16; i++) out[off + i] = dec[i] ^ prev[i];
+            prev = block;
+        }
+        const pad = out[out.length - 1];
+        return (pad > 0 && pad <= 16) ? out.slice(0, out.length - pad) : out;
+    }
+
+    return { cbcDecrypt };
+})();
+
+function _b64ToBytes(s) {
+    // base64url → std alphabet; strip stray chars. Blobs are sometimes not a
+    // multiple of 4, so strict atob may throw — fall back to the lenient path.
+    const std = String(s).replace(/-/g, '+').replace(/_/g, '/').replace(/[^A-Za-z0-9+/=]/g, '');
+    try {
+        if (typeof atob === 'function') {
+            const bin = atob(std);
+            const out = new Array(bin.length);
+            for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i) & 0xff;
+            return out;
+        }
+    } catch (e) { /* strict atob rejected the length; use the lenient decoder */ }
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+    const clean = std.replace(/=+$/, '');
+    const bytes = [];
+    for (let i = 0; i < clean.length; i += 4) {
+        const n = [chars.indexOf(clean[i]), chars.indexOf(clean[i + 1]), chars.indexOf(clean[i + 2]), chars.indexOf(clean[i + 3])];
+        bytes.push((n[0] << 2) | (n[1] >> 4));
+        if (n[2] >= 0) bytes.push(((n[1] & 15) << 4) | (n[2] >> 2));
+        if (n[3] >= 0) bytes.push(((n[2] & 3) << 6) | n[3]);
+    }
+    return bytes;
+}
+
+// megaplay getSources `enc` blobs: AES-256-CBC, key = 16-byte ascii key
+// zero-padded to 32, iv = 16-byte ascii. Same fixed key as the 123anime chain.
+const _MP_KEY16 = 'i?LMTAx0Q6,:}50U';
+const _MP_IV16 = "W0;27ToaUpl_P%'c";
+
+function _mpDecryptSources(enc) {
+    const cipher = _b64ToBytes(enc);
+    const key = new Array(32);
+    for (let i = 0; i < 32; i++) key[i] = i < _MP_KEY16.length ? (_MP_KEY16.charCodeAt(i) & 0xff) : 0;
+    const iv = new Array(16);
+    for (let i = 0; i < 16; i++) iv[i] = _MP_IV16.charCodeAt(i) & 0xff;
+    const plain = _A256.cbcDecrypt(cipher, key, iv);
+    let txt = '';
+    for (let i = 0; i < plain.length; i++) txt += String.fromCharCode(plain[i]);
+    return JSON.parse(txt);
 }
 
 // ─── soraFetch (existing wrapper) ───

@@ -58,6 +58,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anikoto/anikoto.json",
       "sampleQuery": "one piece",
+      "note": "Revived 2026-10-20 (v1.0.20): megaplay.buzz / vidwish.live getSources now answer an encrypted `enc` blob instead of a plain `sources` object. Ported the 123anime AES-256-CBC decryptor (shared fixed key/IV) into the module so both resolver paths decrypt it and emit the nexabloom master.m3u8 (needs the megaplay.buzz Referer, already emitted). Full pipeline + variants verified 200.",
       "updated": "2026-10-20"
     },
     {
@@ -88,7 +89,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/anidub/anidub.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "needs_review": true,
+      "note": "2026-10-20: module pipeline is healthy (search 40 → details → episodes → vkuser.net voice stream) but anidub.org is flaky from this egress — 3 of 4 TCP connects time out at :443, so the episode step intermittently drops (eps=undefined) and the stream step then has no source. Upstream-availability wall, not a module bug; re-test on a clean connection.",
+      "updated": "2026-10-20"
     },
     {
       "id": "123anime",
@@ -109,7 +112,8 @@
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/yfsp/yfsp.json",
       "sampleQuery": "one piece",
       "updated": "2026-10-20",
-      "note": "Stream API rate-limits intermittently (code 5 访问过量, observed 2026-10-15 ~1h+): v1.0.7 bounds the code-5 backoff (shared 2x8s budget, no counter re-arm) so extractStreamUrl degrades gracefully instead of looping past the 40s harness cap. search/details/episodes healthy; module recovers automatically when the upstream throttle clears."
+      "needs_review": true,
+      "note": "Stream API rate-limits intermittently (code 5 访问过量, observed 2026-10-15 ~1h+, re-confirmed 2026-10-20): v1.0.7 bounds the code-5 backoff (shared 2x8s budget, no counter re-arm) so extractStreamUrl degrades gracefully instead of looping past the 40s harness cap. 2026-10-20 sweep: search/details/episodes healthy (1182 eps) but the stream step hit the rate-limit wall again → empty. Module recovers automatically when the upstream throttle clears; no in-module action."
     },
     {
       "id": "allmangadub",
@@ -217,8 +221,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/comix/comix.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25",
-      "note": "Revived 2026-10-05: full contract pipeline (search → details → 1128 chapters → 14-page images) verified live in a real browser context. The CF managed challenge currently flags this egress IP for curl/URLSession, so a blocked run from a given network is IP reputation, not module breakage."
+      "needs_review": true,
+      "updated": "2026-10-20",
+      "note": "2026-10-20 re-check: comix.to AND comix.ws both answer 403 'Just a moment' (CF managed challenge) to the api/v1 search from this egress — no-results, so the harness can't reach past the wall. The 2026-10-05 revival (search → details → 1128 chapters → 14-page images) was verified in a real browser context where the CF challenge clears; a blocked run is IP/TLS reputation, not module breakage. Clears needs_review when a browser-context re-verify passes."
     },
     {
       "id": "torrentio",
@@ -239,7 +244,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/kissasian/kissasian.json",
       "sampleQuery": "lovely runner",
-      "updated": "2026-09-25"
+      "needs_review": true,
+      "note": "2026-10-20 audit: upstream gone. kissasian.su now answers a 43-byte JSON stub (\"peakaboo\", no content, /ajax/search + /ajax/filter are 404); .com is a for-sale parking page, .cc/.tv/.net time out or TLS-drop. No live successor domain found. Not fixable in-module — record only.",
+      "updated": "2026-10-20"
     },
     {
       "id": "aniliberty",
@@ -383,7 +390,8 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/AnimeUnity/AnimeUnity.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-05"
+      "note": "Revived 2026-10-20: upstream moved animeunity.so → animeunity.to (old domain NXDOMAIN) and the vixcloud.co embeds moved to vixcloud.cc, where the master playlist answers 200 only with the extra `h=1` unlock param. Script hardened (null-response guards, no load-time side effects); full pipeline + playlist verified 200 without Referer.",
+      "updated": "2026-10-20"
     },
     {
       "id": "AnimeWorld",
@@ -403,7 +411,8 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/StreamingUnity/StreamingUnity.json",
       "sampleQuery": "one piece",
-      "updated": "2026-09-25"
+      "note": "Revived 2026-10-20: streamingcommunityz.us/.jetzt/.plus are NXDOMAIN; the site now lives on streamingcommunityz.build (same vixcloud.cc master-playlist backend, `h=1` unlock param). Removed a load-time debug fetch, hardened null-response paths; full pipeline + playlist verified 200 without Referer.",
+      "updated": "2026-10-20"
     },
     {
       "id": "aether",
@@ -811,7 +820,8 @@
       "category": "anime",
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/1tamilcrow/1tamilcrow.json",
-      "sampleQuery": "one piece",
+      "sampleQuery": "kaala",
+      "note": "2026-10-20: sampleQuery was 'one piece', which is off-topic for this Tamil-TV site — the top hit was a Vijay show on a Vimeo embed the module doesn't resolve, so the harness read it as stream-broken. Re-pointed to 'kaala' (Tamil) which resolves through the module's Dailymotion → cdndirector dailymotion.m3u8 path. v1.0.5 adds a Referer header to the emitted Dailymotion stream for native-player playability.",
       "updated": "2026-10-20"
     },
     {

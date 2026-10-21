@@ -1,39 +1,62 @@
+/* AnimeUnity — archivio (search) + info_api (details) + video-player (episodes)
+ * + vixcloud embed (stream).
+ *
+ * Domain move 2026-10-20: animeunity.so is NXDOMAIN; the site relaunched on
+ * animeunity.to and the vixcloud.co embeds moved to vixcloud.cc, where the
+ * embed page now exposes window.masterPlaylist (url + token + expires) and
+ * the playlist answers 200 only with an extra `h=1` unlock param.
+ */
+
+const AU_BASE = "https://www.animeunity.to";
+
 async function searchResults(keyword) {
-  const response = await soraFetch(
-    `https://www.animeunity.so/archivio?title=${keyword}`
-  );
-  const html = await response.text();
+  try {
+    const response = await soraFetch(
+      `${AU_BASE}/archivio?title=${encodeURIComponent(keyword)}`
+    );
+    if (!response) return JSON.stringify([]);
+    const html = await response.text();
 
-  const regex = /<archivio[^>]*records="([^"]*)"/;
-  const match = regex.exec(html);
+    const match = /<archivio[^>]*records="([^"]*)"/.exec(html);
+    if (!match || !match[1]) {
+      return JSON.stringify([]);
+    }
 
-  if (!match || !match[1]) {
-    return { results: [] };
+    const items = JSON.parse(match[1].replaceAll(`&quot;`, `"`));
+
+    const results =
+      items.map((item) => ({
+        title: item.title ?? item.title_eng,
+        image: item.imageurl,
+        href: `${AU_BASE}/info_api/${item.id}`,
+      })).filter((r) => r.title) || [];
+
+    return JSON.stringify(results);
+  } catch (error) {
+    console.log("search error:", error);
+    return JSON.stringify([]);
   }
-
-  const items = JSON.parse(match[1].replaceAll(`&quot;`, `"`));
-
-  const results =
-    items.map((item) => ({
-      title: item.title ?? item.title_eng,
-      image: item.imageurl,
-      href: `https://www.animeunity.so/info_api/${item.id}`,
-    })) || [];
-
-  return JSON.stringify(results);
 }
 
 async function extractDetails(url) {
-  const response = await soraFetch(url);
-  const json = JSON.parse(await response.text());
+  try {
+    const response = await soraFetch(url);
+    if (!response) {
+      return JSON.stringify([{ description: "", aliases: "N/A", airdate: "" }]);
+    }
+    const json = JSON.parse(await response.text());
 
-  return JSON.stringify([
-    {
-      description: json.plot,
-      aliases: "N/A",
-      airdate: json.date,
-    },
-  ]);
+    return JSON.stringify([
+      {
+        description: json.plot,
+        aliases: "N/A",
+        airdate: json.date,
+      },
+    ]);
+  } catch (error) {
+    console.log("details error:", error);
+    return JSON.stringify([{ description: "", aliases: "N/A", airdate: "" }]);
+  }
 }
 
 async function extractEpisodes(url) {
@@ -41,18 +64,20 @@ async function extractEpisodes(url) {
     const episodes = [];
 
     const apiResponse = await soraFetch(url);
+    if (!apiResponse) return JSON.stringify(episodes);
     const apiJson = JSON.parse(await apiResponse.text());
     const slug = apiJson.slug;
     const idAnime = apiJson.id;
 
     if (!slug) {
       console.log("No slug found in API response");
-      return episodes;
+      return JSON.stringify(episodes);
     }
 
     const pageResponse = await soraFetch(
-      `https://www.animeunity.so/anime/${idAnime}-${slug}`
+      `${AU_BASE}/anime/${idAnime}-${slug}`
     );
+    if (!pageResponse) return JSON.stringify(episodes);
     const html = await pageResponse.text();
 
     const videoPlayerRegex =
@@ -60,42 +85,43 @@ async function extractEpisodes(url) {
     const videoPlayerMatch = html.match(videoPlayerRegex);
     if (!videoPlayerMatch) {
       console.log("No video-player tag found");
-      return episodes;
+      return JSON.stringify(episodes);
     }
 
     const decodeHtml = (str) =>
       str.replace(/&quot;/g, '"').replace(/\\\//g, "/");
 
-    const animeJsonStr = decodeHtml(videoPlayerMatch[1]);
     const episodesJsonStr = decodeHtml(videoPlayerMatch[2]);
-
-    const animeData = JSON.parse(animeJsonStr);
     const episodesData = JSON.parse(episodesJsonStr);
 
     episodesData.forEach((episode) => {
       episodes.push({
-        href: `https://animeunity.so/anime/${idAnime}-${slug}/${episode.id}`,
+        href: `${AU_BASE}/anime/${idAnime}-${slug}/${episode.id}`,
         number: parseInt(episode.number),
       });
     });
-    
+
     return JSON.stringify(episodes);
   } catch (error) {
     console.log("Error extracting episodes:", error);
-    return [];
+    return JSON.stringify([]);
   }
 }
 
+/* vixcloud embed page: prefer window.masterPlaylist (HLS master, per-render
+ * tokens inside the playlist), fall back to the legacy downloadUrl mp4.
+ * The playlist edge only answers 200 with the `h=1` unlock param appended. */
 async function extractStreamUrl(url) {
   try {
     const response1 = await soraFetch(url);
+    if (!response1) return JSON.stringify({ streams: [], subtitle: "" });
     const html = await response1.text();
 
     const vixcloudMatch = html.match(
-      /embed_url="(https:\/\/vixcloud\.co\/embed\/\d+\?[^"]+)"/
+      /embed_url="(https:\/\/vixcloud\.(?:cc|co|net|gg)\/embed\/\d+\?[^"]+)"/
     );
     if (!vixcloudMatch) {
-      console.log("No vixcloud.co URL found in the HTML.");
+      console.log("No vixcloud URL found in the HTML.");
       return JSON.stringify({ streams: [], subtitle: "" });
     }
 
@@ -103,30 +129,49 @@ async function extractStreamUrl(url) {
     vixcloudUrl = vixcloudUrl.replace(/&amp;/g, "&");
 
     const response2 = await soraFetch(vixcloudUrl);
-    const response = await response2.text();
-    const downloadUrlMatch = response.match(
-      /window\.downloadUrl\s*=\s*['"]([^'"]+)['"]/
-    );
+    if (!response2) return JSON.stringify({ streams: [], subtitle: "" });
+    const embed = await response2.text();
 
-    if (!downloadUrlMatch) {
-      console.log("No downloadUrl found in the response.");
+    let streamUrl = null;
+
+    const mpUrlMatch = embed.match(
+      /window\.masterPlaylist\s*=\s*\{[\s\S]*?url:\s*['"]([^'"]+)['"]/
+    );
+    const mpTokenMatch = embed.match(
+      /window\.masterPlaylist\s*=\s*\{[\s\S]*?token['"]?\s*[:=]\s*['"]?([^'",}\s]+)/
+    );
+    const mpExpiresMatch = embed.match(
+      /window\.masterPlaylist\s*=\s*\{[\s\S]*?expires['"]?\s*[:=]\s*['"]?([^'",}\s]+)/
+    );
+    if (mpUrlMatch && mpTokenMatch && mpUrlMatch[1].includes("/playlist/")) {
+      const sep = mpUrlMatch[1].includes("?") ? "&" : "?";
+      streamUrl = mpUrlMatch[1] + sep + "token=" + encodeURIComponent(mpTokenMatch[1]);
+      if (mpExpiresMatch) streamUrl += "&expires=" + encodeURIComponent(mpExpiresMatch[1]);
+      streamUrl += "&h=1";
+    }
+
+    if (!streamUrl) {
+      const downloadUrlMatch = embed.match(
+        /window\.downloadUrl\s*=\s*['"]([^'"]+)['"]/
+      );
+      if (downloadUrlMatch && downloadUrlMatch[1]) streamUrl = downloadUrlMatch[1];
+    }
+
+    if (!streamUrl) {
+      console.log("No stream URL found in vixcloud embed.");
       return JSON.stringify({ streams: [], subtitle: "" });
     }
 
-    const downloadURL = downloadUrlMatch[1];
-    // Quality folder sits right before the .mp4 in vixcloud download paths
-    // (e.g. .../1080p.mp4?token=... -> "1080p").
-    const qMatch = downloadURL.match(/\/(\d{3,4}p)\.mp4/);
-    console.log(downloadURL);
+    const qMatch = streamUrl.match(/rendition=(\d{3,4}p)/);
     return JSON.stringify({
       streams: [
         {
-          title: "Vixcloud" + (qMatch ? " " + qMatch[1] : ""),
-          streamUrl: downloadURL,
-          headers: {}
-        }
+          title: "VixCloud" + (qMatch ? " " + qMatch[1] : ""),
+          streamUrl: streamUrl,
+          headers: {},
+        },
       ],
-      subtitle: ""
+      subtitle: "",
     });
   } catch (error) {
     console.log("Fetch error:", error);
