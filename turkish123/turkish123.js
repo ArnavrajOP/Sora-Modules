@@ -27,7 +27,7 @@ async function searchResults(keyword) {
         });
         return JSON.stringify(results);
     } catch (error) {
-        throw error;
+        return JSON.stringify([]);
     }
 }
 
@@ -81,21 +81,24 @@ async function extractEpisodes(url) {
 }
 
 async function extractStreamUrl(url) {
+    const empty = JSON.stringify({ streams: [], subtitles: "" });
     try {
         const response = await fetchv2(url);
+        if (!response) return empty;
         const html = await response.text();
 
         const downloadNaviMatch = html.match(/<div class="download_navi">([\s\S]*?)<\/div>/);
-        if (!downloadNaviMatch) return null;
+        if (!downloadNaviMatch) return empty;
 
         const serverMatch = downloadNaviMatch[1].match(/<div class="les-content">\s*<a href="([^"]+)"[^>]*>Server 1<\/a>/);
-        if (!serverMatch) return null;
+        if (!serverMatch) return empty;
 
         const headers = {
             "Referer": "https://ahs.turkish123.com/"
         };
         const serverUrl = serverMatch[1].replace('/d/', '/f/');
         const responseTwo = await fetchv2(serverUrl, headers);
+        if (!responseTwo) return empty;
         const htmlTwo = await responseTwo.text();
 
         const obfuscatedScript = htmlTwo.match(/<script[^>]*>\s*(eval\(function\(p,a,c,k,e,d.*?\)[\s\S]*?)<\/script>/);
@@ -104,12 +107,26 @@ async function extractStreamUrl(url) {
             const unpacked = unpack(obfuscatedScript[1]);
             const m3u8Match = unpacked.match(/file\s*:\s*"([^"]+)"/) || unpacked.match(/src\s*:\s*"([^"]+)"/);
             if (m3u8Match) {
-                return m3u8Match[1];
+                const streamUrl = m3u8Match[1].replace(/&amp;/g, "&").trim();
+                if (streamUrl) {
+                    return JSON.stringify({
+                        streams: [
+                            {
+                                title: "Turkish123",
+                                streamUrl: streamUrl,
+                                headers: {
+                                    "Referer": "https://ahs.turkish123.com/"
+                                }
+                            }
+                        ],
+                        subtitles: ""
+                    });
+                }
             }
         }
-        return null;
+        return empty;
     } catch (error) {
-        return null;
+        return empty;
     }
 }
 
@@ -152,7 +169,50 @@ class Unbaser {
     }
 }
 
+/* Unobtrusive `while(c--)` packer used by the live resolver (engifuosi).
+ * Its decoder replaces descending base-`a` index tokens with symtab entries —
+ * a different algorithm from classic p.a.c.k.e.r. (which the generic `unpack`
+ * below mis-decodes). `source` is the captured eval(...) IIFE text. */
+function unpackUnobtrusive(source) {
+    const m = source.indexOf("}(");
+    if (m < 0) return null;
+    let i = m + 2;                 // at the payload's opening quote
+    i++;
+    let payload = "";
+    while (i < source.length) {
+        const ch = source[i];
+        if (ch === "\\") { payload += source[i + 1]; i += 2; continue; }
+        if (ch === "'") break;
+        payload += ch; i++;
+    }
+    i++; i++;                     // past closing quote + comma
+    const radM = /^\d+/.exec(source.slice(i)); if (!radM) return null;
+    const radix = radM[0]; i += radix.length;
+    i++;
+    const cntM = /^\d+/.exec(source.slice(i)); if (!cntM) return null;
+    const count = cntM[0]; i += count.length;
+    i++; i++;                     // comma + symtab opening quote
+    let syms = "";
+    while (i < source.length) {
+        const ch = source[i];
+        if (ch === "\\") { syms += source[i + 1]; i += 2; continue; }
+        if (ch === "'") break;
+        syms += ch; i++;
+    }
+    const symtab = syms.split("|");
+    const R = parseInt(radix, 10), C = parseInt(count, 10);
+    let out = payload;
+    for (let c = C - 1; c >= 0; c--) {
+        if (symtab[c]) out = out.replace(new RegExp("\\b" + c.toString(R) + "\\b", "g"), symtab[c]);
+    }
+    return out;
+}
+
 function unpack(source) {
+    if (source.indexOf("while(c--)") !== -1) {
+        const dec = unpackUnobtrusive(source);
+        if (dec) return dec;
+    }
     let { payload, symtab, radix, count } = _filterargs(source);
     if (count != symtab.length) {
         throw Error("Malformed p.a.c.k.e.r. symtab.");
