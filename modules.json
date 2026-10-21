@@ -959,7 +959,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/filmo/filmo.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-20"
+      "updated": "2026-10-21",
+      "needs_review": true,
+      "note": "Repaired 2026-10-21 (v1.0.2): fixed a scope bug in getHosters where `providerName` was declared only in the success branch but referenced in the else/catch branches (threw ReferenceError and killed the whole extractStreamUrl when any chip returned no token), and made the terminal fallbacks return the JSON envelope instead of null. search/details/episodes work; stream availability is gated on the upstream Voe/Byse CDN - the per-chip /n token POSTs intermittently return no video (CDN token rotation), so it yields a stream only when the CDN has a live token. Re-probe when the CDN is live."
     },
     {
       "id": "filmpalast",
@@ -971,7 +973,7 @@
       "sampleQuery": "one piece",
       "updated": "2026-10-20",
       "needs_review": true,
-      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
+      "note": "Recorded 2026-10-21: search + episodes work (16 eps), but the episode page offers only one hoster (VOE HD) and its voe.sx video now 404s - the Voe content has rotated off the CDN (alternate Voe domains vize.so/noe.to/voe.to are unreachable from this host). The module's Voe extractor (ROT13+base64 obfuscation) is structurally sound; availability is gated on the upstream Voe CDN holding the content. Re-probe with live content or after a Voe domain rotation."
     },
     {
       "id": "kaliscan",

@@ -220,13 +220,13 @@ async function extractStreamUrl(url) {
         });
         if (!response) {
             console.log("Response not found");
-            return null;
+            return JSON.stringify({ streams: [], subtitle: "" });
         }
         const html = response.text ? await response.text() : response;
 
         if (!html) {
             console.log("HTML not found");
-            return null;
+            return JSON.stringify({ streams: [], subtitle: "" });
         }
 
         // Select the hoster
@@ -280,16 +280,16 @@ async function extractStreamUrl(url) {
 
         try {
             let streams = await multiExtractor(newProviderArray);
-            let returnedStreams = { streams: streams };
+            let returnedStreams = { streams: streams, subtitle: "" };
             sendLog("Returned Streams: " + JSON.stringify(returnedStreams));
             return JSON.stringify(returnedStreams);
         } catch (error) {
             console.log("Error extracting stream URL: " + error);
-            return null;
+            return JSON.stringify({ streams: [], subtitle: "" });
         }
     } catch (error) {
         console.log("Fetch error: " + error);
-        return null;
+        return JSON.stringify({ streams: [], subtitle: "" });
     }
 }
 
@@ -448,6 +448,8 @@ console.log('Chips:', finalChips);
 
   for (const chunk of chunks) {
     const promises = chunk.map(async (chip) => {
+      let providerName = chip.provider.toLowerCase();
+      if (providerName === 'byse') providerName = 'filemoon';
       try {
         const headers = {
           "accept": "application/json",
@@ -471,8 +473,6 @@ console.log('Chips:', finalChips);
         const json = await resp.json();
         if (json && json.x) {
           const streamUrl = `https://filmo.to/n/${encodeURIComponent(json.x)}`;
-          let providerName = chip.provider.toLowerCase();
-          if (providerName.toLowerCase() === 'byse') providerName = 'filemoon';
           console.log(`✅ ${providerName} → ${streamUrl}`);
           return { provider: providerName, url: streamUrl };
         } else {
