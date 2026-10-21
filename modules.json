@@ -905,7 +905,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/animexin/animexin.json",
       "sampleQuery": "renegade",
-      "updated": "2026-10-21",
+      "updated": "2026-10-20",
       "needs_review": true,
       "note": "Repaired 2026-10-21 (v1.0.3): the Dailymotion option-label filter was an exact list that no longer matched the live labels (which gained an \" AX\" engine suffix + an \"All Sub Player\" variant), so every option was skipped and extractStreamUrl returned []. Now matches on the \"Dailymotion\" substring and emits {title,streamUrl,headers:{Referer}} per option - verified to produce 3 cdndirector.dailymotion m3u8 objects on episode pages. Still needs_review because Dailymotion's cdndirector manifest answers 403 from this host (geo-restricted to the content's region); playable in reachable regions, not certifiable here."
     },
@@ -1266,7 +1266,7 @@
       "sampleQuery": "one piece",
       "updated": "2026-10-20",
       "needs_review": true,
-      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
+      "note": "Recorded 2026-10-21: upstream outage. search + details still work, but the streaming backend is down - every /embed/<id> page now serves a Ukrainian apology (\"ми втратили базу даних\" - we lost our database, fixing soon) with no player/source. The episode markup also changed (no more <option data-series-number> selector; the season page now links a single /embed/<id> instead of season-N/episode-N). Nothing to fix in-module while the backend is down; re-probe once the site restores its DB (then the resolver will also need to move from the old ashdi.vip + uaserial.me/embed/<show>/season-N/episode-N shape to the new single /embed/<id> shape)."
     },
     {
       "id": "xiaoxintv",
