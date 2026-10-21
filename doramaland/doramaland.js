@@ -124,18 +124,17 @@ async function extractStreamUrl(url) {
         const response = await fetchv2(url);
         const html = await response.text();
 
-        const tabsRegex = /data-url-player="([^"]+)"[^>]*data-label=([^ >]+|"[^"]+")/g;
+        // The player tabs carry the embed in data-url-player and the label in the
+        // following <h3> (there is no data-label attribute). Unescape the HTML
+        // entity (&amp; -> &) in the embed URL.
+        const tabsRegex = /data-url-player="([^"]+)"[\s\S]*?<h3>([^<]*)<\/h3>/g;
         let match;
         const tabUrls = [];
         while ((match = tabsRegex.exec(html)) !== null) {
-            let label = match[2].trim();
-            if (label.startsWith('"') && label.endsWith('"')) {
-                label = label.substring(1, label.length - 1);
-            }
-            tabUrls.push({
-                url: match[1].startsWith('http') ? match[1] : 'https:' + match[1],
-                label: label
-            });
+            let label = (match[2] || "").trim();
+            let url = match[1].trim().replace(/&amp;/g, "&");
+            if (!url.startsWith("http")) url = "https:" + url;
+            tabUrls.push({ url, label: label || "Server" });
         }
 
         const streams = [];

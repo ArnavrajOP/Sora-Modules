@@ -947,9 +947,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/doramaland/doramaland.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-20",
-      "needs_review": true,
-      "note": "2026-10-20 audit: base site answers 200 but the module third-party stream resolvers return 0 usable streams (empty extractStreamUrl). Distinct resolver families (filemoon/streamwish/streamtape/vidhide/dailymotion etc.), no shared host - needs a per-module resolver rework to a live backend, not a quick fix."
+      "updated": "2026-10-21",
+      "needs_review": false,
+      "note": "Revived 2026-10-20 (v1.0.2): the player-tab regex required a data-label attribute that the site no longer emits (label now lives in the following <h3>, and the embed URL is &amp;-encoded), so zero tabs were collected and the stream step read empty. Fixed the tab parser and unescaped the jaswish embed URL; the live jaswish resolver (a.jaswish.com -> s1.jaswish.com m3u8) is intact and answers 200 with the jaswish Referer. 14 streams per episode."
     },
     {
       "id": "filmo",
@@ -1242,7 +1242,7 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/topcinema/topcinema.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-21",
+      "updated": "2026-10-20",
       "note": "Revived 2026-10-20 (v1.1.2): the Server.php AJAX endpoint had moved off the hardcoded topcinema.io (now 301) — the base is now derived from the watch page's own origin (topcinema.film). The live resolvers (updown.cam/streamwish.fun/vidtube) ship an Unobtrusive while(c--) packer the classic unpacker mis-decoded, so a pure-JS Unobtrusive decoder was added and the updown branch now emits the playable mp4 (200 with the updown Referer). Full pipeline verified."
     },
     {
