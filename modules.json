@@ -9,9 +9,9 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga/allmanga.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-11",
+      "updated": "2026-10-22",
       "needs_review": true,
-      "note": "2026-10-15 audit: search + episodes healthy (1187 eps); stream step gated at the upstream edge — api.mkissa.net answers NEED_CAPTCHA to every non-interactive client and api.allanime.day 429s, same wall as the AllManga Manga image step. Keygen build-179 is live; module recovers automatically if the edge stops challenging. Not fixable in-module."
+      "note": "2026-10-22: keygen rotated to build 181 (the live mkissa.to site moved 179→181, so the module's build-179 aaReq tokens stopped decrypting and the stream step returned 0). New constants (mask/salt/frag/boot-prefix/boot-message) verified byte-for-byte against the site's live x-aa-boot token; k7 self-bootstrap OK; the episode API again returns sub+dub source URLs. The 2026-10-15 'upstream edge NEED_CAPTCHA' was actually stale keygen, not a hard edge wall. wixmp HLS URLs 400 under a bare curl (CDN fingerprinting) — in-player playability not yet confirmed. If a future build rotates keygen again, re-extract from the mkissa.to crypto chunk (see .tmp-keygen/ harness)."
     },
     {
       "id": "hydrahd",
@@ -186,8 +186,8 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga-shirox/allmanga-shirox.json",
       "sampleQuery": "one piece",
-      "updated": "2026-10-11",
-      "note": "Shirox build of the AllAnime module (fetchv2 impersonate:chrome). 2026-10-15 audit: same stream-step outcome as the classic build — upstream edge NEED_CAPTCHA/429 gate; use the classic AllAnime module on Sora/Luna.",
+      "updated": "2026-10-22",
+      "note": "Shirox build of the AllAnime module (fetchv2 impersonate:chrome). 2026-10-22: keygen rotated to build 181 (same constants as the classic build); extractStreamUrl returns sub+dub sources again. Use the classic AllAnime module on Sora/Luna; this build for Shirox.",
       "needs_review": true
     },
     {
@@ -199,8 +199,8 @@
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga-novels/allmanga-novels.json",
       "sampleQuery": "angel next door",
       "needs_review": true,
-      "note": "search/details/chapters OK; image step broken: chapterPages API answers NEED_CAPTCHA to every non-interactive client on both api.mkissa.net and api.allanime.day (re-verified 2026-09-25 with the site's own build-175 key/IV/lane — upstream/edge block, not in-module). Keygen now matches the live app (mkissa build 175, lane k9).",
-      "updated": "2026-10-11"
+      "note": "search/details/chapters OK. 2026-10-22: keygen rotated to build 181 — the chapterPages (k9) image API now returns page images again (e.g. 57 imgs/chapter); the earlier NEED_CAPTCHA was stale keygen, not an edge wall. The image CDN (youtube-anime.com) still 403s without a Referer (documented Sora-ReaderView app-side limitation). Keygen details in the allmanga entry.",
+      "updated": "2026-10-22"
     },
     {
       "id": "allmanga-novels-shirox",
@@ -210,8 +210,8 @@
       "branch": "main",
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/allmanga-novels-shirox/allmanga-novels-shirox.json",
       "sampleQuery": "one punch man",
-      "updated": "2026-10-11",
-      "note": "Shirox build of the AllManga manga module (kanzen contract). 2026-10-20: image step broken same as the classic build - the chapterPages API answers NEED_CAPTCHA to every non-interactive client on api.mkissa.net / api.allanime.day (upstream/edge block, not in-module). See the allmanga-novels entry; module recovers if the edge stops challenging.",
+      "updated": "2026-10-22",
+      "note": "Shirox build of the AllManga manga module (kanzen contract). 2026-10-22: keygen rotated to build 181 (same constants as the classic manga build) — the chapterPages k9 image API works again. Image CDN still 403s without a Referer (documented Sora-ReaderView app-side limitation). See the allmanga-novels entry.",
       "needs_review": true
     },
     {
@@ -1917,8 +1917,8 @@
       "manifestUrl": "https://raw.githubusercontent.com/xdfkenny/xdfkenny-sora-modules/main/eclipse/allmanga-novels/allmanga-novels.json",
       "sampleQuery": "angel next door",
       "needs_review": true,
-      "note": "search/details/chapters OK; image step broken: chapterPages API answers NEED_CAPTCHA to every non-interactive client on both api.mkissa.net and api.allanime.day (re-verified 2026-09-25 with the site's own build-175 key/IV/lane — upstream/edge block, not in-module). Keygen now matches the live app (mkissa build 175, lane k9).",
-      "updated": "2026-10-11"
+      "note": "Eclipse-ported copy of allmanga-novels. 2026-10-22: keygen rotated to build 181 (same as the classic manga build); the chapterPages k9 image API works again. search/details/chapters OK; image CDN 403s without a Referer (documented app-side limitation). Keygen details in the allmanga entry.",
+      "updated": "2026-10-22"
     },
     {
       "id": "chireads-eclipse",
