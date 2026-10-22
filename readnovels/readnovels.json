@@ -15,7 +15,7 @@
   "quality": "N/A",
   "baseUrl": "https://readnovel.eu/",
   "searchBaseUrl": "https://readnovel.eu/search/%s",
-  "scriptUrl": "https://raw.githubusercontent.com/ArnavHere/xdfkenny-sora-modules/main/readnovels/readnovels.js",
+  "scriptUrl": "https://raw.githubusercontent.com/ArnavrajOP/xdfkenny-sora-modules/main/readnovels/readnovels.js",
   "type": "novels",
   "asyncJS": true,
   "novel": true,
@@ -23,5 +23,5 @@
   "supportsSora": true,
   "supportsTsumi": true,
   "supportsHiyoku": true,
-  "scriptURL": "https://raw.githubusercontent.com/ArnavHere/xdfkenny-sora-modules/main/readnovels/readnovels.js"
+  "scriptURL": "https://raw.githubusercontent.com/ArnavrajOP/xdfkenny-sora-modules/main/readnovels/readnovels.js"
 }
