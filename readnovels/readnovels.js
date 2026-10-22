@@ -52,33 +52,39 @@ async function extractChapters(url) {
     try {
         const response = await soraFetch(url);
         const htmlText = await response.text();
-        const nextData = __rnParseNextData(htmlText);
         
         let chapters = [];
         
         // Method 1: Try to get chapters from JSON data
-        const toc = nextData && nextData.props && nextData.props.pageProps && nextData.props.pageProps.toc;
-        if (toc && Array.isArray(toc.items)) {
-            const novelSlug = (url.match(/\/novel\/([^\/?#]+)/) || [])[1];
-            const byNumber = {};
-            for (const it of toc.items) {
-                if (it && typeof it.number === 'number') byNumber[it.number] = it;
+        const nextData = __rnParseNextData(htmlText);
+        if (nextData && nextData.props && nextData.props.pageProps) {
+            const toc = nextData.props.pageProps.toc;
+            if (toc && Array.isArray(toc.items)) {
+                const novelSlug = (url.match(/\/novel\/([^\/?#]+)/) || [])[1];
+                const byNumber = {};
+                for (const it of toc.items) {
+                    if (it && typeof it.number === 'number') byNumber[it.number] = it;
+                }
+                const numbers = Object.keys(byNumber).map(Number).sort((a, b) => a - b);
+                chapters = numbers.map(n => ({
+                    title: byNumber[n].title || ("Chapter " + n),
+                    number: n,
+                    href: `https://readnovel.eu/chapter/${novelSlug}-${n}`
+                }));
             }
-            const numbers = Object.keys(byNumber).map(Number).sort((a, b) => a - b);
-            chapters = numbers.map(n => ({
-                title: byNumber[n].title || ("Chapter " + n),
-                number: n,
-                href: `https://readnovel.eu/chapter/${novelSlug}-${n}`
-            }));
-        } 
-        // Method 2: Fallback - Parse chapters directly from HTML links
-        else {
-            const regex = /href="\/chapter\/([^"]+)"[^>]*>([^<]+)</gi;
+        }
+        
+        // Method 2: Fallback - Parse chapters directly from HTML links (Super Robust)
+        if (chapters.length === 0) {
+            const regex = /<a[^>]*href=["']\/chapter\/([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
             let match;
             while ((match = regex.exec(htmlText)) !== null) {
                 const slug = match[1];
-                const title = match[2].trim();
-                if (title && slug) {
+                let title = match[2];
+                // Remove any HTML tags inside the link (like <span>, <b>, etc.)
+                title = title.replace(/<[^>]+>/g, '').trim();
+                
+                if (title && title.length > 2) {
                     const numMatch = slug.match(/-(\d+)$/);
                     const num = numMatch ? parseInt(numMatch[1]) : 0;
                     chapters.push({
@@ -89,6 +95,17 @@ async function extractChapters(url) {
                 }
             }
             chapters.sort((a, b) => a.number - b.number);
+            
+            // Remove duplicates
+            const uniqueChapters = [];
+            const seen = new Set();
+            for (const c of chapters) {
+                if (!seen.has(c.href)) {
+                    seen.add(c.href);
+                    uniqueChapters.push(c);
+                }
+            }
+            chapters = uniqueChapters;
         }
 
         if (chapters.length === 0) throw new Error("No chapters found");
@@ -124,4 +141,4 @@ async function extractText(slug) {
     } catch (error) {
         return "<p>Error extracting text.</p>";
     }
-                                                                                                                 }
+}
