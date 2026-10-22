@@ -6,7 +6,7 @@
     "icon": "https://yt3.googleusercontent.com/NHr6Y6qhYIUeoyIBdgeEYArXI1_ebVcLAuf562jPB6WSFTunOwPVuWC90eAG1zmeD6_Wy9_0mTs=s160-c-k-c0x00ffffff-no-rj",
     "url": "https://github.com/xdfkenny"
   },
-  "version": "1.0.3",
+  "version": "1.0.4",
   "language": "English",
   "languageType": [
     "Translated"
@@ -15,7 +15,7 @@
   "quality": "N/A",
   "baseUrl": "https://readnovel.eu/",
   "searchBaseUrl": "https://readnovel.eu/search/%s",
-  "scriptUrl": "https://raw.githubusercontent.com/ArnavrajOP/xdfkenny-sora-modules/main/readnovels/readnovels.js",
+  "scriptUrl": "https://raw.githubusercontent.com/ArnavrajOP/Sora-Modules/main/readnovels/readnovels.js",
   "type": "novels",
   "asyncJS": true,
   "novel": true,
@@ -23,5 +23,5 @@
   "supportsSora": true,
   "supportsTsumi": true,
   "supportsHiyoku": true,
-  "scriptURL": "https://raw.githubusercontent.com/ArnavrajOP/xdfkenny-sora-modules/main/readnovels/readnovels.js"
+  "scriptURL": "https://raw.githubusercontent.com/ArnavrajOP/Sora-Modules/main/readnovels/readnovels.js"
 }
