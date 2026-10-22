@@ -6,19 +6,36 @@ function __rnParseNextData(html) {
 
 async function searchResults(keyword) {
     try {
-        const encodedKeyword = encodeURIComponent(keyword);
-        const url = `https://readnovel.eu/search/${encodedKeyword}`;
+        const url = `https://readnovel.eu/search/${encodeURIComponent(keyword)}`;
         const response = await soraFetch(url);
         const htmlText = await response.text();
         const nextData = __rnParseNextData(htmlText);
-        const items = nextData && nextData.props && nextData.props.pageProps &&
-            nextData.props.pageProps.result && nextData.props.pageProps.result.items;
-        if (!Array.isArray(items)) throw new Error("search NEXT_DATA items not found");
+        
+        if (!nextData || !nextData.props || !nextData.props.pageProps) return JSON.stringify([]);
+        const pageProps = nextData.props.pageProps;
+        
+        // SMART SEARCH: Look for ANY array in the data that contains objects with a 'slug'
+        let items = [];
+        for (let key in pageProps) {
+            let val = pageProps[key];
+            if (Array.isArray(val) && val.length > 0 && val[0].slug) {
+                items = val;
+                break;
+            }
+            if (val && val.items && Array.isArray(val.items) && val.items[0].slug) {
+                items = val.items;
+                break;
+            }
+            if (val && val.data && Array.isArray(val.data) && val.data[0].slug) {
+                items = val.data;
+                break;
+            }
+        }
 
         const results = items.map(item => ({
-            title: item.title || "Untitled",
+            title: item.title || item.name || "Untitled",
             href: `https://readnovel.eu/novel/${item.slug}`,
-            image: item.coverKey ? `https://cdn.wuxiaworld.eu/${item.coverKey}-240.webp` : ""
+            image: item.coverKey || item.cover ? `https://cdn.wuxiaworld.eu/${item.coverKey || item.cover}-240.webp` : ""
         }));
         return JSON.stringify(results);
     } catch (error) {
@@ -31,17 +48,26 @@ async function extractDetails(url) {
         const response = await soraFetch(url);
         const htmlText = await response.text();
         const nextData = __rnParseNextData(htmlText);
-        const novelData = nextData && nextData.props && nextData.props.pageProps && nextData.props.pageProps.novel;
-        if (!novelData) throw new Error("novel NEXT_DATA not found");
+        
+        if (!nextData || !nextData.props || !nextData.props.pageProps) return JSON.stringify([{ description: 'Error', aliases: 'N/A', airdate: 'N/A' }]);
+        const pageProps = nextData.props.pageProps;
+        
+        // SMART DETAILS: Look for ANY object that has a 'description' or 'summary'
+        let novelData = pageProps.novel || pageProps.book || pageProps.data;
+        if (!novelData) {
+            for (let key in pageProps) {
+                if (pageProps[key] && (pageProps[key].description || pageProps[key].summary)) {
+                    novelData = pageProps[key];
+                    break;
+                }
+            }
+        }
 
-        const description = novelData.description ?
-            novelData.description.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() :
-            "No description available";
-
-        let aliases = 'N/A';
-        if (Array.isArray(novelData.altTitles) && novelData.altTitles.length) aliases = novelData.altTitles.join(', ');
-
-        const airdate = novelData.createdAt ? String(novelData.createdAt).slice(0, 10) : 'N/A';
+        const description = (novelData && (novelData.description || novelData.summary)) ? 
+            (novelData.description || novelData.summary).replace(/<[^>]+>/g, ' ').trim() : "No description available";
+        const aliases = (novelData && novelData.altTitles) ? novelData.altTitles.join(', ') : "N/A";
+        const airdate = (novelData && novelData.createdAt) ? String(novelData.createdAt).slice(0, 10) : 'N/A';
+        
         return JSON.stringify([{ description, aliases, airdate }]);
     } catch (error) {
         return JSON.stringify([{ description: 'Error', aliases: 'N/A', airdate: 'N/A' }]);
@@ -52,15 +78,17 @@ async function extractChapters(url) {
     try {
         const response = await soraFetch(url);
         const htmlText = await response.text();
+        const nextData = __rnParseNextData(htmlText);
         
         let chapters = [];
-        
-        // Method 1: Try to get chapters from JSON data
-        const nextData = __rnParseNextData(htmlText);
+        const novelSlug = (url.match(/\/novel\/([^\/?#]+)/) || [])[1];
+
         if (nextData && nextData.props && nextData.props.pageProps) {
-            const toc = nextData.props.pageProps.toc;
+            const pageProps = nextData.props.pageProps;
+            // SMART CHAPTERS: Look for 'toc', 'chapters', or data.chapters
+            let toc = pageProps.toc || pageProps.chapters || (pageProps.data && pageProps.data.chapters);
+            
             if (toc && Array.isArray(toc.items)) {
-                const novelSlug = (url.match(/\/novel\/([^\/?#]+)/) || [])[1];
                 const byNumber = {};
                 for (const it of toc.items) {
                     if (it && typeof it.number === 'number') byNumber[it.number] = it;
@@ -74,44 +102,23 @@ async function extractChapters(url) {
             }
         }
         
-        // Method 2: Fallback - Parse chapters directly from HTML links (Super Robust)
+        // Fallback: Parse HTML links directly
         if (chapters.length === 0) {
             const regex = /<a[^>]*href=["']\/chapter\/([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
             let match;
             while ((match = regex.exec(htmlText)) !== null) {
                 const slug = match[1];
-                let title = match[2];
-                // Remove any HTML tags inside the link (like <span>, <b>, etc.)
-                title = title.replace(/<[^>]+>/g, '').trim();
-                
+                let title = match[2].replace(/<[^>]+>/g, '').trim();
                 if (title && title.length > 2) {
                     const numMatch = slug.match(/-(\d+)$/);
-                    const num = numMatch ? parseInt(numMatch[1]) : 0;
-                    chapters.push({
-                        title: title,
-                        number: num,
-                        href: `https://readnovel.eu/chapter/${slug}`
-                    });
+                    chapters.push({ title: title, number: numMatch ? parseInt(numMatch[1]) : 0, href: `https://readnovel.eu/chapter/${slug}` });
                 }
             }
             chapters.sort((a, b) => a.number - b.number);
-            
-            // Remove duplicates
-            const uniqueChapters = [];
-            const seen = new Set();
-            for (const c of chapters) {
-                if (!seen.has(c.href)) {
-                    seen.add(c.href);
-                    uniqueChapters.push(c);
-                }
-            }
-            chapters = uniqueChapters;
         }
 
-        if (chapters.length === 0) throw new Error("No chapters found");
         return JSON.stringify(chapters);
     } catch (error) {
-        console.log('Fetch error in extractChapters:' + error);
         return JSON.stringify([]);
     }
 }
@@ -121,24 +128,29 @@ async function extractText(slug) {
         const url = slug.startsWith('http') ? slug : `https://readnovel.eu/chapter/${slug}`;
         const response = await soraFetch(url);
         const htmlText = await response.text();
-
         const nextData = __rnParseNextData(htmlText);
-        const paragraphs = nextData && nextData.props && nextData.props.pageProps &&
-            nextData.props.pageProps.data && nextData.props.pageProps.data.chapter &&
-            nextData.props.pageProps.data.chapter.paragraphs;
+
+        let paragraphs = null;
+        if (nextData && nextData.props && nextData.props.pageProps) {
+            const pp = nextData.props.pageProps;
+            paragraphs = (pp.data && pp.data.chapter && pp.data.chapter.paragraphs) || 
+                         (pp.chapter && pp.chapter.paragraphs) ||
+                         (pp.content && pp.content.paragraphs);
+        }
 
         let cleaned = "";
         if (Array.isArray(paragraphs) && paragraphs.length) {
-            cleaned = paragraphs
-                .map(p => String(p).trim())
-                .filter(Boolean)
-                .map(p => `<p>${p}</p>`)
-                .join('\n');
+            cleaned = paragraphs.map(p => `<p>${String(p).trim()}</p>`).join('\n');
+        }
+        
+        if (!cleaned) {
+            // Fallback HTML parsing
+            const match = htmlText.match(/<div[^>]*id="chapterText"[^>]*>([\s\S]*?)<\/div>/i);
+            if (match) cleaned = match[1];
         }
 
-        if (!cleaned) throw new Error("No paragraphs found");
-        return cleaned;
+        return cleaned || "<p>No text found.</p>";
     } catch (error) {
         return "<p>Error extracting text.</p>";
     }
-}
+        }
